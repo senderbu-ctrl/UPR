@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мэдээ — UPR Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C1C45;--navy-2:#0D2248;--navy-deep:#060E2E;--blue:#1C3FAE;--blue-2:#142F88;--blue-bright:#3562CC;--cyan:#38BDF8;--sky:#D4E3F5;--sky-soft:#E8F0FB;--paper:#F5F9FD;--white:#FFFFFF;--text:#0C1C45;--text-2:#263559;--muted:#5b6b82;--muted-2:#8893AB;--border:#DCE6F2;--shadow-sm:0 2px 6px rgba(12,28,69,.07);--shadow:0 12px 32px rgba(12,28,69,.10);--shadow-lg:0 24px 60px rgba(12,28,69,.16);--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);background:#0f172a;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+.container{max-width:1240px;margin:0 auto;padding:0 28px;position:relative}
+.icon{width:24px;height:24px;display:inline-block;vertical-align:middle;flex-shrink:0}
+.icon-sm{width:18px;height:18px}.icon-md{width:28px;height:28px}.icon-lg{width:32px;height:32px}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+@keyframes float-y{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-40px) translateX(20px)}}
+@keyframes float-x{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(20px) translateX(-30px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* header */
+.header-wrap{position:sticky;top:0;z-index:50}
+.topbar{height:76px;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(7,25,54,.06);color:var(--navy)}
+.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.brand{display:flex;align-items:center;cursor:pointer;flex-shrink:0}
+.brand img{height:62px;width:auto;display:block;object-fit:contain;max-width:200px}
+.nav-menu{display:flex;align-items:center;justify-content:center;gap:56px;font-size:14px;font-weight:700;color:var(--navy);list-style:none;flex:1}
+.nav-menu a{position:relative;padding:28px 0;color:var(--navy);transition:color .2s;text-decoration:none;display:inline-block}
+.nav-menu a.active,.nav-menu a:hover{color:var(--blue)}
+.nav-menu a.active::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--blue);border-radius:999px 999px 0 0}
+.register-btn{background:var(--blue);color:#fff;border:none;border-radius:999px;padding:10px 24px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:.2s;box-shadow:0 4px 14px rgba(28,63,174,.32);white-space:nowrap;text-decoration:none;min-width:140px;flex-shrink:0}
+.register-btn:hover{background:var(--blue-2);box-shadow:0 6px 20px rgba(28,63,174,.42);transform:translateY(-1px)}
+.lang-toggle{display:flex;align-items:center;background:#e8edf5;border-radius:999px;padding:3px;gap:2px;flex-shrink:0}
+.lang-opt{font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:999px;padding:5px 13px;cursor:pointer;background:transparent;color:#6b7a99;transition:background .2s,color .2s;font-family:inherit}
+.lang-opt.active{background:var(--blue);color:#fff;box-shadow:0 1px 4px rgba(28,63,174,.25)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:.95rem;transition:.25s cubic-bezier(.2,.8,.2,1);cursor:pointer;border:none;font-family:inherit;position:relative;overflow:hidden}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 6px 18px rgba(45,91,217,.32)}
+.btn-primary:hover{background:var(--blue-2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+.btn-outline:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}
+
+/* article view */
+.article-view{position:fixed;top:76px;left:0;right:0;bottom:0;background:var(--paper);z-index:49;overflow-y:auto;transform:translateX(100%);transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+.article-view.open{transform:translateX(0)}
+.article-view-wrap{max-width:1100px;margin:0 auto;padding:40px 32px 100px}
+.art-back{display:inline-flex;align-items:center;gap:8px;color:var(--blue);font-weight:700;font-size:.9rem;cursor:pointer;border:none;background:none;font-family:inherit;padding:0;margin-bottom:32px;transition:gap .2s}
+.art-back:hover{gap:12px}
+.art-layout{display:flex;gap:48px;align-items:flex-start}
+.art-content{flex:1;min-width:0}
+.art-sidebar{width:420px;flex-shrink:0;position:sticky;top:20px}
+.art-hero{width:100%;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.art-hero img{width:100%;height:auto;display:block;object-fit:cover}
+.art-title{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:800;color:var(--navy);line-height:1.25;letter-spacing:-.02em;margin-bottom:12px}
+.art-meta{font-size:.84rem;color:var(--muted);margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.art-body{font-size:1rem;line-height:1.88;color:var(--text-2)}
+.art-body p{margin-bottom:20px}
+.art-body p:last-child{margin-bottom:0}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* section head */
+section.block{padding:100px 0;position:relative}
+.section-head{max-width:760px;margin:0 auto 64px;text-align:center}
+.eyebrow{display:inline-block;color:var(--blue);font-weight:700;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;position:relative;padding-left:26px}
+.eyebrow::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:18px;height:2px;background:var(--blue)}
+.section-head h2{font-size:clamp(2rem,3.6vw,2.8rem);color:var(--navy);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+.section-head h2 .serif{font-weight:700;font-style:italic;color:var(--blue)}
+.section-head p{color:var(--muted);font-size:1.06rem}
+
+/* news page bg */
+.news-page{background:var(--paper);min-height:60vh}
+
+/* article list */
+.art-list{background:#fff;border-radius:18px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm)}
+.art-row{display:flex;align-items:flex-start;gap:28px;padding:28px 32px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s}
+.art-row:last-child{border-bottom:none}
+.art-row:hover{background:var(--sky-soft)}
+.art-row-body{flex:1;min-width:0}
+.art-row-title{font-size:1.15rem;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:10px;transition:color .2s}
+.art-row:hover .art-row-title{color:var(--blue)}
+.art-row-excerpt{font-size:.93rem;color:var(--muted);line-height:1.65;margin-bottom:14px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
+.art-row-meta{font-size:.79rem;color:var(--muted-2)}
+.art-row-thumb{width:200px;height:132px;flex-shrink:0;border-radius:10px;overflow:hidden;background:var(--navy)}
+.art-row-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.art-row:hover .art-row-thumb img{transform:scale(1.05)}
+/* news cards */
+.news-multi{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.ncs{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .4s;display:flex;flex-direction:column}
+.ncs:hover{box-shadow:var(--shadow-lg)}
+.ncs-imgwrap{background:var(--navy);display:flex;align-items:center;justify-content:center;overflow:hidden;height:220px;border-bottom:1px solid var(--border)}
+.ncs-imgwrap img{width:100%;height:100%;display:block;object-fit:cover}
+.ncs-preview{padding:30px 36px 28px}
+.ncs-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ncs-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;display:grid;place-items:center;flex-shrink:0}
+.ncs-author{font-size:.85rem;font-weight:700;color:var(--navy)}
+.ncs-sub{font-size:.76rem;color:var(--muted)}
+.ncs-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.ncs-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:999px;font-size:.72rem;font-weight:700;font-family:'Roboto Mono',monospace;letter-spacing:.04em}
+.ncs-tag.t-cert{background:rgba(28,63,174,.08);color:var(--blue);border:1px solid rgba(28,63,174,.15)}
+.ncs-tag.t-sec{background:rgba(16,185,129,.08);color:#059669;border:1px solid rgba(16,185,129,.18)}
+.ncs-title{font-size:1.25rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:10px}
+.ncs-teaser{font-size:.9rem;color:var(--muted);line-height:1.65;margin-bottom:22px}
+.ncs-toggle-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--sky);border:1.5px solid rgba(28,63,174,.12);border-radius:10px;font-size:.875rem;font-weight:700;color:var(--blue);font-family:'Roboto',sans-serif;cursor:pointer;transition:.25s}
+.ncs-toggle-btn:hover{background:rgba(28,63,174,.1);border-color:rgba(28,63,174,.25)}
+.ncs-toggle-btn .chev{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.ncs-toggle-btn.open .chev{transform:rotate(180deg)}
+.ncs-detail{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.2,.8,.2,1)}
+.ncs-detail.open{max-height:1400px}
+.ncs-detail-inner{padding:30px 36px 34px;border-top:1px solid var(--border)}
+.ncs-section{margin-bottom:26px}
+.ncs-section:last-of-type{margin-bottom:0}
+.ncs-sec-lbl{display:flex;align-items:center;gap:8px;font-family:'Roboto Mono',monospace;font-size:.7rem;font-weight:700;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.ncs-list{list-style:none;display:grid;gap:9px}
+.ncs-list li{display:flex;gap:10px;align-items:flex-start;font-size:.875rem;color:var(--text-2);line-height:1.55}
+.ncs-list li svg{width:15px;height:15px;flex-shrink:0;margin-top:2px;color:var(--blue)}
+.ncs-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 22px}
+.ncs-info-cell{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:13px 16px}
+.ncs-info-lbl{font-family:'Roboto Mono',monospace;font-size:.64rem;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.ncs-info-val{font-size:.9rem;color:var(--navy);font-weight:700}
+.ncs-foot{display:flex;align-items:center;gap:12px;margin-top:26px;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap}
+
+/* videos */
+.vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.vid-card{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.vid-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.vid-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+@media(max-width:700px){
+  .vid-grid{grid-template-columns:1fr}
+  .art-row{flex-direction:column;gap:14px;padding:22px 18px}
+  .art-row-thumb{width:100%;height:190px}
+  .art-row-excerpt{-webkit-line-clamp:3;line-clamp:3}
+}
+
+/* footer */
+footer.site{background:var(--navy-deep);color:rgba(255,255,255,.72);padding:80px 0 28px;position:relative;overflow:hidden}
+footer.site .orb-6{width:600px;height:600px;background:radial-gradient(circle,rgba(45,91,217,.15),transparent 70%);top:-300px;right:-200px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:48px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
+.foot-map{position:relative;display:block;margin-top:6px;height:150px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.14);cursor:pointer}
+.foot-map iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}
+.foot-map .fm-badge{position:absolute;right:8px;bottom:8px;background:rgba(6,14,46,.88);color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:6px;transition:background .2s}
+.foot-map:hover .fm-badge{background:var(--blue)}
+.foot-col h4{color:#fff;font-size:1rem;margin-bottom:20px;font-weight:700}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:10px}
+.foot-col ul a{font-size:.94rem;transition:.2s}
+.foot-col ul a:hover{color:#fff;padding-left:4px}
+.foot-about p{font-size:.94rem;line-height:1.75;margin:18px 0}
+.foot-about .logo-svg{height:60px;width:auto;max-width:220px}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.06);display:grid;place-items:center;color:#fff;transition:.25s}
+.socials a:hover{background:var(--blue);transform:translateY(-3px)}
+.copy{text-align:center;padding-top:26px;font-size:.88rem;color:rgba(255,255,255,.4)}
+.contact-line{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:.94rem}
+.contact-line .ico{color:var(--cyan);flex-shrink:0;margin-top:2px}
+
+.lang-sw{display:flex;gap:2px;background:rgba(28,63,174,.08);border:1px solid var(--border);border-radius:8px;padding:3px;margin-right:8px;flex-shrink:0}
+.ls-btn{padding:4px 11px;border:none;background:transparent;border-radius:6px;font-size:.76rem;font-weight:800;color:var(--muted);cursor:pointer;transition:.18s;font-family:inherit;letter-spacing:.05em}
+.ls-btn.active{background:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(28,63,174,.28)}
+.ls-btn:not(.active):hover{color:var(--navy);background:var(--sky-soft)}
+@media(max-width:1080px){
+  .nav-menu{gap:30px;font-size:13.5px}
+  .art-layout{flex-direction:column}
+  .art-sidebar{width:100%;position:static}
+}
+@media(max-width:900px){
+  .topbar{height:auto}
+  .nav-inner{flex-wrap:wrap;height:auto;padding:8px 0;justify-content:space-between;gap:8px 14px}
+  .brand img{height:46px}
+  .nav-menu{order:3;flex:1 1 100%;justify-content:center;gap:22px;font-size:13px}
+  .nav-menu a{padding:10px 0}
+  .nav-inner>div:last-child{display:none}
+  .news-multi{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .top-mid{display:none}
+}
+@media(max-width:600px){
+  .container{padding:0 18px}
+  .nav-menu{gap:14px;font-size:12.5px}
+  .foot-grid{grid-template-columns:1fr;gap:32px}
+  section.block{padding:70px 0}
+}
+button,input,select,textarea{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+@keyframes pageIn{from{opacity:0}to{opacity:1}}
+body{animation:pageIn .32s ease backwards}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-7 8-12a8 8 0 1 0-16 0c0 5 8 12 8 12z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></symbol>
+<symbol id="i-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 4 2 10l10 6z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><circle cx="6.5" cy="7" r=".7" fill="currentColor"/><circle cx="6.5" cy="17" r=".7" fill="currentColor"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1-8.86A6 6 0 1 0 6 14.5"/><path d="M6 14.5a3.5 3.5 0 0 0 0 7h11.5"/></symbol>
+<symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+<symbol id="i-network" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+<symbol id="i-chart-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></symbol>
+<symbol id="i-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+</defs>
+</svg>
+
+<!-- HEADER -->
+<div class="header-wrap">
+  <header class="topbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="UPR/fulllogo.png" alt="UPR Consulting">
+      </div>
+      <nav class="nav-menu">
+        <a href="https://upr-consulting.mn" data-mn="Нүүр" data-en="Home">Нүүр</a>
+        <a href="training.html" data-mn="Сургалт" data-en="Training">Сургалт</a>
+        <a href="scholarship.html" data-mn="Тэтгэлэг" data-en="Scholarship">Тэтгэлэг</a>
+        <a href="news.html" class="active" data-mn="Мэдээ" data-en="News">Мэдээ</a>
+      </nav>
+      <div class="lang-toggle" id="langSw">
+        <button class="lang-opt active" data-lang="mn" onclick="setLang('mn')">MN</button>
+        <button class="lang-opt" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <div style="width:140px;flex-shrink:0"></div>
+    </div>
+  </header>
+</div>
+
+<!-- VIDEOS -->
+<section class="block" style="background:var(--navy-deep);padding:60px 0">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:40px">
+      <span class="eyebrow" style="color:var(--cyan)">Бичлэг</span>
+      <h2 style="color:#fff">Танилцуулга <span class="serif">бичлэг</span></h2>
+    </div>
+    <div class="vid-grid">
+      <div class="vid-card">
+        <div class="vid-embed">
+          <iframe src="https://www.youtube.com/embed/kbyChdjdqz0?rel=0&modestbranding=1" title="UPR Consulting бичлэг 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+      <div class="vid-card">
+        <div class="vid-embed">
+          <iframe src="https://www.youtube.com/embed/iSSziegPa4k?rel=0&modestbranding=1" title="UPR Consulting бичлэг 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="block news-page" id="news">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Мэдээ</span>
+      <h2>Сүүлийн үеийн <span class="serif">мэдэгдлүүд</span></h2>
+      <p>UPR Consulting-ийн сургалтын талаарх мэдэгдлүүдыг хүлээн авна уу.</p>
+    </div>
+
+    <div class="art-list">
+
+      <article class="art-row" data-article="rhce13years" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Монгол улсаас 13 жилийн дараа RHCE төрлөө</h2>
+          <p class="art-row-excerpt">Linux TOP Level хөтөлбөрийн үр дүнд Сайн Скор ЗМС-ийн Системийн менежер Д.Сандагдорж Монгол улсаас 13 жилийн дараа RHCE боллоо. Хоёр жилийн хичээл зүтгэлийн үр шим энэ амжилтад тусгалаа.</p>
+          <div class="art-row-meta">Jan 2026 &nbsp;·&nbsp; 2 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/rhce13years.png" alt="RHCE 13 жил"></div>
+      </article>
+
+      <article class="art-row" data-article="rhce9years" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Монгол улсаас 9 жилийн дараа RHCE төрлөө</h2>
+          <p class="art-row-excerpt">Linux TOP Level хөтөлбөрийн оролцогч, даруухан инженер 2 жилийн аялалаа амжилттай дуусгаж RHCE боллоо. Д.Уянгаа багшдаа баярлалаа. Монголын Linux Star-уудын эгнээнд тавтай морил.</p>
+          <div class="art-row-meta">Jan 2, 2026 &nbsp;·&nbsp; 2 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/rhce9years.png" alt="RHCE 9 жил"></div>
+      </article>
+
+      <article class="art-row" data-article="odoo-bootcamp" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Odoo Development Bootcamp — Нээлттэй бүртгэл</h2>
+          <p class="art-row-excerpt">BELGIUM улсын алдарт ODOO компанийн албан ёсны сургалтын түншийн эрхтэйгээр ODOO DEVELOPMENT BOOTCAMP сургалтыг зохион байгуулна. ERP систем хөгжүүлэгч болох анхны алхмаа хамт хийе.</p>
+          <div class="art-row-meta">Oct 9, 2025 &nbsp;·&nbsp; 3 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/odoo-bootcamp.png" alt="Odoo Bootcamp"></div>
+      </article>
+
+      <article class="art-row" data-article="postgresql-admin" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">PostgreSQL Database Administration — Сургалтын мэдээлэл</h2>
+          <p class="art-row-excerpt">2026 онд PostgreSQL өгөгдлийн сангийн дунд болон ахисан түвшний 40 цагийн сургалт зохион байгуулна. МАБ стандартад нийцсэн найдвартай өгөгдлийн санг бий болгоорой.</p>
+          <div class="art-row-meta">Oct 7, 2025 &nbsp;·&nbsp; 3 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/postgresql-admin.png" alt="PostgreSQL"></div>
+      </article>
+
+      <article class="art-row" data-article="rhcsa-3rdwoman" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Монгол улсаас 3 дахь эмэгтэй инженер RHCSA боллоо</h2>
+          <p class="art-row-excerpt">Мобинет компанийн Систем инженер Ц.Пагмадулам EX200 шалгалтыг амжилттай давж, Монгол улсаас 3 дахь эмэгтэй Red Hat Certified System Administrator болов.</p>
+          <div class="art-row-meta">Oct 3, 2025 &nbsp;·&nbsp; 1 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/rhcsa-3rdwoman.png" alt="3 дахь эмэгтэй RHCSA"></div>
+      </article>
+
+      <article class="art-row" data-article="ex200-tungalag" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Монгол улсаас 2 дахь эмэгтэй инженер EX200 давлаа</h2>
+          <p class="art-row-excerpt">Монгол улсаас 2 дахь эмэгтэй Red Hat Certified System Administrator-аа өлгийдөн авлаа. Олон хүний өмнө хүлээсэн үүрэг даалгавраа нэр төртэй даван гарлаа. Чамгүй урт хугацаанд хичээл зүтгэл гарган өөрийн хүчээр гуйж биш гуядаж авсан Г.Тунгалаг шавьдаа, инженертээ чин сэтгэлийн халуун баяр хүргэе. Тууштай, зорилготой, хариуцлагатай, хичээнгүй, гүргэр чамаараа бахархахгүй байхын арга алгаа. Өнгөрсөн хугацаанд бүх л талаар нь инженерүүдээ дэмжиж, сургалтад нь амжилттай хамруулж ирсэн ХААН БАНК удирдлага, хамт олонд нь талархал илэрхийлье. Нэг л жаргал, зовлон, зорилго төлөө бие биедээ үргэлж туслан дэмждэг манай хамт олон, шавь нар, найзууддаа чин сэтгэлээсээ баярлалаа. Монголын УЛААН МАЛГАЙ-тангууд улам олуулаа, илүү хүчирхэл болох болтугай. Цоо шинэхэн RHCSA Г.Тунгалаг инженерийн шалгалтын туршлага, бэлтгэлийн талаар мэдээлэл авахыг хүсвэл workshop-д хүрэлцэн ирэхийг хүсье.</p>
+          <div class="art-row-meta">Aug 4, 2025 &nbsp;·&nbsp; 1 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/ex200-tungalag.png" alt="EX200 Тунгалаг"></div>
+      </article>
+
+      <article class="art-row" data-article="ubuntu-admin-train" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Advanced Ubuntu System Administrator сургалт эхэллээ</h2>
+          <p class="art-row-excerpt">2025.05.07-ний өдөр анхны Advanced Ubuntu System Administrator сургалт амжилттай эхэллээ. Ubuntu системийг бүрэн ашиглах, аюулгүй байдлыг хангах мэргэжлийн сургалт Монголд анх удаа зохион байгуулагдлаа.</p>
+          <div class="art-row-meta">May 11, 2025 &nbsp;·&nbsp; 2 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/ubuntu-admin-train.png" alt="Ubuntu Admin"></div>
+      </article>
+
+      <article class="art-row" data-article="rh-containers-k8s" onclick="openArticle(this.dataset.article)">
+        <div class="art-row-body">
+          <h2 class="art-row-title">Монголоос анхны Red Hat Certified Specialist in Containers and Kubernetes</h2>
+          <p class="art-row-excerpt">Red Hat OpenShift Administration I сургалтын төгсөгч Д.Сандагдорж Red Hat Certified Specialist in Containers and Kubernetes сертификатын шалгалтаа амжилттай өглөө. Монголын анхны гэрчилгээт мэргэжилтэн.</p>
+          <div class="art-row-meta">Jan 28, 2025 &nbsp;·&nbsp; 1 минут унших</div>
+        </div>
+        <div class="art-row-thumb"><img src="news/rh-containers-k8s.png" alt="Containers Kubernetes"></div>
+      </article>
+
+    </div><!-- /art-list -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site" id="contact">
+  <div class="orb orb-6"></div>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col foot-about">
+        <a href="training.html" class="logo" style="color:#fff">
+          <img src="UPR/uprlogo/logo-nobg.png" class="logo-svg" alt="UPR Consulting" style="object-fit:contain;filter:brightness(0) invert(1)">
+        </a>
+        <p>Бид зах зээлд шаардлагатай Мэдээллийн технологийн дэд бүтцийн ур чадварыг олон улсын стандарт хөтөлбөрийн дагуу, ёс зүйтэй шилдэг багш нарын удирдлагад чанартай олгоно.</p>
+        <div class="socials">
+          <a href="https://www.facebook.com/UPRConsulting.Training" aria-label="Facebook"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4c-.6 0-1 .4-1 1v16c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V4c0-.6-.4-1-1-1zM8.3 18.3H5.7V9.7h2.7v8.6zM7 8.5c-.9 0-1.5-.7-1.5-1.5S6.1 5.5 7 5.5s1.5.7 1.5 1.5S7.9 8.5 7 8.5zm11.3 9.8h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.2h-2.7V9.7h2.5v1.2c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg class="icon icon-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.8-.9-1.7-.9-2.1-1C17 3.4 12 3.4 12 3.4s-5 0-7.9.3c-.4.1-1.3.1-2.1 1C1.2 5.4 1 7 1 7s-.2 1.9-.2 3.7v1.7c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1C5.9 19.6 12 19.6 12 19.6s5 0 7.9-.4c.4-.1 1.3-.1 2.1-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.7v-1.7c0-1.9-.2-3.8-.2-3.8zM9.7 15V8.4l6.4 3.3-6.4 3.3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Сургалт</h4>
+        <ul>
+          <li><a href="training.html#cat-erp">ERP / Database</a></li>
+          <li><a href="training.html#cat-online">Online</a></li>
+          <li><a href="training.html#cat-cloud">Cloud / DevOps</a></li>
+          <li><a href="training.html#cat-auto">Automation</a></li>
+          <li><a href="training.html#cat-network">Network</a></li>
+          <li><a href="training.html#cat-linux">Linux</a></li>
+          <li><a href="training.html#corp">Байгууллага</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Компани</h4>
+        <ul>
+          <li><a href="https://upr-consulting.mn">Нүүр</a></li>
+          <li><a href="training.html">Сургалт</a></li>
+          <li><a href="scholarship.html">Тэтгэлэг</a></li>
+          <li><a href="news.html" style="color:var(--cyan)">Мэдээ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Холбоо барих</h4>
+        <div class="contact-line"><span class="ico"><svg class="icon icon-sm"><use href="#i-phone"/></svg></span><span>+976 8901-8111</span></div>
+        <div class="contact-line"><span class="ico"><svg class="icon icon-sm"><use href="#i-mail"/></svg></span><span>info@upr-consulting.mn</span></div>
+        <div class="contact-line"><span class="ico"><svg class="icon icon-sm"><use href="#i-clock"/></svg></span><span>Даваа–Баасан · 09:00–18:00</span></div>
+        <div class="contact-line" style="margin-top:18px"><span class="ico"><svg class="icon icon-sm"><use href="#i-pin"/></svg></span><span>Лагшин төв 204 тоот, Ерөнхий сайд Амарын гудамж, 8-р хороо, Сүхбаатар дүүрэг, Улаанбаатар 14200</span></div>
+        <a class="foot-map" href="https://share.google/2QnnqcNj5RjcZnamY" target="_blank" rel="noopener" aria-label="Google Maps-д томоор харах">
+          <iframe src="https://maps.google.com/maps?q=Lagshin+Center,+Ulaanbaatar&hl=mn&z=16&output=embed" loading="lazy" title="UPR Consulting байршил"></iframe>
+          <span class="fm-badge">Google Maps ↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="copy">© 2026 Юу Пи Ар Консалтинг ХХК.</div>
+  </div>
+</footer>
+
+<script>
+function toggleNews(btn) {
+  var card = btn.closest('.ncs');
+  var detail = card.querySelector('.ncs-detail');
+  var isOpen = detail.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  detail.classList.toggle('open', !isOpen);
+  var Tr = MI18N[LANG];
+  btn.childNodes[0].textContent = (isOpen ? Tr.toggle_open : Tr.toggle_close) + ' ';
+}
+
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+var LANG='mn';
+var MI18N={
+mn:{
+  tb_company:'Юу Пи Ар Консалтинг ХХК · Сургалтын академи',tb_follow:'Дагах',
+  nav_home:'Нүүр',nav_about:'Бидний тухай',nav_train:'Сургалт',nav_schol:'Тэтгэлэг',nav_news:'Мэдээ',nav_btn:'Бүртгүүлэх',
+  vid_eyebrow:'Бичлэг',vid_h2:'Танилцуулга <span class="serif">бичлэг</span>',
+  news_eyebrow:'Мэдээ',news_h2:'Сүүлийн үеийн <span class="serif">мэдэгдлүүд</span>',
+  news_p:'Юу Пи Ар Консалтинг-ийн сургалт, үйл ажиллагааны талаарх мэдэгдлүүд.',
+  toggle_open:'Дэлгэрэнгүй үзэх',toggle_close:'Хаах',
+  foot_about:'Бид зах зээлд шаардлагатай Мэдээллийн технологийн дэд бүтцийн ур чадварыг олон улсын стандарт хөтөлбөрийн дагуу, ёс зүйтэй шилдэг багш нарын удирдлагад чанартай олгоно.',
+  foot_col1:'Сургалт',foot_corp:'Байгууллага',foot_training:'Сургалт',foot_schol:'Тэтгэлэг',foot_col2:'Компани',foot_home:'Нүүр',foot_news:'Мэдээ',
+  foot_col3:'Холбоо барих',foot_hours:'Даваа–Баасан · 09:00–18:00',
+  foot_copy:'© 2026 Юу Пи Ар Консалтинг ХХК.',
+  news:[
+    {sub:'Албан ёсны мэдэгдэл · 2026.05',tags:['RHCE 2026','Лицензийн аюулгүй байдал'],
+     title:'Линукс, Дэд бүтцийн GOD-ууд нэгэн танхимд цуглах нь ээ — RHCE 2026 &amp; IT Аюулгүй байдал',
+     teaser:'3+ жилийн туршлагатай Линукс системийн инженерүүд болон RHCSA төгсөгчдөд зориулсан RHCE сургалт. Жилдээ 2-хон удаа. Байгууллагынхаа IT лицензийн эрсдэлийг тогтвортой шийдвэрлэхэд бидэнтэй хамтар.',
+     sections:[
+       {label:'RHCE сургалтын мэдээлэл',
+        items:['Дэлхийд хүлээн зөвшөөрөгдсөн мэргэжлийн сертификат',
+               'Ansible ашиглан олон серверийг нэгэн зэрэг автоматаар удирдах мэдлэг',
+               'Red Hat Enterprise Linux системийг автоматжуулах ур чадвар',
+               'Системийн оновчтой шийдэл боловсруулах — олон технологийн хоршилоор асуудал шийдвэрлэх чадамж',
+               'Онлайн сургалтын материалд 1 жил хандах эрх',
+               'Амжилттай төгсөгчид шалгалтын төлбөрөөс 50% хөнгөлөлт',
+               'Олон жилийн туршлагатай, шалгалт амжилттай өгсөн багш, инженерүүд заана'],
+        paras:null},
+       {label:'Лицензийн аюулгүй байдал',
+        items:['Мэдээллийн аюулгүй байдлын сул тал','Найдвартай ажиллагааны доголдол','Өгөгдөл алдагдах, халдлагад өртөх эрсдэл','Байгууллагын нэр хүндийн эрсдэл'],
+        paras:['Лицензгүй систем ашиглаад өдөр бүр анхааруулга харж ажиллаж байна уу? Аудит ирэх бүрт эрсдэлийн тайлан, тайлбар, дарамт үүсэж байна уу? Лицензийн эрсдэл бол зөвхөн торгууль биш.',
+               'Хууль ёсны, аюулгүй, тогтвортой IT дэд бүтцийн шинэ аяллаа бидэнтэй хамтран эхлүүлцгээе. АМЖИЛТ ӨӨД ХАМТДАА.']}
+     ],
+     infoCells:[{lbl:'Нийт цаг',val:'32 цаг (+8 дадлага)'},{lbl:'Шалгалтын төлбөр',val:'600$ · Төгсөгчид 50% OFF'},{lbl:'Шаардлага',val:'RHCSA / 3+ жилийн туршлага'},{lbl:'Давтамж',val:'Жилдээ 2 удаа'}],
+     cta:['RHCE бүртгүүлэх','Лицензийн зөвлөгөө авах']},
+    {sub:'Санчиржав багш · 2026.05.30 эхэлнэ',tags:['DO188 · EX188','Container · Podman'],
+     title:'Red Hat OpenShift Development I: Introduction to Containers with Podman — DO188',
+     teaser:'Container ашиглан Cloud Native хөгжүүлэлт хийх зорилготой Хөгжүүлэгч, DevOps-д зориулсан сургалт. Podman болон OpenShift ашиглан container бүтээх, ажиллуулах, удирдах ур чадвар олгоно.',
+     sections:[
+       {label:'Сургалтын агуулга',items:null,paras:null},
+       {label:'Давуу тал',
+        items:['Онлайн сургалтын материалд <strong>6 сар</strong> хандах эрх',
+               'Албан ёсны <strong>Red Hat Academy</strong> эрхтэй багш',
+               'Амжилттай төгсөгчид шалгалтын төлбөрөөс <strong>50% OFF</strong> (600$→300$)',
+               'AWS (ROSA), Azure Red Hat OpenShift, OpenShift Container Platform бүх хувилбарт ашиглах боломж',
+               'Олон жилийн туршлагатай багш, ур чадвартай инженерүүд'],
+        paras:null},
+       {label:'Зээлийн үйлчилгээ',items:null,paras:null}
+     ],
+     infoCells:[{lbl:'Хугацаа',val:'2026.05.30 – 06.13'},{lbl:'Нийт цаг',val:'30 цаг'},{lbl:'Хичээлийн цаг',val:'Лхагва 18:00–21:00<br>Бямба 9:00–18:00',isHtml:true},{lbl:'Шалгалт',val:'EX188 · 600$ / 50% OFF'},{lbl:'Байршил',val:null}],
+     cta:['Бүртгүүлэх']},
+    {sub:'Албан ёсны мэдэгдэл · 2026.05',tags:['Ubuntu · Advanced','Төгсөгчдийн сургалт'],
+     title:'Advanced Ubuntu Server Administration — Манай төгсөгчдийн удирдлаган дор',
+     teaser:'Skytel LLC болон ITools JSC-ийн ахлах инженерүүд удирдан заах Ubuntu enterprise орчны мэргэжлийн сургалт. Монголын open-source экосистемд бодит хувь нэмэр оруулна.',
+     sections:[
+       {label:'Багшлах инженерүүд',items:null,paras:null},
+       {label:'Сургалтын онцлог',
+        items:['Ubuntu болон enterprise Linux орчныг мэргэжлийн түвшинд ашиглах бодит чадвар',
+               'Үндэсний хэмжээний системүүдийг хариуцан ажиллаж буй инженерүүдийн туршлага',
+               'Байгууллагын core дэд бүтцийг авч яваа мэргэжилтнүүдийн практик',
+               'Нээлттэй эхийн технологийг зөв, зохистой нэвтрүүлэх арга зүй',
+               'Монголын open-source экосистемд бодит хувь нэмэр'],
+        paras:null}
+     ],
+     infoCells:[],cta:['Бүртгүүлэх']},
+    {sub:'Албан ёсны мэдэгдэл · 2026.05',tags:['5 сарын сургалт','Бүртгэл эхэллээ'],
+     title:'2026 оны 5 сарын сургалтуудын бүртгэл эхэллээ',
+     teaser:'IT төслөө амжилттай хэрэгжүүлэх, олон улсын сертификатад бэлтгэх, карьерын дараагийн шатанд гарах боломжийг ашиглаарай. Red Hat, Ubuntu, Network, Odoo, PostgreSQL болон бусад чиглэлүүдээр.',
+     sections:[
+       {label:'Сургалтын чиглэлүүд',items:null,paras:null},
+       {label:'Давуу тал',
+        items:['Олон жилийн туршлагатай багш, инженерүүд','Танхим + лабораторийн хосолсон сургалт','Ажлын байранд шууд хэрэгжих практик мэдлэг','Олон улсын шалгалтад чиглэсэн бэлтгэл'],
+        paras:null},
+       {label:'Зээлийн үйлчилгээ',items:null,paras:null}
+     ],
+     infoCells:[],cta:['Бүртгүүлэх']}
+  ]
+},
+en:{
+  tb_company:'UPR Consulting LLC · Training Academy',tb_follow:'Follow',
+  nav_home:'Home',nav_about:'About Us',nav_train:'Training',nav_schol:'Scholarship',nav_news:'News',nav_btn:'Register',
+  vid_eyebrow:'Videos',vid_h2:'Introduction <span class="serif">Videos</span>',
+  news_eyebrow:'News',news_h2:'Latest <span class="serif">Announcements</span>',
+  news_p:'Announcements on UPR Consulting training and activities.',
+  toggle_open:'Read more',toggle_close:'Close',
+  foot_about:"We deliver quality IT infrastructure skills required by the market, guided by ethical and outstanding instructors, in accordance with internationally standardized curricula.",
+  foot_col1:'Training',foot_corp:'Corporate',foot_training:'Training',foot_schol:'Scholarship',foot_col2:'Company',foot_home:'Home',foot_news:'News',
+  foot_col3:'Contact',foot_hours:'Monday–Friday · 09:00–18:00',
+  foot_copy:'© 2026 UPR Consulting LLC.',
+  news:[
+    {sub:'Official Announcement · 2026.05',tags:['RHCE 2026','License Security'],
+     title:'Linux &amp; Infrastructure Masters Gather — RHCE 2026 &amp; IT Security',
+     teaser:"RHCE training for Linux system engineers with 3+ years of experience and RHCSA graduates. Only twice a year. Partner with us to permanently resolve your organization's IT license risk.",
+     sections:[
+       {label:'RHCE Training Information',
+        items:['Globally recognized professional certification',
+               'Knowledge to automate multiple servers simultaneously using Ansible',
+               'Skills to automate Red Hat Enterprise Linux systems',
+               'Develop optimal system solutions — cross-technology problem-solving capabilities',
+               '1 year access to online training materials',
+               '50% discount on exam fees for successful graduates',
+               'Taught by experienced instructors and engineers who have passed the exam'],
+        paras:null},
+       {label:'License Security',
+        items:['Information security vulnerabilities','Operational reliability failures','Risk of data loss and cyberattacks','Organizational reputation risk'],
+        paras:['Running unlicensed systems with daily warnings? Does every audit generate risk reports, explanations, and pressure? License risk is not just a fine.',
+               'Start your journey to legal, secure, stable IT infrastructure — together. ACHIEVING SUCCESS TOGETHER.']}
+     ],
+     infoCells:[{lbl:'Total Hours',val:'32 hrs (+8 lab)'},{lbl:'Exam Fee',val:'$600 · 50% OFF for graduates'},{lbl:'Requirements',val:'RHCSA / 3+ years experience'},{lbl:'Frequency',val:'Twice a year'}],
+     cta:['Register for RHCE','Get License Consultation']},
+    {sub:'Instructor Sanchirav · Starts 2026.05.30',tags:['DO188 · EX188','Container · Podman'],
+     title:'Red Hat OpenShift Development I: Introduction to Containers with Podman — DO188',
+     teaser:'Training for developers and DevOps engineers building Cloud Native applications with containers. Learn to build, run, and manage containers with Podman and OpenShift.',
+     sections:[
+       {label:'Course Content',items:null,paras:null},
+       {label:'Advantages',
+        items:['<strong>6 months</strong> access to online training materials',
+               'Instructor with official <strong>Red Hat Academy</strong> credentials',
+               '<strong>50% OFF</strong> exam fee for successful graduates (600$→300$)',
+               'AWS (ROSA), Azure Red Hat OpenShift, OpenShift Container Platform бүх хувилбарт ашиглах боломж',
+               'Experienced instructors and skilled engineers'],
+        paras:null},
+       {label:'Financing Options',items:null,paras:null}
+     ],
+     infoCells:[{lbl:'Duration',val:'2026.05.30 – 06.13'},{lbl:'Total Hours',val:'30 hrs'},{lbl:'Class Schedule',val:'Wed 18:00–21:00<br>Sat 9:00–18:00',isHtml:true},{lbl:'Exam',val:'EX188 · $600 / 50% OFF'},{lbl:'Location',val:null}],
+     cta:['Register']},
+    {sub:'Official Announcement · 2026.05',tags:['Ubuntu · Advanced','Graduate Training'],
+     title:'Advanced Ubuntu Server Administration — Led by Our Graduates',
+     teaser:"Professional Ubuntu enterprise environment training led by senior engineers from Skytel LLC and ITools JSC. Making a real contribution to Mongolia's open-source ecosystem.",
+     sections:[
+       {label:'Instructors',items:null,paras:null},
+       {label:'Training Highlights',
+        items:['Real-world skills for professional-level Ubuntu and enterprise Linux administration',
+               'Experience from engineers managing national-scale systems',
+               'Practical knowledge from professionals managing core enterprise infrastructure',
+               'Methods for properly implementing open-source technologies',
+               "Making a real contribution to Mongolia's open-source ecosystem"],
+        paras:null}
+     ],
+     infoCells:[],cta:['Register']},
+    {sub:'Official Announcement · 2026.05',tags:['May Training','Registration Open'],
+     title:'May 2026 Training Registration Now Open',
+     teaser:'Seize the opportunity to advance your career, prepare for international certifications, and implement your IT projects successfully. Red Hat, Ubuntu, Network, Odoo, PostgreSQL and more.',
+     sections:[
+       {label:'Training Tracks',items:null,paras:null},
+       {label:'Advantages',
+        items:['Experienced instructors and engineers','Combined classroom and laboratory training','Practical knowledge directly applicable at work','Preparation targeted toward international certifications'],
+        paras:null},
+       {label:'Financing Options',items:null,paras:null}
+     ],
+     infoCells:[],cta:['Register']}
+  ]
+}
+};
+
+function setLang(l){
+  LANG=l;
+  document.querySelectorAll('#langSw .lang-opt').forEach(function(b){b.classList.toggle('active',b.dataset.lang===l);});
+  try{localStorage.setItem('lang',l);}catch(e){}
+  applyLang();
+}
+
+function applyLang(){
+  var Tr=MI18N[LANG];
+  var q=function(root,sel){return sel?root.querySelector(sel):document.querySelector(root);};
+  var qa=function(root,sel){return sel?Array.from(root.querySelectorAll(sel)):Array.from(document.querySelectorAll(root));};
+
+  function svgPreserve(el,html){
+    var svg=el.querySelector('svg');
+    if(svg) el.innerHTML=svg.outerHTML+' '+html;
+    else el.innerHTML=html;
+  }
+  function svgAfterText(el,text){
+    var svg=el.querySelector('svg');
+    if(svg) el.innerHTML=svg.outerHTML+text;
+    else el.textContent=text;
+  }
+
+  /* nav */
+  document.querySelectorAll('.nav-menu a[data-mn]').forEach(function(el){el.textContent=LANG==='en'?el.dataset.en:el.dataset.mn;});
+  var rb=document.querySelector('.register-btn[data-mn]');if(rb) rb.textContent=LANG==='en'?rb.dataset.en:rb.dataset.mn;
+
+  /* news section + videos */
+  var newsS=q('#news');
+  var vid=newsS?newsS.previousElementSibling:null;
+  if(vid){
+    var ve=q(vid,'.eyebrow');if(ve) ve.textContent=Tr.vid_eyebrow;
+    var vh=q(vid,'h2');if(vh) vh.innerHTML=Tr.vid_h2;
+  }
+  if(newsS){
+    var sh=q(newsS,'.section-head');
+    if(sh){
+      q(sh,'.eyebrow').textContent=Tr.news_eyebrow;
+      q(sh,'h2').innerHTML=Tr.news_h2;
+      q(sh,'p').textContent=Tr.news_p;
+    }
+    /* news list rows */
+    qa(newsS,'.art-row[data-article]').forEach(function(row){
+      var id=row.dataset.article;
+      var a=ARTICLES[id]; if(!a) return;
+      var isEn=LANG==='en';
+      var titleEl=row.querySelector('.art-row-title');
+      var excEl=row.querySelector('.art-row-excerpt');
+      var metaEl=row.querySelector('.art-row-meta');
+      if(titleEl) titleEl.textContent=isEn&&a.title_en?a.title_en:a.title;
+      if(excEl&&(a.excerpt||a.excerpt_en)) excEl.textContent=isEn&&a.excerpt_en?a.excerpt_en:(a.excerpt||'');
+      if(metaEl) metaEl.textContent=a.date+' · '+(isEn&&a.readTime_en?a.readTime_en:a.readTime);
+    });
+    /* news cards */
+    qa(newsS,'.ncs').forEach(function(card,ci){
+      var cd=Tr.news[ci]; if(!cd) return;
+      /* sub */
+      var sub=q(card,'.ncs-sub'); if(sub) sub.textContent=cd.sub;
+      /* tags */
+      var tags=qa(card,'.ncs-tag');
+      tags.forEach(function(tagEl,ti){
+        if(cd.tags[ti]!==undefined){
+          var svg=tagEl.querySelector('svg');
+          if(svg) tagEl.innerHTML='\n            '+svg.outerHTML+'\n            '+cd.tags[ti]+'\n          ';
+          else tagEl.textContent=cd.tags[ti];
+        }
+      });
+      /* title */
+      var title=q(card,'.ncs-title'); if(title) title.innerHTML=cd.title;
+      /* teaser */
+      var teaser=q(card,'.ncs-teaser'); if(teaser) teaser.textContent=cd.teaser;
+      /* toggle btn */
+      var toggleBtn=q(card,'.ncs-toggle-btn');
+      if(toggleBtn){
+        var isOpen=toggleBtn.classList.contains('open');
+        toggleBtn.childNodes[0].textContent=(isOpen?Tr.toggle_close:Tr.toggle_open)+' ';
+      }
+      /* sections */
+      var sections=qa(card,'.ncs-section');
+      sections.forEach(function(sec,si){
+        var sd=cd.sections[si]; if(!sd) return;
+        /* section label */
+        var lbl=q(sec,'.ncs-sec-lbl');
+        if(lbl) svgPreserve(lbl,sd.label);
+        /* list items */
+        if(sd.items){
+          var lis=qa(sec,'.ncs-list li');
+          sd.items.forEach(function(txt,li){
+            if(lis[li]){
+              var svg=lis[li].querySelector('svg');
+              if(svg) lis[li].innerHTML=svg.outerHTML+txt;
+              else lis[li].innerHTML=txt;
+            }
+          });
+        }
+        /* paragraphs */
+        if(sd.paras){
+          var ps=qa(sec,'p');
+          sd.paras.forEach(function(txt,pi){if(ps[pi]) ps[pi].textContent=txt;});
+        }
+      });
+      /* info cells */
+      if(cd.infoCells&&cd.infoCells.length){
+        var lblEls=qa(card,'.ncs-info-lbl');
+        var valEls=qa(card,'.ncs-info-val');
+        cd.infoCells.forEach(function(cell,ii){
+          if(lblEls[ii]) lblEls[ii].textContent=cell.lbl;
+          if(valEls[ii]&&cell.val!==null&&cell.val!==undefined){
+            if(cell.isHtml) valEls[ii].innerHTML=cell.val;
+            else valEls[ii].textContent=cell.val;
+          }
+        });
+      }
+      /* cta buttons */
+      var ctaBtns=qa(card,'.ncs-foot a');
+      cd.cta.forEach(function(txt,bi){
+        if(ctaBtns[bi]){
+          var svgEl=ctaBtns[bi].querySelector('svg');
+          ctaBtns[bi].innerHTML=txt+' '+(svgEl?svgEl.outerHTML:'');
+        }
+      });
+    });
+  }
+
+  /* footer */
+  var foot=q('footer.site');
+  if(foot){
+    var fp=q(foot,'.foot-about p');if(fp) fp.textContent=Tr.foot_about;
+    var fcs=qa(foot,'.foot-col');
+    if(fcs[1]){
+      q(fcs[1],'h4').textContent=Tr.foot_col1;
+      var fls=qa(fcs[1],'a');
+      if(fls[6]) fls[6].textContent=Tr.foot_corp;
+    }
+    if(fcs[2]){
+      q(fcs[2],'h4').textContent=Tr.foot_col2;
+      var fls=qa(fcs[2],'a');
+      if(fls[0]) fls[0].textContent=Tr.foot_home;
+      if(fls[1]) fls[1].textContent=Tr.foot_training;
+      if(fls[2]) fls[2].textContent=Tr.foot_schol;
+      if(fls[3]) fls[3].textContent=Tr.foot_news;
+    }
+    if(fcs[3]){
+      q(fcs[3],'h4').textContent=Tr.foot_col3;
+      var cls=qa(fcs[3],'.contact-line');
+      if(cls[2]){var sp=cls[2].querySelector('span:last-child');if(sp) sp.textContent=Tr.foot_hours;}
+    }
+    var copy=q(foot,'.copy');if(copy) copy.textContent=Tr.foot_copy;
+  }
+}
+
+
+/* ── ARTICLE DATA ── */
+var ARTICLES = {
+  'rhce13years': {
+    title: 'Монгол улсаас 13 жилийн дараа RHCE төрлөө',
+    title_en: 'Mongolia\'s First RHCE Certification in 13 Years',
+    date: 'Jan 2026', readTime: '2 минут унших', readTime_en: '2 min read', img: 'news/rhce13years.png',
+    excerpt: 'Linux TOP Level хөтөлбөрийн үр дүнд Сайн Скор ЗМС-ийн Системийн менежер Д.Сандагдорж Монгол улсаас 13 жилийн дараа RHCE боллоо. Хоёр жилийн хичээл зүтгэлийн үр шим энэ амжилтад тусгалаа.',
+    excerpt_en: 'Through the Linux TOP Level program, D.Sandagdorj, System Manager at Sainscore ZMS, became the first RHCE from Mongolia in 13 years — the result of two years of dedicated study.',
+    body: '<p>Хоёр жилийн хугацаанд хичээсэн, анхны зорилгоосоо буцалгүй чимээгүй хөдөлмөрийн үр шимийг хүртэж байгаа энэхүү инженер бол Сайн Скор ЗМС-ийн Системийн менежер Д.Сандагдорж юм. Багш бүрийн өгсөн чиглүүлгийг бүрэн тусгасан, даруухан, санаачлагатай, чимээгүй хөдөлмөрч жинхэнэ Монгол залуу инженер. Чин сэтгэлийн халуун баяр хүргэе.</p></p>Linux TOP Level хөтөлбөрийг зохион байгуулах гэж багагүй цаг хугацаа, хөдөлмөр, мөнгө, энерги зарцуулсан хамт олондоо баярлалаа. Өөрийн мэдлэг, туршлагаа харамгүй хуваалцаж, Монголын дэд бүтцийн инженерүүдийн ур чадварыг дээшлүүлэх, бүтээмжийг нэмэгдүүлэх, байгууллагуудыг технологийн хөгжлөөс хойцроохгүй байхад нэгэн сэтгэлээр хамтран зүтгэж байгаа багш нартаа баярлалаа.</p><p>Хүссэн зорьсон үйлс нь сэтгэлчлэн бүтэх болтугай. <p> АМЖИЛТ ӨӨД ХАМТДАА.</p>',
+    body_en: '<p>D.Sandagdorj, System Manager at Sainscore ZMS, is the engineer who has now reaped the rewards of two years of dedicated, quiet effort — never wavering from his original goal. He is a true young Mongolian engineer who absorbed every piece of guidance from every instructor, humble, initiative-driven, and diligent. Our sincere and warm congratulations.</p><p>Thank you to our team who invested significant time, effort, money, and energy to organize the Linux TOP Level program. Thank you to our instructors who selflessly share their knowledge and experience, working together with one heart to raise the skills of Mongolia\'s infrastructure engineers and keep organizations from falling behind technological progress.</p><p>May your goals and aspirations be fulfilled. ACHIEVING SUCCESS TOGETHER.</p>'
+  },
+  'rhce9years': {
+    title: 'Монгол улсаас 9 жилийн дараа RHCE төрлөө',
+    title_en: 'Mongolia\'s First RHCE Certification in 9 Years',
+    date: 'Jan 2, 2026', readTime: '2 минут унших', readTime_en: '2 min read', img: 'news/rhce9years.png',
+    excerpt: 'Linux TOP Level хөтөлбөрийн оролцогч, даруухан инженер 2 жилийн аялалаа амжилттай дуусгаж RHCE боллоо. Д.Уянгаа багшдаа баярлалаа. Монголын Linux Star-уудын эгнээнд тавтай морил.',
+    excerpt_en: 'A dedicated engineer from the Linux TOP Level program completed a two-year journey and earned RHCE certification. Thank you to instructor D.Uyanga. Welcome to the ranks of Mongolia\'s Linux Stars.',
+    body: '<p>Linux TOP Level хөтөлбөрийг зохион байгуулах гэж багагүй цаг хугацаа, хөдөлмөр, мөнгө, энерги зарцуулсан Н.Угтахбаяр найздаа баярлалаа. Өөрийн мэдлэг, туршлагаа харамгүй хуваалцаж, Монголын дэд бүтцийн инженерүүдийн ур чадварыг дээшлүүлэх, бүтээмжийг нэмэгдүүлэхэд нэгэн сэтгэлээр хамтран зүтгэж байгаа Д.Уянгаа багшдаа баярлалаа.</p><p>Даруухан инженер шавийн маань 2 жилийн аялал амжилттай дууслаа. Багш бүрийн өгсөн чиглүүлийг бүрэн тусгасан, санаачлагатай, чимээгүй хөдөлмөрч жинхэнэ Монгол залуу байна. Чин сэтгэлийн халуун баяр хүргэе.</p><p>Хүссэн зорьсон үйлс нь сэтгэлчлэн бүтэх болтугай. Ажил, амьдралд нь хамгийн сайн сайхныг хүсэн ерөөе. Монголын Linux Star-уудын эгнээнд тавтай морил.</p><p>Дэмжсэн удирдлага, хамт олон, гэр бүл, найз нөхөд та бүхэнд баярлалаа. Манай хамт олны мөрөөдлийг боломжтой болохыг нотолсон, нэгэн шат ахиулсан гайхалтай үйл явдал байлаа. БИД ЧАДЛАА. АМЖИЛТ ӨӨД ХАМТДАА.</p>',
+    body_en: '<p>Thank you to our friend N.Ugtakhbayar, who invested significant time, effort, money, and energy to organize the Linux TOP Level program. Thank you to instructor D.Uyanga, who selflessly shares her knowledge and experience and works with one heart to raise the skills of Mongolia\'s infrastructure engineers.</p><p>Our humble student engineer has successfully completed a two-year journey. A true young Mongolian — initiative-driven, quietly hardworking, absorbing every piece of guidance from every instructor completely. Our sincere and warm congratulations.</p><p>May your goals and aspirations be fulfilled. We wish you the very best in your career and life. Welcome to the ranks of Mongolia\'s Linux Stars.</p><p>Thank you to the supporting management, colleagues, family, and friends. This was a remarkable achievement that proved our team\'s dreams are possible and took us one step higher. WE DID IT. ACHIEVING SUCCESS TOGETHER.</p>'
+  },
+  'odoo-bootcamp': {
+    title: 'Odoo Development Bootcamp — Нээлттэй бүртгэл',
+    title_en: 'Odoo Development Bootcamp — Registration Open',
+    date: 'Oct 9, 2025', readTime: '3 минут унших', readTime_en: '3 min read', img: 'news/odoo-bootcamp.png',
+    excerpt: 'BELGIUM улсын алдарт ODOO компанийн албан ёсны сургалтын түншийн эрхтэйгээр ODOO DEVELOPMENT BOOTCAMP сургалтыг зохион байгуулна. ERP систем хөгжүүлэгч болох анхны алхмаа хамт хийе.',
+    excerpt_en: 'As an official Odoo training partner, we are hosting the Odoo Development Bootcamp. Take your first step toward becoming an ERP system developer with us.',
+    body: '<p>BELGIUM улсын алдарт ODOO компанийн албан ёсны сургалтын түншийн эрхтэйгээр ODOO DEVELOPMENT BOOTCAMP сургалтыг зохион байгуулах болсноо дуулгахад таатай байна. Энэхүү сургалт нь Odoo ERP суурь ойлголт, хөгжүүлэгчийн анхан болон дунд шатны мэдлэгийг хөгжүүлэгчид болон залуу мэргэжилтнүүдэд системтэй олгох зорилготой. ERP систем хөгжүүлэгч болох анхны алхмаа хамт хийе.</p><p><strong>Сургалтын зорилго:</strong> Odoo системийн архитектур, модуль хөгжүүлэлтийн үндэс, Python болон XML ашиглан шинэ модуль бүтээх мэдлэгийг эзэмшүүлэх.</p><p><strong>Хөтөлбөрийн агуулга:</strong></p><ul style="padding-left:20px;line-height:2"><li>Odoo архитектур ба модулийн бүтэц</li><li>Development environment тохиргоо</li><li>Python ба XML ашиглан модуль хөгжүүлэх</li><li>Models, Views, Actions, Menus ойлголт</li><li>ORM ба QWeb Template</li><li>Custom Module Development — практик төсөл</li></ul><p><strong>Сургалтын мэдээлэл:</strong> Нийт 32 цаг · Бямба 09:00–18:00 · Мягмар & Пүрэв 18:00–21:00 · Танхим + Онлайн (Hybrid) · Сертификат: Odoo ERP Developer (Beginner–Intermediate)</p><p>Зорилтот бүлэг: Backend болон Python хөгжүүлэгчид, ERP систем сонирхогчид, Odoo ERP төслийн нэвтрүүлэлтэд оролцох инженерүүд. Та бүхэн Сургалт цэсрүү орж дэлгэрэнгүй мэдээлэл авах боломжтой.</p>',
+    body_en: '<p>We are pleased to announce that as an official training partner of the renowned Belgian company ODOO, we will be hosting the ODOO DEVELOPMENT BOOTCAMP. This training is designed to systematically provide developers and young professionals with foundational Odoo ERP knowledge and beginner-to-intermediate developer skills. Take your first step toward becoming an ERP developer with us.</p><p><strong>Training Objective:</strong> Master Odoo system architecture, the fundamentals of module development, and the skills to build new modules using Python and XML.</p><p><strong>Curriculum:</strong></p><ul style="padding-left:20px;line-height:2"><li>Odoo architecture and module structure</li><li>Development environment setup</li><li>Module development with Python and XML</li><li>Models, Views, Actions, and Menus concepts</li><li>ORM and QWeb Templates</li><li>Custom Module Development — hands-on project</li></ul><p><strong>Training Details:</strong> 32 hours total · Saturday 09:00–18:00 · Tuesday &amp; Thursday 18:00–21:00 · Classroom + Online (Hybrid) · Certificate: Odoo ERP Developer (Beginner–Intermediate)</p><p>Target audience: Backend and Python developers, ERP enthusiasts, engineers participating in Odoo ERP implementation projects. Visit the Training section for full details.</p>'
+  },
+  'rhcsa-3rdwoman': {
+    title: 'Монгол улсаас 3 дахь эмэгтэй инженер RHCSA боллоо',
+    title_en: 'Mongolia\'s 3rd Female Engineer Earns RHCSA',
+    date: 'Oct 3, 2025', readTime: '1 минут унших', readTime_en: '1 min read', img: 'news/rhcsa-3rdwoman.png',
+    excerpt: 'Мобинет компанийн Систем инженер Ц.Пагмадулам EX200 шалгалтыг амжилттай давж, Монгол улсаас 3 дахь эмэгтэй Red Hat Certified System Administrator болов.',
+    excerpt_en: 'System Engineer Ts.Pagmadulam of Mobinet successfully passed the EX200 exam, becoming the 3rd female Red Hat Certified System Administrator from Mongolia.',
+    body: '<p>Монгол улсын 3 дахь эмэгтэй инженер EX200 шалгалтыг амжилттай давж, Red Hat Certified System Administrator болсон Мобинет компанийн Систем инженер Ц.Пагмадуламдаа баяр хүргэе.</p><p>Хүсэл мөрөөдөл маань биелэлээ олсоны бодит жишээ болсон чамаараа маш их бахархаж байна. Заасан бүхнийг үг, үсэггүй хүлээн авч өөртөө шингээж, хайр хүндлэлийг үргэлж чамаасаа мэдэрч байлаа.</p><p>Ажил амьдралд нь хамгийн сайхныг хүсэн ерөөе. Ар нь байж, дэмжсэн хамт олон, удирдлага, гэр бүлд нь баярлалаа.</p>',
+    body_en: '<p>Congratulations to Ts.Pagmadulam, System Engineer at Mobinet, who successfully passed the EX200 exam and became the 3rd female Red Hat Certified System Administrator from Mongolia.</p><p>You are a living proof that dreams come true. We always felt your full dedication and respect — you absorbed every lesson completely and without exception.</p><p>We wish you the very best in your career and life. Thank you to the colleagues, managers, and family who stood by her side and supported her journey.</p>'
+  },
+  'ex200-tungalag': {
+    title: 'Монгол улсаас 2 дахь эмэгтэй инженер EX200 давлаа',
+    title_en: 'Mongolia\'s 2nd Female Engineer Passes EX200',
+    date: 'Aug 4, 2025', readTime: '1 минут унших', readTime_en: '1 min read', img: 'news/ex200-tungalag.png',
+    excerpt: 'Монгол улсаас 2 дахь эмэгтэй Red Hat Certified System Administrator болсон Г.Тунгалаг шавьдаа чин сэтгэлийн халуун баяр хүргэе. Тууштай, зорилготой, хичээнгүй — чамаараа бахархаж байна.',
+    excerpt_en: 'G.Tungalag has become Mongolia\'s 2nd female Red Hat Certified System Administrator through years of dedication and hard work. Sincere congratulations to our student engineer.',
+    body: '<p>Монгол улсаас 2 дахь эмэгтэй Red Hat Certified System Administrator-аа өлгийдөн авлаа. Олон хүний өмнө хүлээсэн үүрэг даалгавраа нэр төртэй даван гарлаа. Чамгүй урт хугацаанд хичээл зүтгэл гарган өөрийн хүчээр гуйж биш гуядаж авсан Г.Тунгалаг шавьдаа, инженертээ чин сэтгэлийн халуун баяр хүргэе. Тууштай, зорилготой, хариуцлагатай, хичээнгүй, гүргэр чамаараа бахархахгүй байхын арга алгаа.</p> </p> Өнгөрсөн хугацаанд бүх л талаар нь инженерүүдээ дэмжиж, сургалтад нь амжилттай хамруулж ирсэн ХААН БАНК удирдлага, хамт олонд нь талархал илэрхийлье. Нэг л жаргал, зовлон, зорилго төлөө бие биедээ үргэлж туслан дэмждэг манай хамт олон, шавь нар, найзууддаа чин сэтгэлээсээ баярлалаа. </p> </p>Монголын УЛААН МАЛГАЙ-тангууд улам олуулаа, илүү хүчирхэл болох болтугай. </p> </p> Цоо шинэхэн RHCSA Г.Тунгалаг инженерийн шалгалтын туршлага, бэлтгэлийн талаар мэдээлэл авахыг хүсвэл workshop-д хүрэлцэн ирэхийг хүсье.</p>',
+    body_en: '<p>Mongolia\'s 2nd female Red Hat Certified System Administrator has earned her certification. She fulfilled her responsibilities with dignity before everyone who believed in her. Our sincere congratulations to our student and engineer G.Tungalag, who worked tirelessly over a long period and earned this through her own strength and perseverance. We are immensely proud of your dedication, focus, responsibility, and hard work.</p><p>We extend our deep gratitude to Khan Bank management and colleagues, who supported their engineer at every step and enabled her to participate in this training. Thank you from the bottom of our hearts to our team, students, and friends who always support each other through joy and hardship. May Mongolia\'s RED HAT community grow stronger and more powerful. If you\'d like to learn about the exam experience and preparation of our newest RHCSA engineer G.Tungalag, please join us at the upcoming workshop.</p>'
+  },
+  'ubuntu-admin-train': {
+    title: 'Advanced Ubuntu System Administrator сургалт эхэллээ',
+    title_en: 'Advanced Ubuntu System Administrator Training Launched',
+    date: 'May 11, 2025', readTime: '2 минут унших', readTime_en: '2 min read', img: 'news/ubuntu-admin-train.png',
+    excerpt: '2025.05.07-ний өдөр анхны Advanced Ubuntu System Administrator сургалт амжилттай эхэллээ. Ubuntu системийг бүрэн ашиглах, аюулгүй байдлыг хангах мэргэжлийн сургалт Монголд анх удаа зохион байгуулагдлаа.',
+    excerpt_en: 'On May 7, 2025, the first-ever Advanced Ubuntu System Administrator training launched in Mongolia, building expert skills in fully utilizing and securing Ubuntu systems.',
+    body: '<p>2025.05.07-ний өдөр анхны Advanced Ubuntu System Administrator сургалт амжилттай эхэллээ. Сургалтад хамрагдахаар ирсэн бүх инженерүүд болон хамтран ажилладаг байгууллагуудад баярлалаа.</p><p>Ubuntu сервер үйлдлийн систем хамгийн түгээмэл ашиглалттай боловч, инженерийн ур чадварыг ахиулах сургалт албан ёсоор Монголд зохион байгуулагдаагүй байлаа. Цаашид Ubuntu системийг бүрэн дүүрэн ашиглах, аюулгүй байдлыг хангахад энэхүү сургалт чухал үүрэг гүйцэтгэнэ.</p><p>Мэдлэг, чадвар, туршлагаа харамгүй хуваалцаж буй Мөнхтамир багшдаа амжилт хүсье.</p>',
+    body_en: '<p>On May 7, 2025, the first-ever Advanced Ubuntu System Administrator training was successfully launched. We thank all engineers who joined the training and the organizations that partnered with us.</p><p>While the Ubuntu server operating system is the most widely used, there had been no officially organized training in Mongolia to advance engineers\' skills in this area. This training will play a vital role in enabling engineers to fully utilize Ubuntu systems and ensure robust security going forward.</p><p>We wish the best of success to instructor Munkhtamir, who generously shares his knowledge, skills, and experience.</p>'
+  },
+  'postgresql-admin': {
+    title: 'PostgreSQL Database Administration — Сургалтын мэдээлэл',
+    title_en: 'PostgreSQL Database Administration — Training Details',
+    date: 'Oct 7, 2025', readTime: '3 минут унших', readTime_en: '3 min read', img: 'news/postgresql-admin.png',
+    excerpt: '2026 онд PostgreSQL өгөгдлийн сангийн дунд болон ахисан түвшний 40 цагийн сургалт зохион байгуулна. МАБ стандартад нийцсэн найдвартай өгөгдлийн санг бий болгоорой.',
+    excerpt_en: 'In 2026, we will host a 40-hour intermediate-to-advanced PostgreSQL Database Administration training. Build a reliable, standards-compliant database environment.',
+    body: '<p>2026 онд PostgreSQL өгөгдлийн сангийн дунд болон ахисан түвшний 40 цагийн сургалт зохион байгуулна. МАБ стандартад нийцсэн найдвартай өгөгдлийн санг бий болгох зорилготой энэхүү сургалтад бүртгүүлэхийг урьж байна. Дэлгэрэнгүй мэдээлэл удахгүй нэмэгдэнэ.</p>',
+    body_en: '<p>In 2026, we will host a 40-hour intermediate-to-advanced PostgreSQL Database Administration training designed to help engineers build reliable, standards-compliant database environments. Detailed information coming soon.</p>'
+  },
+  'rh-containers-k8s': {
+    title: 'Монголоос анхны Red Hat Certified Specialist in Containers and Kubernetes',
+    title_en: 'Mongolia\'s First Red Hat Certified Specialist in Containers and Kubernetes',
+    date: 'Jan 28, 2025', readTime: '1 минут унших', readTime_en: '1 min read', img: 'news/rh-containers-k8s.png',
+    excerpt: 'Red Hat OpenShift Administration I сургалтын төгсөгч Д.Сандагдорж Red Hat Certified Specialist in Containers and Kubernetes сертификатын шалгалтаа амжилттай өглөө. Монголын анхны гэрчилгээт мэргэжилтэн.',
+    excerpt_en: 'D.Sandagdorj, graduate of Red Hat OpenShift Administration I, passed the Red Hat Certified Specialist in Containers and Kubernetes exam — Mongolia\'s first certified specialist in this field.',
+    body: '<p>Red Hat OpenShift Administration I сургалтын төгсөгч Д.Сандагдорж маань Red Hat Certified Specialist in Containers and Kubernetes сертификатын шалгалтаа амжилттай өглөө. Мөн сургалтыг чанартай, хариуцлагатайгаар ордог Д.Алтаншагай багшдаа улам өндөр амжилт хүсье.</p><p>Энэ өдрийн төлөө баг болж ажилласан хамт олондоо, бидэнд итгэн ирж суралцсан бүх инженерүүд, байгууллагуудад баярлалаа.</p>',
+    body_en: '<p>D.Sandagdorj, a graduate of the Red Hat OpenShift Administration I course, has successfully passed the Red Hat Certified Specialist in Containers and Kubernetes exam. We also wish continued success to instructor D.Altanshagai, who delivers the training with quality and dedication.</p><p>Thank you to the entire team who worked together to make this day possible, and to all the engineers and organizations who trusted us and trained with us.</p>'
+  }
+};
+function openArticle(id) {
+  var a = ARTICLES[id];
+  if (!a) return;
+  var isEn = (typeof LANG !== 'undefined' && LANG === 'en');
+  var title    = isEn && a.title_en    ? a.title_en    : a.title;
+  var readTime = isEn && a.readTime_en ? a.readTime_en : a.readTime;
+  var body     = isEn && a.body_en     ? a.body_en     : a.body;
+  document.getElementById('artContent').innerHTML =
+    '<div class="art-layout">' +
+      '<div class="art-content">' +
+        '<h1 class="art-title">' + title + '</h1>' +
+        '<div class="art-meta">' + a.date + ' &nbsp;&middot;&nbsp; ' + readTime + '</div>' +
+        '<div class="art-body">' + body + '</div>' +
+      '</div>' +
+      '<div class="art-sidebar">' +
+        '<div class="art-hero"><img src="' + a.img + '" alt="' + title + '"></div>' +
+      '</div>' +
+    '</div>';
+  var v = document.getElementById('articleView');
+  v.classList.add('open');
+  v.scrollTop = 0;
+  history.pushState({v:'article'}, '');
+}
+
+function closeArticle() {
+  document.getElementById('articleView').classList.remove('open');
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeArticle(); });
+window.addEventListener('popstate', function() {
+  var v = document.getElementById('articleView');
+  if (v && v.classList.contains('open')) v.classList.remove('open');
+});
+(function initLang(){
+  var saved;try{saved=localStorage.getItem('lang');}catch(e){}
+  if(saved==='en') setLang('en');
+})();
+(function(){
+  var INT=['training.html','scholarship.html','news.html'];
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href]');
+    if(!a||a.target==='_blank') return;
+    var h=a.getAttribute('href');
+    if(!h||!INT.some(function(p){return h===p||h.endsWith('/'+p);})) return;
+    e.preventDefault();
+    document.body.style.transition='opacity .22s ease,transform .22s ease';
+    document.body.style.opacity='0';
+    document.body.style.transform='translateY(-6px)';
+    setTimeout(function(){window.location.href=h;},230);
+  });
+})();
+</script>
+
+<!-- ARTICLE VIEW -->
+<div class="article-view" id="articleView">
+  <div class="article-view-wrap">
+    <button class="art-back" onclick="closeArticle()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Буцах
+    </button>
+    <div id="artContent"></div>
+  </div>
+</div>
+</body>
+</html>

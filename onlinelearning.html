@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Онлайн сургалтад нэвтрэх — UPR Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0C1C45;--navy-2:#0D2248;--navy-deep:#060E2E;--blue:#1C3FAE;--blue-2:#142F88;--blue-bright:#3562CC;--cyan:#38BDF8;--sky:#D4E3F5;--sky-soft:#E8F0FB;--paper:#F5F9FD;--white:#FFFFFF;--text:#0C1C45;--text-2:#263559;--muted:#5b6b82;--muted-2:#8893AB;--border:#DCE6F2;--shadow-sm:0 2px 6px rgba(12,28,69,.07);--shadow:0 12px 32px rgba(12,28,69,.10);--shadow-lg:0 24px 60px rgba(12,28,69,.16);--radius:12px;--red:#C8102E;--red-2:#A00C22}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;background:linear-gradient(135deg,#DCE9F2 0%,#C5D9EC 100%)}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+button,input{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* orbs to echo the site's hero background */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+
+.ol-shell{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;overflow:hidden}
+.ol-shell .orb-a{width:420px;height:420px;background:radial-gradient(circle,rgba(56,189,248,.28),transparent 70%);top:-140px;left:-120px}
+.ol-shell .orb-b{width:460px;height:460px;background:radial-gradient(circle,rgba(28,63,174,.20),transparent 70%);bottom:-160px;right:-140px}
+
+.ol-top{position:relative;z-index:1;margin-bottom:26px}
+.ol-top a{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.9rem;color:var(--navy);background:rgba(255,255,255,.7);padding:9px 18px 9px 14px;border-radius:999px;box-shadow:var(--shadow-sm);transition:.2s}
+.ol-top a:hover{background:#fff;box-shadow:var(--shadow)}
+.ol-top svg{width:16px;height:16px}
+
+.ol-wrap{position:relative;z-index:1;width:100%;max-width:460px}
+.ol-card{background:#fff;border-radius:20px;box-shadow:var(--shadow-lg);padding:44px 40px 38px;text-align:center}
+.ol-logo{margin-bottom:26px}
+.ol-logo img{height:64px;margin:0 auto;display:block}
+
+.ol-copy{font-size:.9rem;color:var(--muted);line-height:1.75;text-align:left;margin-bottom:26px}
+.ol-copy b{color:var(--text);font-weight:700}
+.ol-copy a{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+
+.ol-form{text-align:left}
+.ol-field{display:flex;align-items:center;gap:10px;border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;margin-bottom:14px;transition:.2s;background:#fff}
+.ol-field:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(28,63,174,.09)}
+.ol-field svg{flex-shrink:0;color:var(--muted-2);width:19px;height:19px}
+.ol-field:focus-within svg{color:var(--blue)}
+.ol-field input{border:none;outline:none;flex:1;min-width:0;font-size:.95rem;color:var(--text);background:transparent}
+.ol-field input::placeholder{color:var(--muted-2)}
+
+.ol-forgot{text-align:right;margin:-2px 0 18px}
+.ol-forgot a{font-size:.8rem;font-weight:700;color:var(--blue)}
+.ol-forgot a:hover{color:var(--blue-2)}
+
+.ol-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:999px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 6px 18px rgba(200,16,46,.32);display:flex;align-items:center;justify-content:center;gap:8px}
+.ol-btn:hover{background:var(--red-2);transform:translateY(-1px);box-shadow:0 10px 26px rgba(200,16,46,.4)}
+.ol-btn svg{width:18px;height:18px}
+
+.ol-links{margin-top:24px;display:flex;flex-direction:column;gap:11px;text-align:left}
+.ol-links a{color:var(--blue);font-weight:600;font-size:.86rem;text-decoration:underline;text-underline-offset:2px}
+.ol-links a:hover{color:var(--blue-2)}
+
+.ol-note{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-size:.78rem;color:var(--muted-2);text-align:left;line-height:1.7}
+.ol-note b{color:var(--muted)}
+
+.ol-foot{position:relative;z-index:1;text-align:center;padding:22px 20px 30px;font-size:.82rem;color:var(--navy-2)}
+
+/* ===== post-login portal (ISACA-style full page) ===== */
+.portal{display:none;flex:1;flex-direction:column;background:#fff;position:relative;z-index:1}
+
+/* header row 1: logo / search / user */
+.p-hd{background:#fff;border-bottom:1px solid var(--border)}
+.p-hd-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.p-logo img{height:66px;width:auto}
+.p-search{flex:0 1 340px;margin-left:auto;display:flex;align-items:center;gap:10px;background:#F1F4F8;border-radius:999px;padding:11px 20px}
+.p-search input{border:none;outline:none;background:transparent;flex:1;min-width:0;font-size:.95rem;color:var(--text)}
+.p-search input::placeholder{color:var(--muted-2)}
+.p-search svg{width:19px;height:19px;color:var(--muted);flex-shrink:0}
+.p-hd-right{display:flex;align-items:center;gap:18px}
+.p-hd-link{display:inline-flex;align-items:center;gap:7px;font-size:.92rem;font-weight:600;color:var(--text-2);transition:.2s}
+.p-hd-link:hover{color:var(--blue)}
+.p-hd-link svg{width:14px;height:14px}
+.p-hd-div{width:1px;height:26px;background:var(--border)}
+.p-user-wrap{position:relative}
+.p-user{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;color:var(--text-2);white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;padding:8px 10px;border-radius:10px;transition:.2s}
+.p-user:hover{background:var(--sky-soft)}
+.p-user b{font-weight:700;color:var(--text)}
+.p-user svg{width:17px;height:17px;color:var(--text-2)}
+.p-user .chev{width:13px;height:13px;transition:transform .2s}
+.p-user.open .chev{transform:rotate(180deg)}
+.p-logout{background:none;border:none;font-size:.92rem;font-weight:700;color:var(--blue);cursor:pointer;padding:6px 2px;font-family:inherit;transition:.2s}
+.p-logout:hover{color:var(--blue-2);text-decoration:underline}
+
+/* shared account dropdown menu */
+.acct-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:240px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-lg);padding:8px;display:none;z-index:80}
+.acct-menu.left{right:auto;left:0}
+.acct-menu.open{display:block}
+.p-menu-item{display:block;width:100%;text-align:left;padding:11px 14px;font-size:.9rem;font-weight:600;color:var(--text-2);border-radius:8px;background:none;border:none;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap}
+.p-menu-item:hover{background:var(--sky-soft);color:var(--blue)}
+.acct-menu .sep{height:1px;background:var(--border);margin:6px 8px}
+
+/* E-Learning hero */
+.p-hero-band{position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,rgba(72,120,232,.4),transparent 60%),linear-gradient(135deg,var(--navy) 0%,var(--blue-2) 100%)}
+.p-hero-deco{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.p-hero-band-inner{position:relative;max-width:1280px;margin:0 auto;padding:26px 28px 40px;text-align:center}
+.p-crumb{position:absolute;left:28px;top:26px;font-size:.86rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:10px}
+.p-crumb a{color:rgba(255,255,255,.7);transition:.2s}
+.p-crumb a:hover{color:#fff}
+.p-crumb .sepc{opacity:.5}
+.p-crumb .cur{color:#fff;font-weight:600}
+.p-hero-title{color:#fff;font-size:2.6rem;font-weight:700;letter-spacing:.01em;margin-top:22px}
+
+.p-hero-info{background:#EFF1F3;border-bottom:1px solid var(--border)}
+.p-hero-info-inner{max-width:1280px;margin:0 auto;padding:38px 28px;display:flex;flex-wrap:wrap;gap:32px;align-items:center}
+.p-hero-user{flex:1 1 300px;min-width:260px}
+.p-hero-name{font-size:2.6rem;font-weight:400;color:#22262E;line-height:1.12;word-break:break-word;margin-bottom:10px}
+.p-hero-email{font-size:1.05rem;color:#4B5162;margin-bottom:22px;word-break:break-word}
+.p-acct-wrap{position:relative;display:inline-block}
+.p-acct-btn{background:var(--red);color:#fff;border:none;border-radius:6px;padding:14px 40px;font-size:.95rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:.2s;box-shadow:0 4px 14px rgba(200,16,46,.28)}
+.p-acct-btn:hover{background:var(--red-2);box-shadow:0 6px 20px rgba(200,16,46,.36)}
+.p-hero-mem{flex:1 1 260px;min-width:240px}
+.p-hero-lbl{font-size:.92rem;color:#6B7280;margin-bottom:8px}
+.p-hero-mem-row{display:flex;align-items:center;gap:14px}
+.p-hero-badge{width:48px;height:48px;border-radius:12px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p-hero-badge svg{width:26px;height:26px}
+.p-hero-mem-name{font-size:1.25rem;font-weight:700;color:#22262E;line-height:1.3}
+.p-hero-mem-sub{font-size:.9rem;color:#5B6270;margin-top:3px}
+.p-hero-bal{flex:0 1 300px}
+.p-hero-bal-row{display:flex;justify-content:space-between;gap:20px;font-size:1rem;margin-bottom:10px;white-space:nowrap}
+.p-hero-bal-row .l{color:#6B7280}
+.p-hero-bal-row .v{font-weight:600;color:#22262E}
+.p-hero-bal-row .v.paid{color:#1E7B3C}
+
+/* full-width tab strip */
+.p-tabs{display:flex;background:linear-gradient(180deg,#EEF0F3 0%,#E1E5EA 100%);border-bottom:1px solid var(--border);overflow-x:auto;box-shadow:inset 0 6px 8px -6px rgba(12,28,69,.14)}
+.p-tab{flex:1;position:relative;padding:24px 18px;font-size:1.05rem;font-weight:600;color:var(--blue);background:none;border:none;cursor:pointer;text-align:center;font-family:inherit;transition:.2s;line-height:1.35}
+.p-tab+.p-tab{border-left:1px solid #CBD2DC}
+.p-tab:hover{color:var(--blue-2)}
+.p-tab.active{color:var(--red)}
+.p-tab.active::after{content:'';position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--red)}
+
+/* content area */
+.p-main{flex:1;padding:54px 28px 90px}
+.p-wrap{max-width:1200px;margin:0 auto}
+.p-panel{display:none}
+.p-panel.active{display:block}
+.p-title{font-size:2.1rem;font-weight:700;color:#12141A;text-align:center;margin-bottom:48px;line-height:1.25}
+.p-narrow{max-width:880px;margin:0 auto}
+
+/* membership status panel */
+.p-ms{max-width:640px;margin:0 auto}
+.p-ms-left h3{font-size:1.5rem;font-weight:700;color:#6E7787;margin-bottom:24px}
+.p-ms-row{font-size:1rem;color:var(--text);margin-bottom:13px;line-height:1.6}
+.p-ms-row b{font-weight:700}
+.p-active{color:#1E7B3C;font-weight:700}
+
+/* learning access panel */
+.od-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.od-stat{background:var(--paper);border-radius:14px;padding:16px;text-align:center}
+.od-stat-num{font-size:1.6rem;font-weight:900;color:var(--blue)}
+.od-stat-lbl{font-size:.78rem;color:var(--muted);margin-top:4px;font-weight:600}
+
+.od-section-hd h2{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:16px}
+
+.od-courses{display:flex;flex-direction:column;gap:14px}
+.od-course{display:flex;gap:16px;padding:18px;border:1.5px solid var(--border);border-radius:14px;transition:.2s}
+.od-course:hover{border-color:var(--blue);box-shadow:var(--shadow-sm)}
+.od-course-ico{width:44px;height:44px;border-radius:12px;background:var(--sky-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.od-course-ico svg{width:22px;height:22px}
+.od-course-info{flex:1;min-width:0}
+.od-course-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.od-course-top h3{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.4}
+.od-badge{font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.od-badge.active{background:#FFF4E0;color:#9A5B00}
+.od-badge.done{background:#E5F6EA;color:#1E7B3C}
+.od-progress{height:7px;background:var(--sky-soft);border-radius:999px;overflow:hidden;margin-bottom:8px}
+.od-progress-bar{height:100%;background:var(--blue);border-radius:999px}
+.od-course-meta{font-size:.78rem;color:var(--muted)}
+
+/* resources panel */
+.od-res-copy{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:16px}
+.od-res-copy a{color:var(--blue);font-weight:700;text-decoration:underline}
+.od-res-list{display:flex;flex-direction:column;gap:10px;margin:22px 0}
+.od-res-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;transition:.2s}
+.od-res-item:hover{border-color:var(--blue);background:var(--sky-soft)}
+.od-res-item svg{width:20px;height:20px;color:var(--blue);flex-shrink:0}
+.od-res-item span{font-size:.9rem;font-weight:600;color:var(--text)}
+.od-res-fine{font-size:.8rem;color:var(--muted-2);line-height:1.7}
+.od-res-fine a{color:var(--blue);font-weight:700;text-decoration:underline}
+
+/* learning access — accessible courses (ISACA events style) */
+.la-intro{font-size:.98rem;color:var(--text-2);line-height:1.7;max-width:900px;margin:0 0 26px}
+.la-bar{display:flex;justify-content:flex-end;align-items:center;gap:12px;border-top:1px solid var(--border);padding-top:22px;margin-bottom:30px}
+.la-bar label{font-size:.85rem;color:var(--muted);font-weight:600}
+.la-sort{padding:11px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:.92rem;font-family:inherit;color:var(--text);background:#fff;cursor:pointer;outline:none;transition:.2s;min-width:190px}
+.la-sort:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(28,63,174,.10)}
+.la-h2{text-align:center;font-size:1.55rem;font-weight:700;color:#12141A;margin-bottom:32px}
+.la-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:30px}
+.ev-card{display:flex;flex-direction:column}
+.ev-thumb{background:#fff;border:1px solid var(--border);border-radius:12px;height:190px;margin-bottom:16px;box-shadow:var(--shadow-sm);overflow:hidden}
+.ev-thumb img{width:100%;height:100%;object-fit:cover;object-position:center}
+.ev-name{font-size:1rem;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:12px}
+.ev-meta{font-size:.86rem;color:var(--muted);margin-bottom:4px}
+.ev-meta b{color:var(--text-2);font-weight:600}
+.ev-access{margin-top:16px;align-self:flex-start;background:var(--red);color:#fff;border:none;border-radius:8px;padding:11px 34px;font-size:.82rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:.2s;text-decoration:none;display:inline-block}
+.ev-access:hover{background:var(--red-2)}
+@media (max-width:540px){.la-bar{justify-content:flex-start}.la-sort{flex:1}}
+
+/* profile screen */
+.pf-layout{display:grid;grid-template-columns:250px 1fr;gap:34px;max-width:1120px;margin:0 auto}
+.pf-side{display:flex;flex-direction:column;gap:4px}
+.pf-side-name{font-weight:700;color:var(--text);text-align:center;padding:4px 10px 18px;font-size:1.02rem}
+.pf-side-link{text-align:left;padding:13px 18px;border:none;background:none;font-family:inherit;font-size:.95rem;font-weight:600;color:var(--text-2);border-radius:8px;cursor:pointer;transition:.15s}
+.pf-side-link:hover{background:var(--sky-soft);color:var(--blue)}
+.pf-side-link.active{background:var(--red);color:#fff}
+.pf-main{min-width:0}
+.pf-card{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.pf-card-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 24px;background:var(--paper);border-bottom:1px solid var(--border);font-weight:700;color:var(--text);font-size:1.02rem}
+.pf-intro{padding:20px 24px 0;font-size:.86rem;color:var(--muted);line-height:1.65}
+.pf-form{padding:24px}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pf-field{display:flex;flex-direction:column;gap:6px}
+.pf-field.full{grid-column:1/-1}
+.pf-field label{font-size:.82rem;font-weight:700;color:var(--navy)}
+.pf-field input,.pf-field select{padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:.92rem;font-family:inherit;color:var(--text);background:#fff;outline:none;transition:.2s}
+.pf-field input:focus,.pf-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(28,63,174,.10)}
+.pf-actions{display:flex;align-items:center;gap:16px;margin-top:24px}
+.pf-save{background:var(--red);color:#fff;border:none;border-radius:8px;padding:12px 34px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;transition:.2s}
+.pf-save:hover{background:var(--red-2)}
+.pf-saved{color:#1E7B3C;font-weight:700;font-size:.86rem;opacity:0;transition:.2s}
+.pf-saved.show{opacity:1}
+@media (max-width:720px){.pf-layout{grid-template-columns:1fr;gap:24px}.pf-grid{grid-template-columns:1fr}}
+
+/* course dashboard (ISACA course-home style) */
+.course{display:none;flex:1;flex-direction:column;background:var(--paper);position:relative;z-index:1}
+
+/* course header (ISACA PERFORM style) */
+.cv-hd{background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:10px 24px;position:sticky;top:0;z-index:60}
+.cv-burger{width:44px;height:44px;border:none;background:none;cursor:pointer;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;transition:.15s}
+.cv-burger:hover{background:var(--sky-soft);color:var(--blue)}
+.cv-burger svg{width:24px;height:24px}
+.cv-hd-logo{display:flex;align-items:center;gap:12px;min-width:0}
+.cv-hd-logo img{height:46px;width:auto}
+.cv-hd-logo span{font-size:1.45rem;font-weight:300;color:var(--blue-bright);letter-spacing:.08em;white-space:nowrap}
+.cv-hd-right{margin-left:auto;display:flex;align-items:center;gap:22px}
+.cv-hd-ico{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:600;color:var(--text);padding:5px 8px;border-radius:10px;transition:.15s;white-space:nowrap}
+.cv-hd-ico svg{width:22px;height:22px}
+.cv-hd-ico:hover{background:var(--sky-soft);color:var(--blue)}
+
+.cv-shell{display:flex;flex:1;width:100%}
+.course.side-collapsed .cv-side{display:none}
+.cv-side{flex:0 0 230px;background:#fff;border-right:1px solid var(--border);padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:67px;align-self:flex-start;height:calc(100vh - 67px);overflow-y:auto}
+.cv-nav{display:flex;align-items:center;gap:12px;padding:13px 16px;border:none;background:none;font-family:inherit;font-size:.96rem;font-weight:600;color:var(--text-2);border-radius:10px;cursor:pointer;text-align:left;transition:.15s}
+.cv-nav svg{width:20px;height:20px;flex-shrink:0}
+.cv-nav:hover{background:var(--sky-soft);color:var(--blue)}
+.cv-nav.active{background:var(--sky-soft);color:var(--blue)}
+.cv-main{flex:1;min-width:0;padding:26px 34px 60px}
+.cv-top{display:flex;align-items:center;justify-content:flex-end;gap:20px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:28px;flex-wrap:wrap}
+.cv-welcome{font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:22px}
+.cv-back{background:none;border:none;font-family:inherit;font-size:.95rem;font-weight:700;color:var(--blue);cursor:pointer;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.cv-back:hover{color:var(--blue-2)}
+.cv-panel{display:none}
+.cv-panel.active{display:block}
+
+.cv-hero-card{background:var(--navy);border-radius:16px;padding:18px;margin-bottom:26px}
+.cvh-group{color:#fff;font-weight:700;font-size:1rem;padding:10px 8px 16px}
+.cvh-module{background:#fff;border-radius:12px;padding:22px 24px;display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.cvh-mod-ico{width:42px;height:42px;color:var(--muted-2);flex-shrink:0}
+.cvh-mod-ico svg{width:100%;height:100%}
+.cvh-mod-info{flex:1;min-width:0}
+.cvh-mod-info h3{font-size:1.08rem;font-weight:700;color:var(--blue);margin-bottom:4px}
+.cvh-mod-info p{font-size:.9rem;color:var(--muted)}
+.cvh-start{background:var(--red);color:#fff;border:none;border-radius:8px;padding:12px 26px;font-weight:700;font-size:.92rem;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:.2s;flex-shrink:0}
+.cvh-start:hover{background:var(--red-2)}
+.cvh-start svg{width:15px;height:15px}
+.cvh-stats{background:#fff;border-radius:12px;padding:24px 26px;display:grid;grid-template-columns:auto 1.3fr 1.3fr;gap:22px 40px;align-items:center}
+.cvh-stat .lbl{font-size:.86rem;font-weight:700;color:var(--navy);margin-bottom:12px}
+.cvh-stat .big{font-size:1.4rem;font-weight:700;color:var(--text)}
+.cvh-date{font-size:1.25rem;font-weight:700;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font-family:inherit;background:#fff;cursor:pointer;outline:none;transition:.15s}
+.cvh-date:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(28,63,174,.10)}
+.cvh-goal{display:flex;align-items:center;gap:14px}
+.cvh-goal .num{font-size:1.4rem;font-weight:700;color:var(--text);white-space:nowrap}
+.cvbar{flex:1;height:10px;background:var(--sky-soft);border-radius:999px;overflow:hidden;min-width:70px}
+.cvbar>span{display:block;height:100%;background:var(--blue);border-radius:999px}
+
+.cv-perf{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px 30px;box-shadow:var(--shadow-sm)}
+.cv-perf h2{font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.cv-perf-sub{font-size:.9rem;color:var(--muted);margin-bottom:26px}
+.cv-perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cv-metric .lbl{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+.cv-metric .val{font-size:1.3rem;font-weight:700;color:var(--text)}
+
+.cv-tests{display:flex;flex-direction:column;gap:14px;max-width:820px}
+.cv-test{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px}
+.cv-test-info{flex:1;min-width:0}
+.cv-test-info h3{font-size:1rem;font-weight:700;color:var(--text)}
+.cv-test-info p{font-size:.86rem;color:var(--muted);margin-top:3px}
+.cv-test-btn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;transition:.2s;flex-shrink:0}
+.cv-test-btn:hover{background:var(--red-2)}
+
+/* tests dashboard */
+.ts-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px 30px 34px;box-shadow:var(--shadow-sm)}
+.ts-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:26px}
+.ts-hd h2{font-size:1.25rem;font-weight:700;color:var(--text)}
+.ts-reset{background:none;border:none;color:var(--red);font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit}
+.ts-reset:hover{text-decoration:underline}
+.ts-progress{background:#E9F3EC;border-radius:14px;padding:24px 28px;margin-bottom:32px}
+.ts-progress h3{font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.ts-progress p{font-size:.92rem;color:var(--text-2);margin-bottom:20px}
+.ts-pct{font-weight:700;color:var(--text);margin-bottom:10px}
+.ts-bar{height:12px;background:#fff;border-radius:999px;overflow:hidden}
+.ts-bar>span{display:block;height:100%;background:#2E7D46;border-radius:999px}
+.ts-sec h3{font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.ts-sec p{font-size:.92rem;color:var(--text-2)}
+.ts-stats{display:flex;flex-wrap:wrap;gap:14px;margin:20px 0 32px}
+.ts-stat{border:1px solid var(--border);border-radius:10px;padding:16px 22px;background:#fff;flex:0 1 auto}
+.ts-stat .lbl{font-size:.95rem;color:var(--text);margin-bottom:6px}
+.ts-stat .val{font-size:1.2rem;font-weight:600;color:var(--text)}
+.ts-tabs{display:flex;gap:28px;border-bottom:2px solid var(--border)}
+.ts-tabb{background:none;border:none;padding:10px 2px;font-family:inherit;font-size:1rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s}
+.ts-tabb.active{color:var(--navy);border-bottom-color:var(--navy)}
+.ts-pane{display:none}
+.ts-pane.active{display:block}
+.ts-scroll{overflow-x:auto}
+.ts-table{width:100%;border-collapse:collapse;min-width:640px}
+.ts-table th{text-align:left;font-size:.92rem;font-weight:700;padding:16px 12px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap}
+.ts-table td{padding:18px 12px;border-bottom:1px solid var(--border);font-size:.95rem;color:var(--text)}
+.ts-link{color:#1A6FDB;text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.ts-link:hover{color:var(--blue)}
+.ts-table td.ts-ok,.ts-ok{color:#1E7B3C;font-weight:600}
+.ts-empty{padding:34px 10px;color:var(--muted);font-size:.95rem}
+@media (max-width:640px){.ts-wrap{padding:20px 16px 26px}.ts-stats{gap:10px}.ts-stat{padding:12px 16px}}
+
+/* test flow — detail */
+.ts-title-row{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap}
+.ts-title-row h2{font-size:1.25rem;font-weight:700;color:var(--text)}
+.ts-title-row .ts-reset{margin-left:auto}
+.ts-prog-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.ts-prog-row .ts-bar{flex:1;min-width:180px}
+.ts-start{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:14px 34px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit;white-space:nowrap;transition:.2s}
+.ts-start:hover{background:var(--blue-2)}
+.ts-total{font-size:.95rem;color:var(--text-2);margin:24px 0 10px}
+.ts-total b{font-weight:700}
+
+/* test flow — exam */
+.ex-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap}
+.ex-hd-l{font-size:1.1rem;font-weight:700;color:var(--text)}
+.ex-hd-l span{font-weight:400;color:var(--muted);margin-left:10px;font-size:.95rem}
+.ex-hd-r{display:flex;align-items:center;gap:16px}
+.ex-timer{font-size:1rem;font-weight:700;color:var(--text)}
+.ex-pause{background:none;border:1.5px solid var(--border);border-radius:8px;padding:8px 18px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--text)}
+.ex-pause:hover{border-color:var(--blue);color:var(--blue)}
+.ex-topbar{display:flex;align-items:center;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.ex-arrows{display:flex;gap:6px}
+.ex-arrow{width:34px;height:34px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--blue);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ex-arrow svg{width:16px;height:16px}
+.ex-arrow:disabled{opacity:.4;cursor:not-allowed}
+.ex-pct{font-weight:700;color:var(--text);white-space:nowrap}
+.ex-bar{flex:1;min-width:120px;height:12px;background:#DFE4EC;border-radius:999px;overflow:hidden}
+.ex-bar>span{display:block;height:100%;background:#2E7D46;border-radius:999px;transition:width .3s}
+.ex-revisit{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;color:var(--text);cursor:pointer;white-space:nowrap;user-select:none}
+.ex-revisit input{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
+.ex-review-btn{background:none;border:1.5px solid var(--border);border-radius:8px;padding:10px 20px;font-weight:700;font-size:1.05rem;font-family:inherit;cursor:pointer;color:var(--text);white-space:nowrap}
+.ex-review-btn:hover{border-color:var(--blue);color:var(--blue)}
+.ex-body{display:grid;grid-template-columns:1fr 260px;gap:44px;align-items:start}
+.ex-q{font-size:1.12rem;color:var(--text);line-height:1.6;margin-bottom:20px}
+.ex-q b{font-weight:700}
+.ex-opts-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ex-opts-list li{font-size:1rem;color:var(--text);line-height:1.5}
+.ex-choices{display:flex;flex-direction:column;gap:12px}
+.ex-choice{display:flex;align-items:center;gap:12px}
+.ex-choice-x{width:16px;flex-shrink:0;color:var(--muted-2)}
+.ex-choice-x svg{width:16px;height:16px;display:block}
+.ex-choice.sel .ex-choice-x{color:var(--navy)}
+.ex-choice-btn{flex:1;border:1.5px solid var(--border);border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;font-family:inherit;background:#fff;color:var(--text);cursor:pointer;transition:.15s}
+.ex-choice-btn:hover{border-color:var(--blue)}
+.ex-choice.sel .ex-choice-btn{border-color:var(--navy);background:var(--sky-soft)}
+.ex-confirm{margin-top:4px;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:15px;font-weight:700;font-size:1.05rem;font-family:inherit;cursor:pointer;transition:.2s}
+.ex-confirm:hover{background:var(--blue-2)}
+.ex-confirm:disabled{opacity:.5;cursor:not-allowed}
+.ex-report{margin-top:26px;font-size:.88rem;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+@media (max-width:720px){.ex-body{grid-template-columns:1fr;gap:26px}}
+
+/* test flow — review */
+.rv-hd{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:22px;flex-wrap:wrap}
+.rv-hd h2{font-size:1.15rem;font-weight:700;color:var(--text)}
+.rv-sub{color:var(--muted);margin-bottom:16px}
+.rv-sub b{color:var(--text);font-weight:700}
+.rv-table{width:100%;border-collapse:collapse}
+.rv-table th{text-align:left;font-size:.9rem;font-weight:700;padding:14px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+.rv-table td{padding:16px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.rv-ans{width:70px;color:#1E7B3C}
+.rv-ans.no{color:var(--muted-2)}
+.rv-ans svg{width:17px;height:17px}
+.rv-prev{color:var(--blue-2);text-decoration:underline;text-underline-offset:2px;cursor:pointer;font-size:.95rem;line-height:1.5;background:none;border:none;font-family:inherit;text-align:left;padding:0}
+.rv-prev:hover{color:var(--blue)}
+.rv-rev{width:80px;color:var(--red);font-weight:700;font-size:.85rem}
+.rv-finalize{margin-top:26px;display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+
+/* pause-confirmation modal */
+.pausem{position:fixed;inset:0;background:rgba(12,28,69,.55);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.pausem.on{display:flex}
+.pausem-box{background:#fff;border-radius:14px;max-width:460px;width:100%;padding:34px 34px 28px;position:relative;box-shadow:var(--shadow-lg)}
+.pausem-x{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1;padding:4px}
+.pausem-box h3{font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:16px}
+.pausem-box p{font-size:1rem;color:var(--text-2);line-height:1.7;margin-bottom:26px}
+.pausem-btns{display:flex;justify-content:flex-end;gap:14px;flex-wrap:wrap}
+.pausem-cancel{background:#fff;color:var(--text);border:1.5px solid var(--border);border-radius:8px;padding:12px 26px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;transition:.2s}
+.pausem-cancel:hover{border-color:var(--navy)}
+.pausem-ok{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:12px 26px;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;transition:.2s}
+.pausem-ok:hover{background:var(--blue-2)}
+
+/* study plan */
+.sp-hd{font-size:1.25rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.sp-tab{display:inline-block;padding:6px 2px;font-weight:700;font-size:.95rem;color:var(--navy);border-bottom:3px solid var(--navy);margin-bottom:26px}
+.sp-group{background:#fff;border:1px solid var(--border);border-radius:14px;margin-bottom:18px;box-shadow:var(--shadow-sm);overflow:hidden}
+.sp-ghd{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;user-select:none;background:none;border:none;width:100%;text-align:left;font-family:inherit}
+.sp-gico{width:38px;height:38px;border-radius:50%;background:#EEF1F5;display:flex;align-items:center;justify-content:center;color:var(--text-2);flex-shrink:0}
+.sp-gico svg{width:19px;height:19px}
+.sp-gico.done{background:#1E7B3C;color:#fff}
+.sp-gname{font-size:1.05rem;font-weight:700;color:var(--text)}
+.sp-gmeta{font-size:.88rem;color:var(--muted);font-weight:400;margin-left:4px}
+.sp-chev{margin-left:auto;color:var(--text);flex-shrink:0}
+.sp-chev svg{width:18px;height:18px;transition:transform .25s}
+.sp-group.open .sp-chev svg{transform:rotate(180deg)}
+.sp-body{display:none;padding:2px 22px 24px 74px;flex-direction:column;gap:20px}
+.sp-group.open .sp-body{display:flex}
+.sp-item{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sp-status{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.sp-status.done{background:#1E7B3C;color:#fff;border-radius:50%}
+.sp-status.done svg{width:13px;height:13px}
+.sp-status.todo{color:var(--text-2)}
+.sp-status.todo svg{width:20px;height:20px}
+.sp-link{font-size:1rem;font-weight:600;color:var(--blue-2);text-decoration:underline;text-underline-offset:3px}
+.sp-link:hover{color:var(--blue)}
+.sp-imeta{font-size:.9rem;color:var(--muted)}
+@media (max-width:820px){.sp-body{padding-left:22px}}
+
+/* ===== lesson viewer (module player) ===== */
+.lesson{display:none;position:fixed;inset:0;z-index:200;background:#fff}
+.lesson.on{display:flex}
+.lv-side{flex:0 0 340px;max-width:80vw;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.lv-side-hd{background:linear-gradient(150deg,var(--navy-deep),var(--navy) 60%,var(--blue-2));color:#fff;padding:20px 22px 22px;position:relative;overflow:hidden}
+.lv-side-deco{position:absolute;inset:0;pointer-events:none;opacity:.12}
+.lv-side-hd h2{font-size:1.15rem;font-weight:700;line-height:1.35;position:relative}
+.lv-prog-lbl{font-size:.72rem;font-weight:700;letter-spacing:.12em;margin:16px 0 8px;position:relative}
+.lv-prog{height:6px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;position:relative}
+.lv-prog>span{display:block;height:100%;background:#fff;border-radius:999px;transition:width .3s}
+.lv-lessons{flex:1;overflow-y:auto}
+.lv-lesson{display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border-bottom:1px solid var(--border);cursor:pointer;background:none;border-left:4px solid transparent;width:100%;text-align:left;font-family:inherit;transition:.15s}
+.lv-lesson:hover{background:var(--paper)}
+.lv-lesson.active{background:#fff;border-left-color:var(--navy)}
+.lv-lesson.dim{background:#F6F8FB}
+.lv-l-ico{width:22px;height:22px;color:var(--muted-2);flex-shrink:0;margin-top:1px}
+.lv-l-ico svg{width:100%;height:100%}
+.lv-l-name{flex:1;font-size:.96rem;font-weight:600;color:var(--text);line-height:1.4}
+.lv-l-ring{width:20px;height:20px;flex-shrink:0;margin-top:1px}
+.lv-l-ring svg{width:100%;height:100%}
+.lv-lesson.done .lv-l-ring{color:#1E7B3C}
+.lv-lesson:not(.done) .lv-l-ring{color:var(--muted-2)}
+
+.lv-main{flex:1;display:flex;flex-direction:column;min-width:0;background:#fff}
+.lv-topbar{background:var(--navy);color:#fff;display:flex;align-items:flex-start;gap:20px;padding:26px 40px 40px}
+.lv-burger{width:46px;height:46px;border-radius:8px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s}
+.lv-burger:hover{background:rgba(255,255,255,.26)}
+.lv-burger svg{width:22px;height:22px}
+.lv-title{font-size:2rem;font-weight:800;line-height:1.15;flex:1;min-width:0}
+.lv-close{background:rgba(255,255,255,.14);border:none;color:#fff;border-radius:8px;padding:9px 16px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;flex-shrink:0;transition:.15s}
+.lv-close:hover{background:rgba(255,255,255,.26)}
+.lv-stage{flex:1;overflow-y:auto;padding:34px 40px 40px}
+.lv-slide{background:linear-gradient(150deg,#0B2149,#123A6B);border-radius:16px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;color:#fff;text-align:center;padding:50px 30px;position:relative;overflow:hidden}
+.lv-slide-brand{display:flex;align-items:center;gap:12px}
+.lv-slide-brand img{height:52px;filter:brightness(0) invert(1)}
+.lv-slide-brand span{font-size:1.9rem;font-weight:300;letter-spacing:.1em;color:#fff}
+.lv-slide h3{font-size:1.5rem;font-weight:700;max-width:640px}
+.lv-slide p{font-size:1rem;color:rgba(255,255,255,.8);max-width:560px;line-height:1.7}
+.lv-body{max-width:820px;margin:26px auto 0;font-size:1rem;color:var(--text-2);line-height:1.85}
+.lv-body h4{font-size:1.15rem;font-weight:700;color:var(--text);margin:24px 0 10px}
+.lv-body ul{margin:10px 0 10px 22px}
+.lv-body li{margin-bottom:8px}
+.lv-nav{display:flex;justify-content:space-between;gap:14px;max-width:820px;margin:32px auto 0}
+.lv-btn{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:13px 30px;font-weight:700;font-size:.92rem;cursor:pointer;font-family:inherit;transition:.2s}
+.lv-btn:hover{background:var(--blue-2)}
+.lv-btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--border)}
+.lv-btn.ghost:hover{background:var(--paper);border-color:var(--navy)}
+.lv-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* knowledge-check quiz */
+.qz-card{max-width:880px;margin:26px auto 0;background:#fff;border:1px solid var(--border);border-radius:16px;padding:42px 46px;box-shadow:var(--shadow-sm)}
+.qz-meta{font-size:.95rem;color:var(--muted);margin-bottom:8px;line-height:1.7}
+.qz-q{font-size:1.28rem;font-weight:600;color:var(--text);line-height:1.55;padding-bottom:22px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.qz-opt{display:flex;align-items:center;gap:18px;width:100%;text-align:left;padding:18px 20px;border:none;background:none;font-family:inherit;font-size:1.05rem;color:var(--text);cursor:pointer;border-radius:10px;transition:.15s}
+.qz-opt:hover{background:var(--paper)}
+.qz-opt.sel{background:#EEF1F5}
+.qz-radio{width:22px;height:22px;border-radius:50%;border:2px solid #B4BCCB;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s}
+.qz-opt:hover .qz-radio,.qz-opt.sel .qz-radio{border-color:var(--navy)}
+.qz-opt.sel .qz-radio::after{content:'';width:11px;height:11px;border-radius:50%;background:var(--navy)}
+.qz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:12px}
+.qz-score{text-align:center;padding:6px 0 26px}
+.qz-score-num{font-size:2.6rem;font-weight:800;color:var(--navy)}
+.qz-score-sub{font-size:1rem;color:var(--muted);margin-top:2px}
+.qz-badge{display:inline-block;margin-top:12px;padding:6px 18px;border-radius:999px;font-weight:700;font-size:.9rem}
+.qz-badge.pass{background:#E5F6EA;color:#1E7B3C}
+.qz-badge.fail{background:#FDECEC;color:#B3261E}
+.qz-rev{border-top:1px solid var(--border);padding-top:26px;display:flex;flex-direction:column;gap:26px}
+.qz-rev-item{display:flex;gap:16px;align-items:flex-start}
+.qz-rev-ic{width:30px;height:30px;flex-shrink:0;border-radius:50%;border:2px solid var(--navy);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.qz-rev-ic svg{width:15px;height:15px}
+.qz-rev-lbl{font-weight:700;font-size:.95rem;margin-bottom:6px}
+.qz-rev-lbl.ok{color:#1E7B3C}
+.qz-rev-lbl.bad{color:#B3261E}
+.qz-rev-q{font-weight:700;color:var(--text);font-size:1rem;margin-bottom:6px;line-height:1.5}
+.qz-rev-a{font-size:.92rem;color:var(--muted);line-height:1.7}
+.qz-rev-a b{color:var(--text-2)}
+.qz-rev-exp{font-size:.92rem;color:var(--muted);line-height:1.7;margin-top:6px}
+@media (max-width:720px){.qz-card{padding:26px 20px}}
+
+.lesson.side-hidden .lv-side{display:none}
+@media (max-width:720px){
+.lv-side{position:absolute;z-index:5;height:100%;box-shadow:var(--shadow-lg)}
+.lesson.side-hidden .lv-side{display:none}
+.lv-topbar{padding:20px 20px 30px}
+.lv-title{font-size:1.4rem}
+.lv-stage{padding:22px 18px 30px}
+}
+
+@media (max-width:820px){
+.cv-shell{flex-direction:column}
+.cv-side{flex:1 1 auto;flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(--border)}
+.cv-brand{display:none}
+.cvh-module{flex-wrap:wrap}
+.cvh-stats{grid-template-columns:1fr}
+.cv-perf-grid{grid-template-columns:1fr}
+}
+
+/* site footer (training.html style) */
+footer.site{background:radial-gradient(ellipse at 100% 0%,rgba(72,120,232,.4),transparent 60%),linear-gradient(135deg,var(--navy) 0%,var(--blue-2) 100%);color:rgba(255,255,255,.72);padding:70px 0 26px;position:relative;overflow:hidden}
+footer.site .f-container{max-width:1240px;margin:0 auto;padding:0 28px;position:relative}
+footer.site .f-orb{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(45,91,217,.15),transparent 70%);top:-300px;right:-200px;pointer-events:none}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:48px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
+.foot-about .flogo{height:58px;width:auto;max-width:220px;filter:brightness(0) invert(1)}
+.foot-about p{font-size:.94rem;line-height:1.75;margin:18px 0}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.06);display:grid;place-items:center;color:#fff;transition:.25s}
+.socials a:hover{background:var(--blue);transform:translateY(-3px) rotate(-5deg);box-shadow:0 6px 14px rgba(28,63,174,.4)}
+.socials svg{width:18px;height:18px}
+.foot-col h4{color:#fff;font-size:1rem;margin-bottom:20px;font-weight:700}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:10px}
+.foot-col ul a,.foot-nav{font-size:.94rem;color:rgba(255,255,255,.72);transition:.2s;background:none;border:none;padding:0;font-family:inherit;cursor:pointer;text-align:left;display:inline-block}
+.foot-col ul a:hover,.foot-nav:hover{color:#fff;padding-left:4px}
+.foot-contact .contact-line{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:.94rem}
+.foot-contact .ico{color:var(--cyan);flex-shrink:0;margin-top:2px;display:flex}
+.foot-contact .ico svg{width:18px;height:18px}
+.foot-map{position:relative;display:block;margin-top:6px;height:140px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.14);cursor:pointer}
+.foot-map iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}
+.foot-map .fm-badge{position:absolute;right:8px;bottom:8px;background:rgba(6,14,46,.88);color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:6px;transition:background .2s}
+.foot-map:hover .fm-badge{background:var(--blue)}
+.fcopy{text-align:center;padding-top:26px;font-size:.88rem;color:rgba(255,255,255,.4)}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media (max-width:540px){.foot-grid{grid-template-columns:1fr;gap:32px}}
+
+@media (max-width:980px){
+.p-hd-inner{gap:16px}
+.p-search{flex:1 1 200px}
+.p-tab{font-size:.92rem;padding:18px 14px}
+.p-title{font-size:1.7rem;margin-bottom:36px}
+}
+@media (max-width:640px){
+.p-hd-inner{padding:12px 18px}
+.p-logo img{height:54px}
+.p-search{order:3;flex:1 1 100%}
+.p-hd-right{margin-left:auto}
+.p-main{padding:40px 18px 70px}
+}
+@media (max-width:540px){
+.ol-card{padding:36px 24px 30px;border-radius:16px}
+.ol-shell{padding:28px 16px}
+.od-stats{gap:8px}
+.od-stat{padding:10px 6px}
+.od-stat-num{font-size:1.25rem}
+.od-stat-lbl{font-size:.68rem}
+.od-course{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="ol-shell" id="olShell">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+
+  <div class="ol-top">
+    <a href="training.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Сургалтын хуудас руу буцах
+    </a>
+  </div>
+
+  <div class="ol-wrap" id="olWrap">
+    <div class="ol-card">
+      <div class="ol-logo">
+        <img src="UPR/fulllogo.png" alt="UPR Consulting">
+      </div>
+
+      <p class="ol-copy">
+        UPR-д бүртгэлтэй имэйл хаягаараа нэвтэрдэгтэй адил, <b>Онлайн Сургалтын</b> платформд бүртгэлтэй имэйл хаягаараа нэвтэрнэ үү.
+        <b>Шинээр давхар бүртгэл үүсгэхийг хориглоно</b> — хэрэв нэвтэрч чадахгүй бол
+        <a href="mailto:info@upr-consulting.mn">нууц үгээ сэргээх хүсэлт</a> илгээнэ үү.
+        Олон бүртгэл үүсгэх нь сургалтын видео хичээл, э-ном, гэрчилгээ зэрэг материалд хандах эрхийг алдахад хүргэнэ.
+        Асуудал гарвал <a href="tel:+97689018111">+976 8901-8111</a> дугаараар холбогдоно уу.
+      </p>
+
+      <form class="ol-form" id="olLoginForm">
+        <div class="ol-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></svg>
+          <input type="text" id="olUser" placeholder="И-мэйл хаяг / Хэрэглэгчийн нэр" autocomplete="username" required>
+        </div>
+        <div class="ol-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <input type="password" id="olPass" placeholder="Нууц үг" autocomplete="current-password" required>
+        </div>
+        <div class="ol-forgot">
+          <a href="mailto:info@upr-consulting.mn">Нууц үгээ мартсан?</a>
+        </div>
+        <button type="submit" class="ol-btn">
+          Нэвтрэх
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+
+      <div class="ol-links">
+        <a href="mailto:info@upr-consulting.mn">Нууц үгээ сэргээх</a>
+        <a href="training.html">Шинэ хэрэглэгч үү? Сургалтад бүртгүүлэх</a>
+        <a href="mailto:info@upr-consulting.mn">Хэрэглэгчийн нэрээ мартсан уу? Энд дарж холбогдоно уу.</a>
+      </div>
+
+      <p class="ol-note">
+        <b>Санамж:</b> Хэрэв та өмнө нь UPR Consulting-ийн сургалтад бүртгүүлж байсан бол шинэ хаягаар дахин бүртгүүлэлгүйгээр яг тэр имэйл хаягаараа нэвтэрнэ үү.
+      </p>
+    </div>
+  </div>
+
+  <div class="ol-foot">© 2026 Юу Пи Ар Консалтинг ХХК.</div>
+</div>
+
+<!-- ===== POST-LOGIN PORTAL (ISACA-style full page) ===== -->
+<div class="portal" id="olPortal">
+
+  <header class="p-hd">
+    <div class="p-hd-inner">
+      <a class="p-logo" href="training.html"><img src="UPR/fulllogo.png" alt="UPR Consulting"></a>
+      <div class="p-search">
+        <input type="text" placeholder="Хайх" aria-label="Хайх">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      </div>
+      <div class="p-hd-right">
+        <a class="p-hd-link" href="mailto:info@upr-consulting.mn">Тусламж
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+        </a>
+        <span class="p-hd-div"></span>
+        <div class="p-user-wrap">
+          <button class="p-user acct-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></svg>
+            <span>Сайн уу, <b id="pGreet">Хэрэглэгч</b>!</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="acct-menu">
+            <button type="button" class="p-menu-item" data-action="profile">Профайл</button>
+            <button type="button" class="p-menu-item" data-tab="panelMembership">Гишүүнчлэлийн төлөв</button>
+            <button type="button" class="p-menu-item" data-tab="panelLearning">Сургалтын хандалт</button>
+            <button type="button" class="p-menu-item" data-tab="panelResources">Нөөц</button>
+            <button type="button" class="p-menu-item" data-action="profile">Тохиргоо</button>
+            <div class="sep"></div>
+            <button type="button" class="p-menu-item" data-action="logout">Гарах</button>
+          </div>
+        </div>
+        <span class="p-hd-div"></span>
+        <button class="p-logout" type="button" id="odLogout">Гарах</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MyUPR hero -->
+  <section class="p-hero">
+    <div class="p-hero-band">
+      <svg class="p-hero-deco" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" aria-hidden="true">
+        <g stroke-width="2" opacity=".07">
+          <circle cx="235" cy="34" r="92"/><circle cx="235" cy="34" r="60"/>
+          <circle cx="515" cy="210" r="112"/><circle cx="515" cy="210" r="76"/>
+          <circle cx="835" cy="26" r="80"/>
+          <circle cx="1055" cy="188" r="120"/><circle cx="1055" cy="188" r="82"/>
+          <circle cx="965" cy="58" r="46"/>
+          <circle cx="70" cy="200" r="66"/>
+        </g>
+      </svg>
+      <div class="p-hero-band-inner">
+        <div class="p-crumb">
+          <a href="training.html">Нүүр</a>
+          <span class="sepc">›</span>
+          <span class="cur">E-Learning</span>
+        </div>
+        <div class="p-hero-title">E-Learning</div>
+      </div>
+    </div>
+    <div class="p-hero-info">
+      <div class="p-hero-info-inner">
+        <div class="p-hero-user">
+          <div class="p-hero-name" id="heroName">Хэрэглэгч</div>
+          <div class="p-hero-email" id="heroEmail">name@example.com</div>
+          <button class="p-acct-btn" type="button" id="pAcctBtn">Миний бүртгэл</button>
+        </div>
+        <div class="p-hero-mem">
+          <div class="p-hero-lbl">Гишүүнчлэл</div>
+          <div class="p-hero-mem-row">
+            <div class="p-hero-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div>
+              <div class="p-hero-mem-name">Мэргэжлийн хөтөлбөр</div>
+              <div class="p-hero-mem-sub">2026 оны 12 сарын 31 хүртэл гишүүнчлэл</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-hero-bal">
+          <div class="p-hero-bal-row"><span class="l">Сургалтын төлбөр:</span><span class="v paid">Төлөгдсөн</span></div>
+          <div class="p-hero-bal-row"><span class="l">Гишүүнчлэлийн төлбөр:</span><span class="v paid">Төлөгдсөн</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="p-tabs">
+    <button class="p-tab active" type="button" data-panel="panelMembership">Гишүүнчлэлийн төлөв</button>
+    <button class="p-tab" type="button" data-panel="panelLearning">Сургалтын хандалт</button>
+  </div>
+
+  <main class="p-main">
+    <div class="p-wrap">
+
+      <div class="p-panel active" id="panelMembership">
+        <h1 class="p-title">Гишүүнчлэлийн төлөв</h1>
+        <div class="p-ms">
+          <div class="p-ms-left">
+            <h3>Мэргэжлийн хөтөлбөр</h3>
+            <div class="p-ms-row"><b>ГИШҮҮНИЙ ID:</b> 2299245</div>
+            <div class="p-ms-row"><b>НЭР:</b> <span id="msName">Хэрэглэгч</span></div>
+            <div class="p-ms-row"><b>И-МЭЙЛ:</b> <span id="msEmail">name@example.com</span></div>
+            <div class="p-ms-row"><b>ТҮВШИН:</b> Гишүүн</div>
+            <div class="p-ms-row"><b>ЭЛССЭН:</b> 2026 оны 4 сарын 13</div>
+            <div class="p-ms-row"><b>ТӨЛӨГДСӨН ХУГАЦАА:</b> 2026 оны 12 сарын 31</div>
+            <div class="p-ms-row"><b>ТӨЛӨВ:</b> <span class="p-active">Идэвхтэй</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-panel" id="panelLearning">
+        <h1 class="p-title">Сургалтын хандалт</h1>
+        <p class="la-intro">Доорх нь таны эрх нээгдсэн болон архивласан онлайн сургалтуудын жагсаалт. Үзэхийг хүссэн сургалтаа сонгоно уу.</p>
+        <div class="la-bar">
+          <label for="laSort">Эрэмбэлэх:</label>
+          <select class="la-sort" id="laSort">
+            <option value="recent">Хамгийн сүүлийн</option>
+            <option value="oldest">Хамгийн эртний</option>
+            <option value="name">Нэрээр (А–Я)</option>
+          </select>
+        </div>
+        <h2 class="la-h2">Идэвхжүүлсэн сургалт</h2>
+        <div class="la-grid" id="laGrid"></div>
+      </div>
+
+      <div class="p-panel" id="panelResources">
+        <h1 class="p-title">Нөөц</h1>
+        <div class="p-narrow">
+          <p class="od-res-copy">Танд зориулсан сургалтын материал, э-ном, гарын авлагыг эндээс үзнэ үү. Э-ном шууд браузер дээр нээгдэх ба татах боломжгүй. Бусад материалыг шууд татаж авах боломжтой.</p>
+          <p class="od-res-copy">Нэмэлт материал: <a href="training.html">Сургалтын каталог</a> | <a href="mailto:info@upr-consulting.mn">Гарын авлага хүсэх</a></p>
+          <div class="od-res-list">
+            <a class="od-res-item" href="mailto:info@upr-consulting.mn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+              <span>RHCSA бэлтгэл гарын авлага (PDF)</span>
+            </a>
+            <a class="od-res-item" href="mailto:info@upr-consulting.mn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+              <span>PostgreSQL Lab орчны заавар</span>
+            </a>
+            <a class="od-res-item" href="mailto:info@upr-consulting.mn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z"/></svg>
+              <span>Odoo суурь модулиудын видео хичээл</span>
+            </a>
+          </div>
+          <p class="od-res-fine">Файл татахад 10 секунд хүртэл хугацаа шаардагдаж болно. Хэрэв татаж чадахгүй бол нөөцийн нэрийг дурдан <a href="mailto:info@upr-consulting.mn">бидэнтэй холбогдоно уу</a>.</p>
+        </div>
+      </div>
+
+      <div class="p-panel" id="panelProfile">
+        <h1 class="p-title">Профайл</h1>
+        <div class="pf-layout">
+          <aside class="pf-side">
+            <div class="pf-side-name" id="pfSideName">Хэрэглэгч</div>
+            <button type="button" class="pf-side-link active" data-action="profile">Профайл</button>
+            <button type="button" class="pf-side-link" data-tab="panelMembership">Гишүүнчлэлийн төлөв</button>
+            <button type="button" class="pf-side-link" data-tab="panelLearning">Сургалтын хандалт</button>
+            <button type="button" class="pf-side-link" data-tab="panelResources">Нөөц</button>
+            <button type="button" class="pf-side-link" data-action="logout">Гарах</button>
+          </aside>
+          <div class="pf-main">
+            <div class="pf-card">
+              <div class="pf-card-hd"><span>Хувийн мэдээлэл</span></div>
+              <p class="pf-intro">Доорх мэдээллийг үнэн зөв бөглөнө үү. Энэ мэдээллийг гэрчилгээ болон холбоо барихад ашиглана.</p>
+              <form class="pf-form" id="pfForm">
+                <div class="pf-grid">
+                  <div class="pf-field"><label for="pfLast">Овог</label><input id="pfLast" type="text" autocomplete="family-name"></div>
+                  <div class="pf-field"><label for="pfFirst">Нэр</label><input id="pfFirst" type="text" autocomplete="given-name"></div>
+                  <div class="pf-field"><label for="pfEmail">И-мэйл</label><input id="pfEmail" type="email" autocomplete="email"></div>
+                  <div class="pf-field"><label for="pfPhone">Утас</label><input id="pfPhone" type="tel" placeholder="+976 ________" autocomplete="tel"></div>
+                  <div class="pf-field"><label for="pfOrg">Байгууллага</label><input id="pfOrg" type="text" autocomplete="organization"></div>
+                  <div class="pf-field"><label for="pfTitle">Албан тушаал</label><input id="pfTitle" type="text" autocomplete="organization-title"></div>
+                  <div class="pf-field"><label for="pfCity">Хот / Аймаг</label><input id="pfCity" type="text" autocomplete="address-level2"></div>
+                  <div class="pf-field">
+                    <label for="pfCountry">Улс</label>
+                    <select id="pfCountry">
+                      <option>Монгол</option>
+                      <option>БНХАУ</option>
+                      <option>ОХУ</option>
+                      <option>Япон</option>
+                      <option>БНСУ</option>
+                      <option>АНУ</option>
+                      <option>Бусад</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="pf-actions">
+                  <button type="submit" class="pf-save">Хадгалах</button>
+                  <span class="pf-saved" id="pfSaved">Хадгалагдлаа ✓</span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="f-orb"></div>
+    <div class="f-container">
+      <div class="foot-grid">
+        <div class="foot-col foot-about">
+          <img class="flogo" src="UPR/fulllogo.png" alt="UPR Consulting">
+          <p>Бид зах зээлд шаардлагатай Мэдээллийн технологийн дэд бүтцийн ур чадварыг олон улсын стандарт хөтөлбөрийн дагуу, ёс зүйтэй шилдэг багш нарын удирдлагад чанартай олгоно.</p>
+          <div class="socials">
+            <a href="https://www.facebook.com/UPRConsulting.Training" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4c-.6 0-1 .4-1 1v16c0 .6.4 1 1 1h16c.6 0 1-.4 1-1V4c0-.6-.4-1-1-1zM8.3 18.3H5.7V9.7h2.7v8.6zM7 8.5c-.9 0-1.5-.7-1.5-1.5S6.1 5.5 7 5.5s1.5.7 1.5 1.5S7.9 8.5 7 8.5zm11.3 9.8h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.2h-2.7V9.7h2.5v1.2c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.8-.9-1.7-.9-2.1-1C17 3.4 12 3.4 12 3.4s-5 0-7.9.3c-.4.1-1.3.1-2.1 1C1.2 5.4 1 7 1 7s-.2 1.9-.2 3.7v1.7c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1C5.9 19.6 12 19.6 12 19.6s5 0 7.9-.4c.4-.1 1.3-.1 2.1-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.7v-1.7c0-1.9-.2-3.8-.2-3.8zM9.7 15V8.4l6.4 3.3-6.4 3.3z"/></svg></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h4>Миний бүртгэл</h4>
+          <ul>
+            <li><button type="button" class="foot-nav" data-action="profile">Профайл</button></li>
+            <li><button type="button" class="foot-nav" data-tab="panelMembership">Гишүүнчлэлийн төлөв</button></li>
+            <li><button type="button" class="foot-nav" data-tab="panelLearning">Сургалтын хандалт</button></li>
+            <li><button type="button" class="foot-nav" data-tab="panelResources">Нөөц</button></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>UPR Consulting</h4>
+          <ul>
+            <li><a href="https://upr-consulting.mn">Нүүр</a></li>
+            <li><a href="training.html">Сургалт</a></li>
+            <li><a href="scholarship.html">Тэтгэлэг</a></li>
+            <li><a href="news.html">Мэдээ</a></li>
+            <li><a href="mailto:info@upr-consulting.mn">Тусламж</a></li>
+          </ul>
+        </div>
+        <div class="foot-col foot-contact">
+          <h4>Холбоо барих</h4>
+          <div class="contact-line"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span>+976 8901-8111</span></div>
+          <div class="contact-line"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></span><span>info@upr-consulting.mn</span></div>
+          <div class="contact-line"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>Даваа–Баасан · 09:00–18:00</span></div>
+          <div class="contact-line" style="margin-top:18px"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-7 8-12a8 8 0 1 0-16 0c0 5 8 12 8 12z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Лагшин төв 204 тоот, Ерөнхий сайд Амарын гудамж, 8-р хороо, Сүхбаатар дүүрэг, Улаанбаатар 14200</span></div>
+          <a class="foot-map" href="https://share.google/2QnnqcNj5RjcZnamY" target="_blank" rel="noopener" aria-label="Google Maps-д томоор харах">
+            <iframe src="https://maps.google.com/maps?q=Lagshin+Center,+Ulaanbaatar&hl=mn&z=16&output=embed" loading="lazy" title="UPR Consulting байршил"></iframe>
+            <span class="fm-badge">Google Maps ↗</span>
+          </a>
+        </div>
+      </div>
+      <div class="fcopy">© 2026 Юу Пи Ар Консалтинг ХХК.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== COURSE DASHBOARD (opens from ҮЗЭХ) ===== -->
+<div class="course" id="courseView">
+
+  <header class="cv-hd">
+    <button type="button" class="cv-burger" id="cvBurger" aria-label="Цэс нээх/хаах">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <a class="cv-hd-logo" href="training.html">
+      <img src="UPR/fulllogo.png" alt="UPR Consulting">
+      <span>E-LEARNING</span>
+    </a>
+    <div class="cv-hd-right">
+      <button type="button" class="cv-hd-ico" title="Мэдэгдэл">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        Мэдэгдэл
+      </button>
+      <button type="button" class="cv-hd-ico" title="Синхрончлогдсон">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.6 19a4.4 4.4 0 0 0 .4-8.8 6 6 0 0 0-11.6-1A4.8 4.8 0 0 0 7 19h10.6z"/><path d="M9 13.5l2 2 4-4"/></svg>
+        Синк
+      </button>
+      <div class="p-user-wrap">
+        <button type="button" class="cv-hd-ico acct-trigger" id="cvAcct" aria-haspopup="true" aria-expanded="false" title="Миний бүртгэл">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M5.5 16c.5-1.4 1.5-2 2.5-2s2 .6 2.5 2"/><path d="M14 9h5M14 12h5M14 15h3"/></svg>
+          Миний бүртгэл
+        </button>
+        <div class="acct-menu" id="cvAcctMenu">
+          <button type="button" class="p-menu-item" data-action="profile">Профайл</button>
+          <button type="button" class="p-menu-item" data-tab="panelMembership">Гишүүнчлэлийн төлөв</button>
+          <button type="button" class="p-menu-item" data-tab="panelLearning">Сургалтын хандалт</button>
+          <button type="button" class="p-menu-item" data-tab="panelResources">Нөөц</button>
+          <div class="sep"></div>
+          <button type="button" class="p-menu-item" data-action="logout">Гарах</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="cv-shell">
+    <aside class="cv-side">
+      <button type="button" class="cv-nav active" data-cv="cvHome">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+        Нүүр
+      </button>
+      <button type="button" class="cv-nav" data-cv="cvPlan">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
+        Төлөвлөгөө
+      </button>
+      <button type="button" class="cv-nav" data-cv="cvTests">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Тест
+      </button>
+    </aside>
+    <main class="cv-main">
+      <div class="cv-top">
+        <button type="button" class="cv-back" id="cvBack">Хэрэглэгчийн портал руу →</button>
+      </div>
+
+      <div class="cv-panel active" id="cvHome">
+        <h1 class="cv-welcome" id="cvTitle">Тавтай морил — Cloud онлайн сургалт</h1>
+        <div class="cv-hero-card">
+          <div class="cvh-group">Cloud үндэс · 3 / 4 даалгавар</div>
+          <div class="cvh-module">
+            <div class="cvh-mod-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1-8.86A6 6 0 1 0 6 14.5"/><path d="M6 14.5a3.5 3.5 0 0 0 0 7h11.5"/></svg>
+            </div>
+            <div class="cvh-mod-info">
+              <h3>Модуль 1: Cloud тооцоолол ба AWS үндэс</h3>
+              <p>15 мэдлэгийн оноо · 15–30 минут</p>
+            </div>
+            <button type="button" class="cvh-start">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Эхлэх
+            </button>
+          </div>
+          <div class="cvh-stats">
+            <div class="cvh-stat">
+              <div class="lbl">Зорилтот огноо</div>
+              <input type="date" class="cvh-date" value="2026-09-01" aria-label="Зорилтот огноо">
+            </div>
+            <div class="cvh-stat">
+              <div class="lbl">Өнөөдрийн мэдлэгийн зорилт</div>
+              <div class="cvh-goal"><span class="num cvh-goal-num">0/0</span><span class="cvbar"><span class="cvh-goal-bar" style="width:0%"></span></span></div>
+            </div>
+            <div class="cvh-stat">
+              <div class="lbl">Сургалтын явц</div>
+              <div class="cvh-goal"><span class="num cvh-prog-num">0%</span><span class="cvbar"><span class="cvh-prog-bar" style="width:0%"></span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-perf">
+          <h2>Гүйцэтгэл</h2>
+          <p class="cv-perf-sub">Гүйцэтгэлийн мэдээлэл нь дуусгасан хичээлийн ажлаас бүрдэнэ.</p>
+          <div class="cv-perf-grid">
+            <div class="cv-metric"><div class="lbl">Хувийн эрэмбэ</div><div class="val">35 хувь</div></div>
+            <div class="cv-metric"><div class="lbl">Тестийн дундаж оноо</div><div class="val">60% зөв</div></div>
+            <div class="cv-metric"><div class="lbl">Харилцан үйлдлийн дундаж</div><div class="val">Мэдээлэл алга</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-panel" id="cvPlan">
+        <div class="sp-hd">Хичээлийн төлөвлөгөө</div>
+        <span class="sp-tab">Бүтэцлэгдсэн төлөвлөгөө</span>
+
+        <div class="cv-hero-card">
+          <div class="cvh-group">Cloud үндэс · 3 / 4 даалгавар</div>
+          <div class="cvh-module">
+            <div class="cvh-mod-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1-8.86A6 6 0 1 0 6 14.5"/><path d="M6 14.5a3.5 3.5 0 0 0 0 7h11.5"/></svg>
+            </div>
+            <div class="cvh-mod-info">
+              <h3>Модуль 1B Хэсэг 2: Байршуулалтын загварууд</h3>
+              <p>15 мэдлэгийн оноо · 15–30 минут</p>
+            </div>
+            <button type="button" class="cvh-start">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Эхлэх
+            </button>
+          </div>
+          <div class="cvh-stats">
+            <div class="cvh-stat">
+              <div class="lbl">Зорилтот огноо</div>
+              <input type="date" class="cvh-date" value="2026-09-01" aria-label="Зорилтот огноо">
+            </div>
+            <div class="cvh-stat">
+              <div class="lbl">Өнөөдрийн мэдлэгийн зорилт</div>
+              <div class="cvh-goal"><span class="num cvh-goal-num">0/0</span><span class="cvbar"><span class="cvh-goal-bar" style="width:0%"></span></span></div>
+            </div>
+            <div class="cvh-stat">
+              <div class="lbl">Сургалтын явц</div>
+              <div class="cvh-goal"><span class="num cvh-prog-num">0%</span><span class="cvbar"><span class="cvh-prog-bar" style="width:0%"></span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-group">
+          <button type="button" class="sp-ghd">
+            <span class="sp-gico done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span class="sp-gname">Курсын танилцуулга <span class="sp-gmeta">20 мэдлэгийн оноо · 30+ минут</span></span>
+            <span class="sp-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="sp-body">
+            <div class="sp-item">
+              <span class="sp-status done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 0: Танилцуулга ба суралцах орчны бэлтгэл</a>
+              <span class="sp-imeta">20 мэдлэгийн оноо · 30+ минут</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-group open">
+          <button type="button" class="sp-ghd">
+            <span class="sp-gico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+            <span class="sp-gname">Cloud үндэс <span class="sp-gmeta">60 мэдлэгийн оноо · 30–60 минут</span></span>
+            <span class="sp-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="sp-body">
+            <div class="sp-item">
+              <span class="sp-status done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 1A Хэсэг 1: Cloud тооцооллын тухай ойлголт</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+            <div class="sp-item">
+              <span class="sp-status done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 1A Хэсэг 2: Виртуалчлал ба контейнер</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+            <div class="sp-item">
+              <span class="sp-status done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 1B Хэсэг 1: Үйлчилгээний загварууд (IaaS · PaaS · SaaS)</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+            <div class="sp-item">
+              <span class="sp-status todo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c-.05.32.06.65.29.88l1.57 1.57c.94.94.94 2.47 0 3.4l-1.61 1.61a.98.98 0 0 1-.84.28c-.47-.07-.8-.48-.97-.93a2.5 2.5 0 1 0-3.21 3.21c.45.17.86.5.93.97a.98.98 0 0 1-.28.84l-1.61 1.61a2.4 2.4 0 0 1-3.4 0l-1.57-1.57a1.03 1.03 0 0 0-.88-.29c-.49.07-.84.5-1.02.97a2.5 2.5 0 1 1-3.24-3.24c.46-.18.9-.53.97-1.02a1.03 1.03 0 0 0-.29-.88L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.53-1.53c.24-.24.58-.35.92-.3.51.08.87.53 1.07 1.01a2.5 2.5 0 1 0 3.26-3.26c-.48-.2-.93-.56-1.01-1.07-.05-.34.06-.68.3-.92L10.3 2.7a2.4 2.4 0 0 1 3.4 0l1.57 1.57c.23.23.56.34.88.29.49-.07.84-.5 1.02-.97a2.5 2.5 0 1 1 3.24 3.24c-.47.18-.9.53-.97 1.02Z"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 1B Хэсэг 2: Байршуулалтын загварууд (Public · Private · Hybrid)</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-group open">
+          <button type="button" class="sp-ghd">
+            <span class="sp-gico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+            <span class="sp-gname">AWS үндэс <span class="sp-gmeta">30 мэдлэгийн оноо · 30–60 минут</span></span>
+            <span class="sp-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="sp-body">
+            <div class="sp-item">
+              <span class="sp-status todo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c-.05.32.06.65.29.88l1.57 1.57c.94.94.94 2.47 0 3.4l-1.61 1.61a.98.98 0 0 1-.84.28c-.47-.07-.8-.48-.97-.93a2.5 2.5 0 1 0-3.21 3.21c.45.17.86.5.93.97a.98.98 0 0 1-.28.84l-1.61 1.61a2.4 2.4 0 0 1-3.4 0l-1.57-1.57a1.03 1.03 0 0 0-.88-.29c-.49.07-.84.5-1.02.97a2.5 2.5 0 1 1-3.24-3.24c.46-.18.9-.53.97-1.02a1.03 1.03 0 0 0-.29-.88L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.53-1.53c.24-.24.58-.35.92-.3.51.08.87.53 1.07 1.01a2.5 2.5 0 1 0 3.26-3.26c-.48-.2-.93-.56-1.01-1.07-.05-.34.06-.68.3-.92L10.3 2.7a2.4 2.4 0 0 1 3.4 0l1.57 1.57c.23.23.56.34.88.29.49-.07.84-.5 1.02-.97a2.5 2.5 0 1 1 3.24 3.24c-.47.18-.9.53-.97 1.02Z"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 2A: AWS данс ба IAM үндэс</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+            <div class="sp-item">
+              <span class="sp-status todo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c-.05.32.06.65.29.88l1.57 1.57c.94.94.94 2.47 0 3.4l-1.61 1.61a.98.98 0 0 1-.84.28c-.47-.07-.8-.48-.97-.93a2.5 2.5 0 1 0-3.21 3.21c.45.17.86.5.93.97a.98.98 0 0 1-.28.84l-1.61 1.61a2.4 2.4 0 0 1-3.4 0l-1.57-1.57a1.03 1.03 0 0 0-.88-.29c-.49.07-.84.5-1.02.97a2.5 2.5 0 1 1-3.24-3.24c.46-.18.9-.53.97-1.02a1.03 1.03 0 0 0-.29-.88L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.53-1.53c.24-.24.58-.35.92-.3.51.08.87.53 1.07 1.01a2.5 2.5 0 1 0 3.26-3.26c-.48-.2-.93-.56-1.01-1.07-.05-.34.06-.68.3-.92L10.3 2.7a2.4 2.4 0 0 1 3.4 0l1.57 1.57c.23.23.56.34.88.29.49-.07.84-.5 1.02-.97a2.5 2.5 0 1 1 3.24 3.24c-.47.18-.9.53-.97 1.02Z"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 2B: EC2 ба S3 үйлчилгээ</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-group open">
+          <button type="button" class="sp-ghd">
+            <span class="sp-gico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+            <span class="sp-gname">GCP ба Azure <span class="sp-gmeta">45 мэдлэгийн оноо · 45–60 минут</span></span>
+            <span class="sp-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="sp-body">
+            <div class="sp-item">
+              <span class="sp-status todo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c-.05.32.06.65.29.88l1.57 1.57c.94.94.94 2.47 0 3.4l-1.61 1.61a.98.98 0 0 1-.84.28c-.47-.07-.8-.48-.97-.93a2.5 2.5 0 1 0-3.21 3.21c.45.17.86.5.93.97a.98.98 0 0 1-.28.84l-1.61 1.61a2.4 2.4 0 0 1-3.4 0l-1.57-1.57a1.03 1.03 0 0 0-.88-.29c-.49.07-.84.5-1.02.97a2.5 2.5 0 1 1-3.24-3.24c.46-.18.9-.53.97-1.02a1.03 1.03 0 0 0-.29-.88L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.53-1.53c.24-.24.58-.35.92-.3.51.08.87.53 1.07 1.01a2.5 2.5 0 1 0 3.26-3.26c-.48-.2-.93-.56-1.01-1.07-.05-.34.06-.68.3-.92L10.3 2.7a2.4 2.4 0 0 1 3.4 0l1.57 1.57c.23.23.56.34.88.29.49-.07.84-.5 1.02-.97a2.5 2.5 0 1 1 3.24 3.24c-.47.18-.9.53-.97 1.02Z"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 3A: Google Cloud үндэс</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+            <div class="sp-item">
+              <span class="sp-status todo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c-.05.32.06.65.29.88l1.57 1.57c.94.94.94 2.47 0 3.4l-1.61 1.61a.98.98 0 0 1-.84.28c-.47-.07-.8-.48-.97-.93a2.5 2.5 0 1 0-3.21 3.21c.45.17.86.5.93.97a.98.98 0 0 1-.28.84l-1.61 1.61a2.4 2.4 0 0 1-3.4 0l-1.57-1.57a1.03 1.03 0 0 0-.88-.29c-.49.07-.84.5-1.02.97a2.5 2.5 0 1 1-3.24-3.24c.46-.18.9-.53.97-1.02a1.03 1.03 0 0 0-.29-.88L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.53-1.53c.24-.24.58-.35.92-.3.51.08.87.53 1.07 1.01a2.5 2.5 0 1 0 3.26-3.26c-.48-.2-.93-.56-1.01-1.07-.05-.34.06-.68.3-.92L10.3 2.7a2.4 2.4 0 0 1 3.4 0l1.57 1.57c.23.23.56.34.88.29.49-.07.84-.5 1.02-.97a2.5 2.5 0 1 1 3.24 3.24c-.47.18-.9.53-.97 1.02Z"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 3B: Microsoft Azure үндэс</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+            <div class="sp-item">
+              <span class="sp-status todo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c-.05.32.06.65.29.88l1.57 1.57c.94.94.94 2.47 0 3.4l-1.61 1.61a.98.98 0 0 1-.84.28c-.47-.07-.8-.48-.97-.93a2.5 2.5 0 1 0-3.21 3.21c.45.17.86.5.93.97a.98.98 0 0 1-.28.84l-1.61 1.61a2.4 2.4 0 0 1-3.4 0l-1.57-1.57a1.03 1.03 0 0 0-.88-.29c-.49.07-.84.5-1.02.97a2.5 2.5 0 1 1-3.24-3.24c.46-.18.9-.53.97-1.02a1.03 1.03 0 0 0-.29-.88L2.7 13.7a2.4 2.4 0 0 1 0-3.4l1.53-1.53c.24-.24.58-.35.92-.3.51.08.87.53 1.07 1.01a2.5 2.5 0 1 0 3.26-3.26c-.48-.2-.93-.56-1.01-1.07-.05-.34.06-.68.3-.92L10.3 2.7a2.4 2.4 0 0 1 3.4 0l1.57 1.57c.23.23.56.34.88.29.49-.07.84-.5 1.02-.97a2.5 2.5 0 1 1 3.24 3.24c-.47.18-.9.53-.97 1.02Z"/></svg></span>
+              <a class="sp-link" href="#" onclick="return false">Модуль 3C: Платформуудын харьцуулалт ба сонголт</a>
+              <span class="sp-imeta">15 мэдлэгийн оноо · 15–30 минут</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-panel" id="cvTests">
+        <div class="ts-wrap" id="tsRoot"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== LESSON VIEWER (module player) ===== -->
+<div class="lesson" id="lessonView">
+  <aside class="lv-side">
+    <div class="lv-side-hd">
+      <svg class="lv-side-deco" viewBox="0 0 340 160" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" aria-hidden="true"><g stroke-width="2" opacity=".5"><circle cx="60" cy="30" r="46"/><circle cx="60" cy="30" r="28"/><circle cx="250" cy="120" r="60"/><circle cx="250" cy="120" r="38"/><circle cx="300" cy="24" r="26"/></g></svg>
+      <h2 id="lvModuleName">Модуль</h2>
+      <div class="lv-prog-lbl" id="lvProgLbl">0% ДУУССАН</div>
+      <div class="lv-prog"><span id="lvProgBar" style="width:0%"></span></div>
+    </div>
+    <div class="lv-lessons" id="lvLessons"></div>
+  </aside>
+  <div class="lv-main">
+    <div class="lv-topbar">
+      <button type="button" class="lv-burger" id="lvBurger" aria-label="Цэс"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <h1 class="lv-title" id="lvTitle">Хичээл</h1>
+      <button type="button" class="lv-close" id="lvClose">Хаах ✕</button>
+    </div>
+    <div class="lv-stage" id="lvStage"></div>
+  </div>
+</div>
+
+<!-- ===== PAUSE-TEST MODAL ===== -->
+<div class="pausem" id="pauseModal">
+  <div class="pausem-box">
+    <button type="button" class="pausem-x" id="pmClose" aria-label="Хаах">✕</button>
+    <h3>Тест түр зогсоох</h3>
+    <p>Та энэ тестийг түр зогсоохдоо итгэлтэй байна уу? Тестийг нэг дор гүйцээхийг зөвлөж байна. Гэхдээ түр зогсоовол таны хариултууд энэ цэгээс хадгалагдаж, дараа нь үлдсэн хугацаанаас нь үргэлжлүүлэх боломжтой.</p>
+    <div class="pausem-btns">
+      <button type="button" class="pausem-cancel" id="pmConfirm">Тест түр зогсоох</button>
+      <button type="button" class="pausem-ok" id="pmReturn">Тест рүү буцах</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var MY_COURSES = [
+  {name:'Cloud — AWS, GCP, Azure платформын онлайн сургалт', img:'UPR/logos/cloud.png', purchase:'2026-04-13', expire:'2027-04-12'}
+];
+var courseSort = 'recent';
+
+function escapeHtml(s){
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function formatDate(iso){
+  var p = iso.split('-');
+  return p[0] + ' оны ' + parseInt(p[1],10) + '-р сарын ' + parseInt(p[2],10);
+}
+
+function sortedCourses(){
+  var arr = MY_COURSES.slice();
+  if(courseSort === 'name'){ arr.sort(function(a,b){ return a.name.localeCompare(b.name,'mn'); }); }
+  else if(courseSort === 'oldest'){ arr.sort(function(a,b){ return a.purchase.localeCompare(b.purchase); }); }
+  else { arr.sort(function(a,b){ return b.purchase.localeCompare(a.purchase); }); }
+  return arr;
+}
+
+function renderCourses(){
+  var wrap = document.getElementById('laGrid');
+  wrap.innerHTML = sortedCourses().map(function(c){
+    return '<div class="ev-card">' +
+      '<div class="ev-thumb"><img src="' + c.img + '" alt="' + escapeHtml(c.name) + '"></div>' +
+      '<div class="ev-name">' + escapeHtml(c.name) + '</div>' +
+      '<div class="ev-meta"><b>Худалдаж авсан:</b> ' + formatDate(c.purchase) + '</div>' +
+      '<div class="ev-meta"><b>Дуусах хугацаа:</b> ' + formatDate(c.expire) + '</div>' +
+      '<a class="ev-access" href="#">Үзэх</a>' +
+    '</div>';
+  }).join('');
+}
+
+function deriveName(raw){
+  var namePart = raw.indexOf('@') > -1 ? raw.split('@')[0] : raw;
+  var words = namePart.replace(/[._\-\d]+/g,' ').trim().split(/\s+/).filter(Boolean);
+  if(!words.length) return 'Хэрэглэгч';
+  return words.map(function(w){ return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+}
+
+var SS_USER = 'upr_elearning_user';
+var SS_TAB = 'upr_elearning_tab';
+var SS_PROFILE = 'upr_elearning_profile';
+var SS_VIEW = 'upr_elearning_view';
+var SS_COURSE = 'upr_elearning_course';
+var SS_CVTAB = 'upr_elearning_cvtab';
+var SS_LESSON = 'upr_elearning_lesson';
+function ssGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function ssSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function ssDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+function setChromeVisible(show){
+  document.querySelector('.p-hero').style.display = show ? '' : 'none';
+  document.querySelector('.p-tabs').style.display = show ? '' : 'none';
+}
+
+function switchTab(panelId){
+  if(panelId === 'panelProfile'){ showProfile(); return; }
+  setChromeVisible(true);
+  document.querySelectorAll('.p-tab').forEach(function(b){ b.classList.toggle('active', b.dataset.panel === panelId); });
+  document.querySelectorAll('.p-panel').forEach(function(p){ p.classList.toggle('active', p.id === panelId); });
+  ssSet(SS_TAB, panelId);
+}
+
+function showProfile(){
+  setChromeVisible(false);
+  document.querySelectorAll('.p-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('panelProfile').classList.add('active');
+  ssSet(SS_TAB, 'panelProfile');
+  window.scrollTo(0,0);
+}
+
+document.querySelectorAll('.p-tab').forEach(function(btn){
+  btn.addEventListener('click', function(){ switchTab(btn.dataset.panel); });
+});
+
+/* profile data (no backend — stored locally) */
+function getProfile(){ try{ return JSON.parse(ssGet(SS_PROFILE) || 'null'); }catch(e){ return null; } }
+function setProfile(p){ ssSet(SS_PROFILE, JSON.stringify(p)); }
+
+function defaultProfile(userVal){
+  var name = deriveName(userVal);
+  var parts = name.split(' ');
+  var first = parts.shift() || 'Хэрэглэгч';
+  return {first:first, last:parts.join(' '), email:userVal, phone:'', org:'', title:'', city:'', country:'Монгол'};
+}
+
+function fullName(p){ return (p.first + ' ' + (p.last || '')).trim(); }
+
+function applyProfile(p){
+  var full = fullName(p);
+  document.getElementById('pGreet').textContent = p.first || full;
+  document.getElementById('heroName').textContent = full;
+  document.getElementById('heroEmail').textContent = p.email;
+  document.getElementById('msName').textContent = full;
+  document.getElementById('msEmail').textContent = p.email;
+  document.getElementById('pfSideName').textContent = full;
+  document.getElementById('pfFirst').value = p.first || '';
+  document.getElementById('pfLast').value = p.last || '';
+  document.getElementById('pfEmail').value = p.email || '';
+  document.getElementById('pfPhone').value = p.phone || '';
+  document.getElementById('pfOrg').value = p.org || '';
+  document.getElementById('pfTitle').value = p.title || '';
+  document.getElementById('pfCity').value = p.city || '';
+  document.getElementById('pfCountry').value = p.country || 'Монгол';
+}
+
+/* populate + show the portal for a given user (no auth) */
+function enterPortal(userVal, keepTab){
+  applyProfile(getProfile() || defaultProfile(userVal));
+  renderCourses();
+  var tab = keepTab ? (ssGet(SS_TAB) || 'panelMembership') : 'panelMembership';
+  switchTab(tab);
+  document.getElementById('olShell').style.display = 'none';
+  document.getElementById('olPortal').style.display = 'flex';
+}
+
+function doLogout(){
+  ssDel(SS_USER); ssDel(SS_TAB); ssDel(SS_PROFILE);
+  ssDel(SS_VIEW); ssDel(SS_COURSE); ssDel(SS_CVTAB); ssDel(SS_LESSON); ssDel('upr_elearning_spdone'); ssDel('upr_elearning_target'); ssDel('upr_elearning_today'); ssDel(SS_TEST);
+  if(typeof tsStopTimer === 'function') tsStopTimer();
+  testState = freshTest();
+  document.getElementById('lessonView').classList.remove('on');
+  document.getElementById('courseView').style.display = 'none';
+  document.getElementById('olPortal').style.display = 'none';
+  document.getElementById('olShell').style.display = 'flex';
+  document.getElementById('olLoginForm').reset();
+}
+
+document.getElementById('olLoginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var userVal = document.getElementById('olUser').value.trim();
+  if(!userVal) return;
+  ssSet(SS_USER, userVal);
+  setProfile(defaultProfile(userVal));
+  enterPortal(userVal, false);
+  window.scrollTo(0,0);
+});
+
+document.getElementById('odLogout').addEventListener('click', doLogout);
+
+document.getElementById('pAcctBtn').addEventListener('click', showProfile);
+
+document.getElementById('laSort').addEventListener('change', function(){
+  courseSort = this.value;
+  renderCourses();
+});
+
+/* course dashboard (opens from ҮЗЭХ) */
+function cvSwitch(id){
+  document.querySelectorAll('.cv-nav').forEach(function(b){ b.classList.toggle('active', b.dataset.cv === id); });
+  document.querySelectorAll('.cv-panel').forEach(function(p){ p.classList.toggle('active', p.id === id); });
+  ssSet(SS_CVTAB, id);
+  if(id === 'cvTests' && typeof tsRender === 'function') tsRender();
+  else if(typeof tsStopTimer === 'function') tsStopTimer();
+}
+function openCourse(name){
+  document.getElementById('cvTitle').textContent = 'Тавтай морил — ' + (name || 'сургалт');
+  cvSwitch('cvHome');
+  document.getElementById('olPortal').style.display = 'none';
+  document.getElementById('courseView').style.display = 'flex';
+  ssSet(SS_VIEW, 'course');
+  ssSet(SS_COURSE, name || '');
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.cv-nav').forEach(function(b){
+  b.addEventListener('click', function(){ cvSwitch(b.dataset.cv); });
+});
+document.getElementById('cvBack').addEventListener('click', function(){
+  document.getElementById('courseView').style.display = 'none';
+  document.getElementById('olPortal').style.display = 'flex';
+  ssSet(SS_VIEW, 'portal');
+  switchTab('panelLearning');
+  window.scrollTo(0,0);
+});
+document.getElementById('cvBurger').addEventListener('click', function(){
+  document.getElementById('courseView').classList.toggle('side-collapsed');
+});
+document.querySelectorAll('.sp-ghd').forEach(function(h){
+  h.addEventListener('click', function(){ h.parentElement.classList.toggle('open'); });
+});
+
+/* ================= TEST ENGINE ================= */
+var TEST = {
+  name: 'Cloud жишиг шалгалт',
+  minutes: 20,
+  questions: [
+    {q:'Cloud тооцооллын гол давуу тал аль нь вэ?', cat:'Cloud үндэс', opts:['Дэд бүтцийг өөрөө бүрэн эзэмшинэ','Хэрэгцээгээр уян хатан өргөтгөж, ашигласнаараа төлнө','Интернэт шаардлагагүй ажилладаг','Зөвхөн нэг байршилд хадгална'], c:1, exp:'Cloud нь нөөцийг хэрэгцээгээр уян хатан өргөтгөж, ашигласан хэмжээгээрээ төлөх зарчмаараа зардлыг хэмнэдэг.'},
+    {q:'IaaS үйлчилгээний загвар юуг санал болгодог вэ?', cat:'Үйлчилгээний загвар', opts:['Бэлэн програм хангамж','Виртуал сервер, хадгалалт, сүлжээ зэрэг дэд бүтэц','Зөвхөн мэдээллийн сан','Хэрэглэгчийн дэмжлэг'], c:1, exp:'IaaS нь виртуал сервер, хадгалалт, сүлжээ зэрэг үндсэн дэд бүтцийг түрээслэх загвар юм.'},
+    {q:'Эмзэг өгөгдлөө дотооддоо, нэмэлт ачааллаа нийтийн cloud-д байршуулах загвар аль нь вэ?', cat:'Үйлчилгээний загвар', opts:['Public cloud','Private cloud','Hybrid cloud','Community cloud'], c:2, exp:'Hybrid загвар нь эмзэг өгөгдлийг дотоод орчинд, өргөтгөх ачааллыг нийтийн cloud-д байршуулах боломж олгодог.'},
+    {q:'AWS дээр хэрэглэгчийн эрх, нэвтрэлтийг удирддаг үндсэн үйлчилгээ аль нь вэ?', cat:'AWS үйлчилгээ', opts:['EC2','S3','IAM','VPC'], c:2, exp:'IAM (Identity and Access Management) нь AWS дээр хэрэглэгч, эрх, нэвтрэлтийг удирддаг үйлчилгээ юм.'},
+    {q:'S3 үйлчилгээ юунд зориулагдсан бэ?', cat:'AWS үйлчилгээ', opts:['Виртуал сервер ажиллуулах','Обьект хэлбэрээр файл хадгалах','Домэйн бүртгэх','Код бичих'], c:1, exp:'Amazon S3 нь обьект хэлбэрээр том хэмжээний файл, өгөгдөл хадгалах хадгалалтын үйлчилгээ юм.'},
+    {q:'Аль загвар нь нэг үйлчилгээ үзүүлэгчээс хараат байдлыг хамгийн ихээр бууруулах вэ?', cat:'Үйлчилгээний загвар', opts:['Public cloud','Multi-cloud','Private cloud','Single-cloud'], c:1, exp:'Multi-cloud нь хэд хэдэн үзүүлэгчийг зэрэг ашигладаг тул нэг ханган нийлүүлэгчээс хараат байдлыг бууруулдаг.'},
+    {q:'Cloud дахь "хуваалцсан хариуцлагын загвар" (shared responsibility) юуг илэрхийлэх вэ?', cat:'Аюулгүй байдал', opts:['Бүх аюулгүй байдлыг үзүүлэгч хариуцна','Аюулгүй байдлыг үзүүлэгч ба хэрэглэгч хуваан хариуцна','Хэрэглэгч бүх зүйлийг хариуцна','Хэн ч хариуцлага хүлээхгүй'], c:1, exp:'Cloud-д үзүүлэгч дэд бүтцийн аюулгүй байдлыг, хэрэглэгч өөрийн өгөгдөл, тохиргооны аюулгүй байдлыг хариуцдаг.'},
+    {q:'Auto-scaling-ийн гол зорилго юу вэ?', cat:'Cloud үндэс', opts:['Зардлыг үргэлж нэмэгдүүлэх','Ачааллын дагуу нөөцийг автоматаар нэмж, хасах','Серверийг гар аргаар унтраах','Өгөгдлийг устгах'], c:1, exp:'Auto-scaling нь ачааллын дагуу нөөцийг автоматаар нэмж/хасаж, гүйцэтгэл ба зардлыг тэнцвэржүүлдэг.'}
+  ]
+};
+var SS_TEST = 'upr_elearning_test';
+var testState = null, testTimer = null;
+
+function freshTest(){
+  return {
+    started:false, finished:false, paused:false, screen:'exam', idx:0,
+    answers: TEST.questions.map(function(){ return null; }),
+    revisit: TEST.questions.map(function(){ return false; }),
+    times: TEST.questions.map(function(){ return 0; }),
+    sel:null, remaining: TEST.minutes*60, endTs:null, qStart:null, atDashboard:false,
+    correct:0, elapsed:0
+  };
+}
+function tsLoad(){
+  try{ var t = JSON.parse(ssGet(SS_TEST) || 'null'); if(t) return t; }catch(e){}
+  return freshTest();
+}
+function tsPersist(){ ssSet(SS_TEST, JSON.stringify(testState)); }
+
+function fmtHMS(sec){
+  sec = Math.max(0, Math.round(sec));
+  var h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+  function p(x){ return (x<10?'0':'')+x; }
+  return p(h)+':'+p(m)+':'+p(s);
+}
+function fmtMS(sec){
+  sec = Math.max(0, Math.round(sec));
+  var m = Math.floor(sec/60), s = sec%60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+function tsRemaining(){
+  if(testState.paused || !testState.started || testState.finished) return testState.remaining;
+  return Math.max(0, (testState.endTs - Date.now())/1000);
+}
+
+function tsStartTimer(){
+  tsStopTimer();
+  testTimer = setInterval(function(){
+    if(tsRemaining() <= 0){ tsFinalize(); return; }
+    var el = document.getElementById('exTimer');
+    if(el) el.textContent = 'Нийт ' + fmtMS(tsRemaining());
+  }, 1000);
+}
+function tsStopTimer(){ if(testTimer){ clearInterval(testTimer); testTimer = null; } }
+
+function tsCommitTime(){
+  if(testState.qStart != null){
+    testState.times[testState.idx] += (Date.now() - testState.qStart)/1000;
+    testState.qStart = null;
+  }
+}
+
+function tsRender(){
+  var root = document.getElementById('tsRoot');
+  if(!root) return;
+  if(!testState.started || testState.finished || testState.atDashboard){ tsStopTimer(); tsRenderDetail(root); }
+  else if(testState.screen === 'review'){ tsRenderReview(root); }
+  else { tsRenderExam(root); }
+}
+
+function tsRenderDetail(root){
+  var total = TEST.questions.length;
+  var answered = testState.answers.filter(function(a){ return a != null; }).length;
+  var fin = testState.finished;
+  var inProg = testState.started && !fin;
+  var progPct = fin ? 100 : Math.round(answered/total*100);
+  var correct = testState.correct;
+  var pct = fin ? Math.round(correct/total*100) : 0;
+  var ansIdx = [], corIdx = [], incIdx = [];
+  testState.answers.forEach(function(a,i){ if(a!=null){ ansIdx.push(i); (a===TEST.questions[i].c?corIdx:incIdx).push(i); } });
+  function avg(list){ if(!list.length) return 0; return list.reduce(function(s,i){ return s+testState.times[i]; },0)/list.length; }
+  root.innerHTML =
+    '<div class="ts-title-row"><h2>' + TEST.name + '</h2>' +
+      '<button type="button" class="ts-reset" id="tsReset">Бүх тестийг дахин эхлүүлэх</button></div>' +
+    '<div class="ts-progress"><h3>Явц</h3>' +
+      '<p>Явцын зурвас нь энэ тестээр хариулсан асуултын хувийг харуулна.</p>' +
+      '<div class="ts-prog-row"><div style="flex:1;min-width:180px">' +
+        '<div class="ts-pct">' + progPct.toFixed(1) + '% Дууссан</div>' +
+        '<div class="ts-bar"><span style="width:' + progPct + '%"></span></div></div>' +
+        (fin ? '' : '<button type="button" class="ts-start" id="tsStart">' + (inProg ? 'Үргэлжлүүлэх' : 'Тест эхлэх') + '</button>') +
+      '</div></div>' +
+    '<div class="ts-sec"><h3>Үр дүн</h3><p>Үр дүн нь энэ тестээр хариулсан асуултын дундаж статистикийг харуулна.</p></div>' +
+    '<div class="ts-stats">' +
+      '<div class="ts-stat"><div class="lbl">Зөв</div><div class="val">' + (fin ? pct + '%' : 'Байхгүй') + '</div></div>' +
+      '<div class="ts-stat"><div class="lbl">Хариулсан</div><div class="val">' + answered + ' / ' + total + '</div></div>' +
+      '<div class="ts-stat"><div class="lbl">Хариултын дундаж хугацаа</div><div class="val">' + fmtHMS(avg(ansIdx)) + '</div></div>' +
+      '<div class="ts-stat"><div class="lbl">Зөв хариултын дундаж</div><div class="val">' + fmtHMS(avg(corIdx)) + '</div></div>' +
+      '<div class="ts-stat"><div class="lbl">Буруу хариултын дундаж</div><div class="val">' + fmtHMS(avg(incIdx)) + '</div></div>' +
+    '</div>' +
+    '<div class="ts-total">Нийт хугацаа: <b>' + fmtMS(TEST.minutes*60) + '</b></div>' +
+    '<div class="ts-tabs">' +
+      '<button type="button" class="ts-tabb active" data-tp="tpSections">Тестийн хэсэг</button>' +
+      '<button type="button" class="ts-tabb" data-tp="tpCats">Тайлан</button>' +
+    '</div>' +
+    '<div class="ts-pane active" id="tpSections"><div class="ts-scroll"><table class="ts-table"><thead><tr>' +
+      '<th>Хэсгийн нэр</th><th>Асуултын тоо</th><th>Хугацаа</th><th>Зөв %</th><th>Төлөв</th></tr></thead><tbody>' +
+      '<tr><td>' + TEST.name + '</td><td>' + total + ' асуулт</td><td>' + fmtMS(TEST.minutes*60) + '</td>' +
+      '<td>' + (fin ? pct + '% (' + correct + ' / ' + total + ')' : '—') + '</td>' +
+      '<td class="' + (fin ? 'ts-ok' : '') + '">' + (fin ? 'Дууссан' : (inProg ? 'Түр зогссон' : 'Эхлээгүй')) + '</td></tr>' +
+      '</tbody></table></div></div>' +
+    '<div class="ts-pane" id="tpCats">' + tsCategoryTable(fin) + '</div>';
+  root.querySelector('#tsReset').addEventListener('click', function(){ testState = freshTest(); tsPersist(); tsRender(); });
+  var _startBtn = root.querySelector('#tsStart'); if(_startBtn) _startBtn.addEventListener('click', inProg ? tsResume : tsStart);
+  root.querySelectorAll('.ts-tabb').forEach(function(b){
+    b.addEventListener('click', function(){
+      root.querySelectorAll('.ts-tabb').forEach(function(t){ t.classList.toggle('active', t===b); });
+      root.querySelectorAll('.ts-pane').forEach(function(pn){ pn.classList.toggle('active', pn.id===b.dataset.tp); });
+    });
+  });
+}
+
+function tsCategoryTable(fin){
+  var cats = [];
+  TEST.questions.forEach(function(q,i){
+    var name = q.cat || 'Бусад';
+    var c = cats.filter(function(x){ return x.name===name; })[0];
+    if(!c){ c = {name:name, total:0, correct:0, answered:0}; cats.push(c); }
+    c.total++;
+    if(testState.answers[i] != null){ c.answered++; if(testState.answers[i]===q.c) c.correct++; }
+  });
+  var dateStr = testState.finDate || '';
+  return '<div class="ts-scroll"><table class="ts-table"><thead><tr>' +
+    '<th>Ангилал</th><th>Одоогийн дундаж</th><th>Түүх</th><th>Хариулсан</th></tr></thead><tbody>' +
+    cats.map(function(c){
+      var pct = c.total ? Math.round(c.correct/c.total*100) : 0;
+      return '<tr><td>' + escapeHtml(c.name) + '</td>' +
+        '<td>' + (fin ? '<b>' + pct + '%</b> (' + c.correct + ' / ' + c.total + ')' : '—') + '</td>' +
+        '<td>' + (fin ? 'Бүх асуултыг ' + dateStr + '-нд өгсөн' : '—') + '</td>' +
+        '<td>' + c.answered + ' / ' + c.total + ' асуулт</td></tr>';
+    }).join('') +
+    '</tbody></table></div>';
+}
+
+function tsStart(){
+  testState = freshTest();
+  testState.started = true;
+  testState.screen = 'exam';
+  testState.idx = 0;
+  testState.remaining = TEST.minutes*60;
+  testState.endTs = Date.now() + testState.remaining*1000;
+  testState.qStart = Date.now();
+  tsPersist();
+  tsRender();
+  tsStartTimer();
+}
+
+function tsRenderExam(root){
+  var i = testState.idx, total = TEST.questions.length, q = TEST.questions[i];
+  var answered = testState.answers.filter(function(a){ return a != null; }).length;
+  var pct = Math.round(answered/total*100);
+  if(testState.sel == null) testState.sel = testState.answers[i];
+  if(testState.qStart == null) testState.qStart = Date.now();
+  var letters = ['A','B','C','D','E'];
+  root.innerHTML =
+    '<div class="ex-hd"><div class="ex-hd-l">' + TEST.name + '<span>Хэсэг 1 / 1</span></div>' +
+      '<div class="ex-hd-r"><span class="ex-timer" id="exTimer">Нийт ' + fmtMS(tsRemaining()) + '</span>' +
+      '<button type="button" class="ex-pause" id="exPause">' + (testState.paused ? 'Үргэлжлүүлэх' : 'Түр зогсоох') + '</button></div></div>' +
+    '<div class="ex-topbar">' +
+      '<div class="ex-arrows">' +
+        '<button type="button" class="ex-arrow" id="exPrev"' + (i===0?' disabled':'') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>' +
+        '<button type="button" class="ex-arrow" id="exNext"' + (i===total-1?' disabled':'') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>' +
+      '</div>' +
+      '<span class="ex-pct">' + pct.toFixed(1) + '% бөглөсөн</span>' +
+      '<div class="ex-bar"><span style="width:' + pct + '%"></span></div>' +
+      '<button type="button" class="ex-review-btn" id="exReview">Хянаж дуусгах</button>' +
+    '</div>' +
+    '<div class="ex-body"><div class="ex-qcol">' +
+      '<div class="ex-q"><b>Асуулт ' + (i+1) + '.</b> ' + escapeHtml(q.q) + '</div>' +
+      '<ul class="ex-opts-list">' + q.opts.map(function(o,k){ return '<li>' + letters[k] + '. ' + escapeHtml(o) + '</li>'; }).join('') + '</ul>' +
+    '</div><div class="ex-choices">' +
+      q.opts.map(function(o,k){
+        return '<div class="ex-choice' + (testState.sel===k?' sel':'') + '" data-k="' + k + '">' +
+          '<span class="ex-choice-x">' + (testState.sel===k
+            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>') + '</span>' +
+          '<button type="button" class="ex-choice-btn">' + letters[k] + '</button></div>';
+      }).join('') +
+      '<button type="button" class="ex-confirm" id="exConfirm"' + (testState.sel==null?' disabled':'') + '>Баталгаажуулах</button>' +
+    '</div></div>';
+
+  root.querySelectorAll('.ex-choice').forEach(function(c){
+    c.addEventListener('click', function(){ testState.sel = parseInt(c.dataset.k,10); tsPersist(); tsRenderExam(root); });
+  });
+  root.querySelector('#exConfirm').addEventListener('click', function(){
+    if(testState.sel == null) return;
+    tsCommitTime();
+    testState.answers[i] = testState.sel;
+    testState.sel = null;
+    var nxt = testState.answers.indexOf(null);
+    if(nxt === -1){ testState.screen = 'review'; }
+    else { testState.idx = nxt; }
+    tsPersist(); tsRender();
+  });
+  root.querySelector('#exPrev').addEventListener('click', function(){ if(i>0){ tsCommitTime(); testState.idx=i-1; testState.sel=null; tsPersist(); tsRender(); } });
+  root.querySelector('#exNext').addEventListener('click', function(){ if(i<total-1){ tsCommitTime(); testState.idx=i+1; testState.sel=null; tsPersist(); tsRender(); } });
+  root.querySelector('#exReview').addEventListener('click', function(){ tsCommitTime(); testState.screen='review'; tsPersist(); tsRender(); });
+  root.querySelector('#exPause').addEventListener('click', tsOpenPauseModal);
+  if(!testTimer && !testState.paused) tsStartTimer();
+}
+
+/* resume an in-progress (paused) test from the dashboard */
+function tsResume(){
+  testState.atDashboard = false;
+  testState.paused = false;
+  testState.endTs = Date.now() + testState.remaining*1000;
+  testState.screen = (testState.answers.indexOf(null) === -1) ? 'review' : 'exam';
+  testState.qStart = Date.now();
+  tsPersist();
+  tsRender();
+}
+
+/* pause-confirmation modal */
+function tsOpenPauseModal(){
+  testState.remaining = tsRemaining();   // freeze at click moment
+  testState.paused = true;
+  testState.endTs = null;
+  tsStopTimer();
+  tsPersist();
+  var m = document.getElementById('exTimer'); if(m) m.textContent = 'Нийт ' + fmtMS(testState.remaining);
+  document.getElementById('pauseModal').classList.add('on');
+}
+function tsClosePauseModalResume(){
+  document.getElementById('pauseModal').classList.remove('on');
+  testState.paused = false;
+  testState.endTs = Date.now() + testState.remaining*1000;
+  tsPersist();
+  tsStartTimer();
+}
+function tsConfirmPause(){
+  document.getElementById('pauseModal').classList.remove('on');
+  testState.atDashboard = true;   // stays paused
+  tsStopTimer();
+  tsPersist();
+  tsRender();
+}
+document.getElementById('pmReturn').addEventListener('click', tsClosePauseModalResume);
+document.getElementById('pmClose').addEventListener('click', tsClosePauseModalResume);
+document.getElementById('pmConfirm').addEventListener('click', tsConfirmPause);
+
+function tsRenderReview(root){
+  var total = TEST.questions.length;
+  var answered = testState.answers.filter(function(a){ return a != null; }).length;
+  root.innerHTML =
+    '<div class="rv-hd"><button type="button" class="ts-back" id="rvBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M15 18l-6-6 6-6"/></svg> Буцах</button>' +
+      '<h2>Хянаж дуусгах</h2><span class="ex-timer" id="exTimer" style="margin-left:auto">Нийт ' + fmtMS(tsRemaining()) + '</span></div>' +
+    '<div class="rv-sub"><b>Асуултууд</b> — хариулаагүй асуулт дээр дарж очно уу (' + answered + ' / ' + total + ' хариулсан)</div>' +
+    '<div class="ts-scroll"><table class="rv-table"><thead><tr><th>Хариулсан</th><th>Асуулт</th><th>Тэмдэглэл</th></tr></thead><tbody>' +
+      TEST.questions.map(function(q,i){
+        var done = testState.answers[i] != null;
+        var prev = q.q.length > 90 ? q.q.slice(0,90) + '…' : q.q;
+        return '<tr>' +
+          '<td class="rv-ans' + (done?'':' no') + '">' + (done
+            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>' : '—') + '</td>' +
+          '<td><button type="button" class="rv-prev" data-i="' + i + '">' + escapeHtml(prev) + '</button></td>' +
+          '<td class="rv-rev">' + (testState.revisit[i] ? 'Эргэж харах' : '') + '</td></tr>';
+      }).join('') +
+      '</tbody></table></div>' +
+    '<div class="rv-finalize"><button type="button" class="lv-btn ghost" id="rvBack2">Буцах</button>' +
+      '<button type="button" class="lv-btn" id="rvFinish">Тестийг дуусгах</button></div>';
+  function goto(i){ testState.idx=i; testState.sel=testState.answers[i]; testState.screen='exam'; testState.qStart=Date.now(); tsPersist(); tsRender(); }
+  root.querySelectorAll('.rv-prev').forEach(function(b){ b.addEventListener('click', function(){ goto(parseInt(b.dataset.i,10)); }); });
+  root.querySelector('#rvBack').addEventListener('click', function(){ testState.screen='exam'; testState.qStart=Date.now(); tsPersist(); tsRender(); });
+  root.querySelector('#rvBack2').addEventListener('click', function(){ testState.screen='exam'; testState.qStart=Date.now(); tsPersist(); tsRender(); });
+  root.querySelector('#rvFinish').addEventListener('click', tsFinalize);
+  if(!testTimer && !testState.paused) tsStartTimer();
+}
+
+function tsFinalize(){
+  tsCommitTime();
+  tsStopTimer();
+  testState.finished = true;
+  testState.paused = false;
+  testState.endTs = null;
+  testState.correct = testState.answers.filter(function(a,i){ return a === TEST.questions[i].c; }).length;
+  var d = new Date();
+  testState.finDate = d.getFullYear() + '/' + (d.getMonth()+1) + '/' + d.getDate();
+  testState.screen = 'exam';
+  tsPersist();
+  tsRender();
+}
+
+/* ===== lesson viewer (module player) ===== */
+var MODULES = {
+  m1: {
+    name: 'Модуль 1B Хэсэг 2: Байршуулалтын загварууд',
+    lessons: [
+      {title:'Байршуулалтын загварууд гэж юу вэ?', type:'read', body:'<p>Cloud үйлчилгээг ашиглах орчноос хамааран хэд хэдэн <b>байршуулалтын загвар</b> (deployment model) байдаг. Энэ хичээлээр Public, Private, Hybrid болон Community cloud-ийн ялгаа, давуу сул талыг судална.</p><h4>Хамрах агуулга</h4><ul><li>Public cloud — AWS, GCP, Azure зэрэг нийтийн платформ</li><li>Private cloud — байгууллагын дотоод зориулалтын дэд бүтэц</li><li>Hybrid cloud — нийтийн ба хувийн орчны хослол</li></ul>'},
+      {title:'Public ба Private cloud', type:'video', body:'<p>Энэ хэсэгт <b>Public</b> болон <b>Private</b> cloud-ийн архитектур, зардал, аюулгүй байдлын ялгааг видео жишээгээр тайлбарлана.</p><ul><li>Public: түргэн scale, төлбөр ашиглалтаар</li><li>Private: илүү хяналт, нийцлийн шаардлагад тохирно</li></ul>'},
+      {title:'Hybrid ба Multi-cloud стратеги', type:'read', body:'<p><b>Hybrid</b> загвар нь эмзэг өгөгдлийг дотооддоо, өргөтгөх ачааллыг нийтийн cloud-д байршуулах боломж олгоно. <b>Multi-cloud</b> нь нэг үйлчилгээ үзүүлэгчээс хараат байдлыг бууруулна.</p>'},
+      {title:'Дадлага: Загвар сонгох', type:'scenario', body:'<p><b>Тохиолдол:</b> Банкны байгууллага онлайн үйлчилгээгээ өргөтгөхийг хүсч байна. Хэрэглэгчийн эмзэг мэдээллийг дотооддоо хадгалах шаардлагатай. Ямар загвар тохирох вэ?</p><p>Зөв хариулт: <b>Hybrid cloud</b> — эмзэг өгөгдлийг Private-д, нийтийн ачааллыг Public-д байршуулна.</p>'},
+      {title:'Мэдлэг шалгах', type:'quiz', body:'', quiz:[
+        {q:'Public cloud-ийн гол давуу тал аль нь вэ?', opts:['Байгууллага дэд бүтцээ бүрэн өөрөө хянана','Хэрэгцээгээрээ хурдан өргөтгөж, ашигласнаараа төлнө','Зөвхөн дотоод сүлжээнд ажилладаг'], c:1, exp:'Public cloud нь хэрэгцээгээр хурдан өргөтгөх, ашигласан хэмжээгээрээ төлөх зарчмаараа зардлыг уян хатан удирдах боломж олгодог.'},
+        {q:'Эмзэг өгөгдлөө дотооддоо хадгалж, нэмэлт ачааллаа нийтийн cloud-д байршуулах загвар аль нь вэ?', opts:['Public cloud','Private cloud','Hybrid cloud'], c:2, exp:'Hybrid загвар нь эмзэг өгөгдлийг дотоод орчинд, өргөтгөх ачааллыг нийтийн cloud-д байршуулах уян хатан байдлыг хангадаг.'},
+        {q:'Private cloud ямар тохиолдолд илүү тохиромжтой вэ?', opts:['Аюулгүй байдал, нийцлийн өндөр шаардлагатай үед','Зардлыг хамгийн бага байлгах үед','Түр зуурын туршилтын орчинд'], c:0, exp:'Private cloud нь нөөцөө бүрэн хянадаг тул аюулгүй байдал, хууль зүйн нийцлийн өндөр шаардлагатай байгууллагад тохиромжтой.'},
+        {q:'Аль загвар нь нэг үйлчилгээ үзүүлэгчээс хараат байдлыг хамгийн ихээр бууруулах вэ?', opts:['Public cloud','Multi-cloud','Private cloud'], c:1, exp:'Multi-cloud нь хэд хэдэн үйлчилгээ үзүүлэгчийг зэрэг ашигладаг тул нэг ханган нийлүүлэгчээс хараат байдлыг бууруулж, найдвартай байдлыг нэмэгдүүлдэг.'}
+      ]}
+    ]
+  }
+};
+
+var lvState = { mod:null, idx:0, done:{} };
+
+function lvIconFor(type){
+  var icons = {
+    read:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/></svg>',
+    video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 9l5-3v12l-5-3"/></svg>',
+    scenario:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>',
+    quiz:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9.5 9a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.5v.2"/><path d="M12 17h.01"/></svg>'
+  };
+  return icons[type] || icons.read;
+}
+function lvRing(done){
+  return done
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9" stroke-dasharray="4 4"/></svg>';
+}
+
+function lvRenderSidebar(){
+  var mod = lvState.mod;
+  document.getElementById('lvModuleName').textContent = lvState.title || mod.name;
+  var total = mod.lessons.length;
+  var doneCount = mod.lessons.filter(function(_,i){ return lvState.done[i]; }).length;
+  var pct = Math.round(doneCount / total * 100);
+  document.getElementById('lvProgLbl').textContent = pct + '% ДУУССАН';
+  document.getElementById('lvProgBar').style.width = pct + '%';
+  var wrap = document.getElementById('lvLessons');
+  wrap.innerHTML = mod.lessons.map(function(l, i){
+    return '<button type="button" class="lv-lesson' + (i === lvState.idx ? ' active' : '') + (lvState.done[i] ? ' done' : '') + '" data-i="' + i + '">' +
+      '<span class="lv-l-ico">' + lvIconFor(l.type) + '</span>' +
+      '<span class="lv-l-name">' + escapeHtml(l.title) + '</span>' +
+      '<span class="lv-l-ring">' + lvRing(lvState.done[i]) + '</span>' +
+    '</button>';
+  }).join('');
+  wrap.querySelectorAll('.lv-lesson').forEach(function(b){
+    b.addEventListener('click', function(){ lvGo(parseInt(b.dataset.i,10)); });
+  });
+}
+
+function lvRenderStage(){
+  var l = lvState.mod.lessons[lvState.idx];
+  var last = lvState.idx === lvState.mod.lessons.length - 1;
+  document.getElementById('lvTitle').textContent = l.title;
+  var stage = document.getElementById('lvStage');
+  var slide =
+    '<div class="lv-slide"><div class="lv-slide-brand"><img src="UPR/fulllogo.png" alt="UPR"><span>E-LEARNING</span></div>' +
+      '<h3>' + escapeHtml(l.title) + '</h3><p>' + escapeHtml(lvState.title || lvState.mod.name) + '</p></div>';
+
+  if(l.quiz){
+    stage.innerHTML = slide + '<div id="qzBox"></div>';
+    stage.scrollTop = 0;
+    qzReset();
+    qzRender();
+    return;
+  }
+
+  stage.innerHTML = slide +
+    '<div class="lv-body">' + l.body + '</div>' +
+    '<div class="lv-nav">' +
+      '<button type="button" class="lv-btn ghost" id="lvPrev"' + (lvState.idx === 0 ? ' disabled' : '') + '>← Өмнөх</button>' +
+      '<button type="button" class="lv-btn" id="lvNext">' + (last ? 'Дуусгах ✓' : 'Дараагийн хичээл →') + '</button>' +
+    '</div>';
+  stage.scrollTop = 0;
+  document.getElementById('lvPrev').addEventListener('click', function(){ if(lvState.idx>0) lvGo(lvState.idx-1); });
+  document.getElementById('lvNext').addEventListener('click', function(){
+    lvState.done[lvState.idx] = true;
+    lvPersist();
+    lvCheckModuleDone();
+    if(last){ lvRenderSidebar(); return; }
+    lvGo(lvState.idx + 1);
+  });
+}
+
+/* ===== knowledge-check quiz engine ===== */
+var qzState = { i:0, answers:[], view:'start' };
+function qzReset(){ qzState = { i:0, answers:[], view:'start' }; }
+
+function qzRender(){
+  var l = lvState.mod.lessons[lvState.idx];
+  var box = document.getElementById('qzBox');
+  if(!box || !l.quiz) return;
+  var Q = l.quiz, n = Q.length;
+
+  if(qzState.view === 'start'){
+    box.innerHTML = '<div class="qz-card">' +
+      '<div class="qz-q">Мэдлэг шалгах тест</div>' +
+      '<p class="qz-meta">' + n + ' асуулт · Асуулт бүрд нэг хариулт сонгоно.</p>' +
+      '<p class="qz-meta">Бүх асуултад хариулсны дараа үр дүн болон зөв хариултууд харагдана. 70%-иас дээш оноо авбал тэнцэнэ.</p>' +
+      '<div class="qz-nav"><span></span><button type="button" class="lv-btn" id="qzStart">Тест эхлэх →</button></div>' +
+    '</div>';
+    box.querySelector('#qzStart').addEventListener('click', function(){ qzState.view = 'q'; qzRender(); });
+    return;
+  }
+
+  if(qzState.view === 'q'){
+    var i = qzState.i, q = Q[i];
+    box.innerHTML = '<div class="qz-card">' +
+      '<div class="qz-meta">Асуулт ' + (i+1) + ' / ' + n + '</div>' +
+      '<div class="qz-q">' + escapeHtml(q.q) + '</div>' +
+      q.opts.map(function(o, k){
+        return '<button type="button" class="qz-opt' + (qzState.answers[i] === k ? ' sel' : '') + '" data-k="' + k + '"><span class="qz-radio"></span><span>' + escapeHtml(o) + '</span></button>';
+      }).join('') +
+      '<div class="qz-nav">' +
+        '<button type="button" class="lv-btn ghost" id="qzPrev"' + (i === 0 ? ' disabled' : '') + '>← Өмнөх</button>' +
+        '<button type="button" class="lv-btn" id="qzNext"' + (qzState.answers[i] == null ? ' disabled' : '') + '>' + (i === n-1 ? 'Дүгнэх' : 'Дараах') + '</button>' +
+      '</div></div>';
+    box.querySelectorAll('.qz-opt').forEach(function(b){
+      b.addEventListener('click', function(){ qzState.answers[i] = parseInt(b.dataset.k, 10); qzRender(); });
+    });
+    box.querySelector('#qzPrev').addEventListener('click', function(){ if(i > 0){ qzState.i--; qzRender(); } });
+    box.querySelector('#qzNext').addEventListener('click', function(){
+      if(qzState.answers[i] == null) return;
+      if(i === n-1){ qzState.view = 'result'; } else { qzState.i++; }
+      qzRender();
+    });
+    return;
+  }
+
+  /* result view */
+  var correct = Q.filter(function(q, k){ return qzState.answers[k] === q.c; }).length;
+  var pct = Math.round(correct / n * 100), pass = pct >= 70;
+  var nxt = pass ? nextUnfinishedTitle(lvState.title) : null;
+  box.innerHTML = '<div class="qz-card">' +
+    '<div class="qz-score"><div class="qz-score-num">' + correct + ' / ' + n + '</div>' +
+      '<div class="qz-score-sub">' + pct + '% зөв хариулсан</div>' +
+      '<span class="qz-badge ' + (pass ? 'pass' : 'fail') + '">' + (pass ? 'Тэнцсэн' : 'Тэнцээгүй — дахин оролдоно уу') + '</span></div>' +
+    '<div class="qz-rev">' + Q.map(function(q, k){
+      var ok = qzState.answers[k] === q.c;
+      return '<div class="qz-rev-item"><span class="qz-rev-ic">' + (ok
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>') + '</span>' +
+        '<div>' +
+          '<div class="qz-rev-lbl ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'Зөв' : 'Буруу') + '</div>' +
+          '<div class="qz-rev-q">' + (k+1) + '. ' + escapeHtml(q.q) + '</div>' +
+          '<div class="qz-rev-a">Таны хариулт: <b>' + escapeHtml(q.opts[qzState.answers[k]]) + '</b></div>' +
+          (ok && q.exp ? '<div class="qz-rev-exp">' + escapeHtml(q.exp) + '</div>' : '') +
+        '</div></div>';
+    }).join('') + '</div>' +
+    '<div class="qz-nav">' +
+      '<button type="button" class="lv-btn ghost" id="qzRetry">Дахин өгөх</button>' +
+      '<button type="button" class="lv-btn" id="qzFinish"' + (pass ? '' : ' disabled') + '>' + (nxt ? 'Дараагийн хичээл →' : 'Дуусгах') + '</button>' +
+    '</div></div>';
+  box.querySelector('#qzRetry').addEventListener('click', function(){ qzReset(); qzState.view = 'q'; qzRender(); });
+  var fin = box.querySelector('#qzFinish');
+  fin.addEventListener('click', function(){
+    lvState.done[lvState.idx] = true;
+    lvPersist();
+    lvCheckModuleDone();
+    if(nxt){ openLesson('m1', 0, nxt); }
+    else {
+      document.getElementById('lessonView').classList.remove('on');
+      ssSet(SS_VIEW, 'course');
+    }
+  });
+}
+
+function lvPersist(){
+  ssSet(SS_LESSON, JSON.stringify({ key: lvState.key, idx: lvState.idx, done: lvState.done, title: lvState.title }));
+}
+
+function lvGo(i){
+  lvState.idx = i;
+  lvPersist();
+  lvRenderSidebar();
+  lvRenderStage();
+}
+
+function openLesson(modKey, startIdx, title){
+  var key = MODULES[modKey] ? modKey : 'm1';
+  lvState = { key: key, mod: MODULES[key], idx: startIdx || 0, done: {}, title: title || MODULES[key].name };
+  ssSet(SS_VIEW, 'lesson');
+  lvPersist();
+  lvRenderSidebar();
+  lvRenderStage();
+  document.getElementById('lessonView').classList.add('on');
+  document.getElementById('lessonView').classList.remove('side-hidden');
+}
+
+document.getElementById('lvClose').addEventListener('click', function(){
+  document.getElementById('lessonView').classList.remove('on');
+  ssSet(SS_VIEW, 'course');
+});
+document.getElementById('lvBurger').addEventListener('click', function(){
+  document.getElementById('lessonView').classList.toggle('side-hidden');
+});
+
+/* wire the Эхлэх buttons and study-plan module links */
+document.querySelectorAll('.cvh-start').forEach(function(b){
+  b.addEventListener('click', function(){ openLesson('m1', 0, window._nextTitle || undefined); });
+});
+
+/* first unfinished study-plan lesson (optionally skipping one title) */
+function nextUnfinishedTitle(excludeTitle){
+  var items = document.querySelectorAll('.sp-item');
+  for(var i=0;i<items.length;i++){
+    var st = items[i].querySelector('.sp-status');
+    var lk = items[i].querySelector('.sp-link');
+    if(st && !st.classList.contains('done') && lk && lk.textContent.trim() !== excludeTitle){
+      return lk.textContent.trim();
+    }
+  }
+  return null;
+}
+
+/* hero card shows the next unfinished lesson (or first of next group) */
+function updateNextModule(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('.sp-item'));
+  var next = null;
+  for(var i=0;i<items.length;i++){
+    var st = items[i].querySelector('.sp-status');
+    if(st && !st.classList.contains('done')){ next = items[i]; break; }
+  }
+  var groupLbl, title, meta, allDone = false;
+  if(next){
+    var link = next.querySelector('.sp-link');
+    title = link ? link.textContent.trim() : '';
+    var m = next.querySelector('.sp-imeta');
+    meta = m ? m.textContent.trim() : '';
+    var group = next.closest('.sp-group');
+    var gname = group ? (group.querySelector('.sp-gname').childNodes[0].textContent || '').trim() : '';
+    var gTotal = group ? group.querySelectorAll('.sp-item').length : 0;
+    var gDone = group ? group.querySelectorAll('.sp-item .sp-status.done').length : 0;
+    groupLbl = gname + ' · ' + gDone + ' / ' + gTotal + ' даалгавар';
+    window._nextTitle = title;
+  } else {
+    allDone = true;
+    groupLbl = 'Сургалт дууссан';
+    title = 'Бүх хичээлийг дуусгалаа';
+    meta = 'Та энэ сургалтын бүх модулийг амжилттай үзсэн байна.';
+    window._nextTitle = null;
+  }
+  document.querySelectorAll('.cvh-group').forEach(function(e){ e.textContent = groupLbl; });
+  document.querySelectorAll('.cvh-mod-info h3').forEach(function(e){ e.textContent = title; });
+  document.querySelectorAll('.cvh-mod-info p').forEach(function(e){ e.textContent = meta; });
+  document.querySelectorAll('.cvh-start').forEach(function(b){ b.style.display = allDone ? 'none' : ''; });
+}
+document.querySelectorAll('.sp-link').forEach(function(a){
+  a.addEventListener('click', function(e){ e.preventDefault(); openLesson('m1', 0, a.textContent.trim()); });
+});
+
+/* mark study-plan items done when their module is completed */
+var SS_SPDONE = 'upr_elearning_spdone';
+function spApplyDone(title){
+  document.querySelectorAll('.sp-link').forEach(function(a){
+    if(a.textContent.trim() !== title) return;
+    var st = a.parentElement.querySelector('.sp-status');
+    if(st){
+      st.classList.remove('todo');
+      st.classList.add('done');
+      st.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+    }
+  });
+}
+function spMarkDone(title){
+  spApplyDone(title);
+  var arr = [];
+  try{ arr = JSON.parse(ssGet(SS_SPDONE) || '[]'); }catch(e){}
+  if(arr.indexOf(title) === -1){ arr.push(title); ssSet(SS_SPDONE, JSON.stringify(arr)); bumpTodayCount(); }
+  updateHeroStats();
+  updateNextModule();
+}
+function lvCheckModuleDone(){
+  var total = lvState.mod.lessons.length, n = 0;
+  for(var k in lvState.done){ if(lvState.done[k]) n++; }
+  if(n >= total) spMarkDone(lvState.title);
+}
+(function(){
+  try{ JSON.parse(ssGet(SS_SPDONE) || '[]').forEach(spApplyDone); }catch(e){}
+})();
+
+/* editable target date + dynamic daily goal / progress (works for any lesson count) */
+var SS_TARGET = 'upr_elearning_target';
+var SS_TODAY = 'upr_elearning_today';
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function getTodayCount(){
+  try{ var t = JSON.parse(ssGet(SS_TODAY) || 'null'); if(t && t.date === todayStr()) return t.n || 0; }catch(e){}
+  return 0;
+}
+function bumpTodayCount(){ ssSet(SS_TODAY, JSON.stringify({ date: todayStr(), n: getTodayCount() + 1 })); }
+function updateHeroStats(){
+  var total = document.querySelectorAll('.sp-item').length;
+  var done = document.querySelectorAll('.sp-item .sp-status.done').length;
+  var pct = total ? Math.round(done / total * 100) : 0;
+  var tRaw = ssGet(SS_TARGET) || '2026-09-01';
+  var days = Math.ceil((new Date(tRaw + 'T00:00:00') - new Date(todayStr() + 'T00:00:00')) / 86400000);
+  var remaining = total - done;
+  var perDay = remaining <= 0 ? 0 : (days > 0 ? Math.ceil(remaining / days) : remaining);
+  var doneToday = getTodayCount();
+  document.querySelectorAll('.cvh-date').forEach(function(i){ i.value = tRaw; });
+  document.querySelectorAll('.cvh-goal-num').forEach(function(e){ e.textContent = doneToday + '/' + perDay; });
+  document.querySelectorAll('.cvh-goal-bar').forEach(function(e){ e.style.width = (perDay ? Math.min(100, doneToday / perDay * 100) : 100) + '%'; });
+  document.querySelectorAll('.cvh-prog-num').forEach(function(e){ e.textContent = pct + '%'; });
+  document.querySelectorAll('.cvh-prog-bar').forEach(function(e){ e.style.width = pct + '%'; });
+}
+document.querySelectorAll('.cvh-date').forEach(function(inp){
+  inp.addEventListener('change', function(){
+    if(!inp.value) return;
+    ssSet(SS_TARGET, inp.value);
+    updateHeroStats();
+  });
+});
+updateHeroStats();
+updateNextModule();
+testState = tsLoad();
+tsRender();
+/* course-header account dropdown: only a chosen item navigates back to the portal */
+document.querySelectorAll('#cvAcctMenu .p-menu-item').forEach(function(el){
+  el.addEventListener('click', function(){
+    if(el.dataset.action === 'logout') return;
+    document.getElementById('courseView').style.display = 'none';
+    document.getElementById('olPortal').style.display = 'flex';
+    ssSet(SS_VIEW, 'portal');
+    window.scrollTo(0,0);
+  });
+});
+document.getElementById('laGrid').addEventListener('click', function(e){
+  var btn = e.target.closest('.ev-access');
+  if(!btn) return;
+  e.preventDefault();
+  var card = btn.closest('.ev-card');
+  var nm = card ? card.querySelector('.ev-name').textContent : '';
+  openCourse(nm);
+});
+
+document.getElementById('pfForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var p = {
+    first: document.getElementById('pfFirst').value.trim() || 'Хэрэглэгч',
+    last: document.getElementById('pfLast').value.trim(),
+    email: document.getElementById('pfEmail').value.trim(),
+    phone: document.getElementById('pfPhone').value.trim(),
+    org: document.getElementById('pfOrg').value.trim(),
+    title: document.getElementById('pfTitle').value.trim(),
+    city: document.getElementById('pfCity').value.trim(),
+    country: document.getElementById('pfCountry').value
+  };
+  setProfile(p);
+  applyProfile(p);
+  var saved = document.getElementById('pfSaved');
+  saved.classList.add('show');
+  setTimeout(function(){ saved.classList.remove('show'); }, 2200);
+});
+
+/* restore session on refresh */
+(function(){
+  var saved = ssGet(SS_USER);
+  if(!saved) return;
+  var view = ssGet(SS_VIEW);
+  var cvt = ssGet(SS_CVTAB);
+  var courseName = ssGet(SS_COURSE);
+  var lsRaw = ssGet(SS_LESSON);
+  enterPortal(saved, true);
+  if(view === 'course' || view === 'lesson'){
+    openCourse(courseName || '');
+    if(cvt) cvSwitch(cvt);
+    if(view === 'lesson'){
+      var ls = null;
+      try{ ls = JSON.parse(lsRaw || 'null'); }catch(e){}
+      openLesson(ls && ls.key ? ls.key : 'm1', ls ? (ls.idx || 0) : 0, ls && ls.title);
+      if(ls && ls.done){
+        lvState.done = ls.done;
+        lvPersist();
+        lvRenderSidebar();
+      }
+    }
+  }
+})();
+
+/* nav routing shared by header menu + profile sidebar */
+function handleNav(el){
+  if(el.dataset.tab){ switchTab(el.dataset.tab); window.scrollTo(0,0); }
+  else if(el.dataset.action === 'profile'){ showProfile(); }
+  else if(el.dataset.action === 'logout'){ doLogout(); }
+}
+
+/* header account dropdown */
+function closeAllMenus(){
+  document.querySelectorAll('.acct-menu.open').forEach(function(m){ m.classList.remove('open'); });
+  document.querySelectorAll('.acct-trigger.open').forEach(function(t){
+    t.classList.remove('open');
+    t.setAttribute('aria-expanded','false');
+  });
+}
+
+document.querySelectorAll('.acct-trigger').forEach(function(trigger){
+  trigger.addEventListener('click', function(e){
+    e.stopPropagation();
+    var menu = trigger.parentElement.querySelector('.acct-menu');
+    var willOpen = !menu.classList.contains('open');
+    closeAllMenus();
+    if(willOpen){
+      menu.classList.add('open');
+      trigger.classList.add('open');
+      trigger.setAttribute('aria-expanded','true');
+    }
+  });
+});
+
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.acct-menu') && !e.target.closest('.acct-trigger')) closeAllMenus();
+});
+
+document.querySelectorAll('.acct-menu .p-menu-item').forEach(function(el){
+  el.addEventListener('click', function(){ handleNav(el); closeAllMenus(); });
+});
+
+document.querySelectorAll('.pf-side-link, .foot-nav').forEach(function(el){
+  el.addEventListener('click', function(){ handleNav(el); });
+});
+</script>
+
+</body>
+</html>

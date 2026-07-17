@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\sender.b\\\\Downloads\\\\UPR-Training\\\\Upr consulting- Training\\\\\" -Recurse | Where-Object { $_.Name -match \"upr|fulllogo\" } | Select-Object -ExpandProperty FullName | Sort-Object)",
+      "PowerShell(ls *)",
+      "Bash(Select-String -Path \"C:\\\\Users\\\\sender.b\\\\Downloads\\\\UPRv3\\\\UPRv3\\\\index.html\" -Pattern \"^\\\\s*\\\\.topbar\\\\s*\\\\{|^\\\\s*\\\\.nav-inner\\\\s*\\\\{|^\\\\s*\\\\.brand\\\\s*\\\\{|^\\\\s*\\\\.nav-menu\\\\s*\\\\{|^\\\\s*\\\\.header-wrap\\\\s*\\\\{\" -AllMatches)",
+      "Bash(Select-Object -Property LineNumber, Line)",
+      "PowerShell(cmd /c \"dir `\"C:\\\\Users\\\\sender.b\\\\Downloads\\\\UPR-Training\\\\Upr consulting- Training\\\\news`\"\")",
+      "PowerShell(Select-String *)",
+      "mcp__ide__getDiagnostics"
+    ]
+  }
+}
