@@ -1234,6 +1234,7 @@ function switchTab(panelId){
   document.querySelectorAll('.p-tab').forEach(function(b){ b.classList.toggle('active', b.dataset.panel === panelId); });
   document.querySelectorAll('.p-panel').forEach(function(p){ p.classList.toggle('active', p.id === panelId); });
   ssSet(SS_TAB, panelId);
+  histPush();
 }
 
 // Профайл засах дэлгэцийг харуулна.
@@ -1244,6 +1245,7 @@ function showProfile(){
   document.getElementById('panelProfile').classList.add('active');
   ssSet(SS_TAB, 'panelProfile');
   window.scrollTo(0,0);
+  histPush();
 }
 
 document.querySelectorAll('.p-tab').forEach(function(btn){
@@ -1301,10 +1303,10 @@ function applyProfile(p){
 function enterPortal(userVal, keepTab){
   applyProfile(getProfile() || defaultProfile(userVal));
   renderCourses();
-  var tab = keepTab ? (ssGet(SS_TAB) || 'panelMembership') : 'panelMembership';
-  switchTab(tab);
   document.getElementById('olShell').style.display = 'none';
   document.getElementById('olPortal').style.display = 'flex';
+  var tab = keepTab ? (ssGet(SS_TAB) || 'panelMembership') : 'panelMembership';
+  switchTab(tab);
 }
 
 // Гарах: хадгалсан бүх төлвийг цэвэрлэж login дэлгэц рүү буцаана.
@@ -1352,16 +1354,17 @@ function cvSwitch(id){
   ssSet(SS_CVTAB, id);
   if(id === 'cvTests' && typeof tsRender === 'function') tsRender();
   else if(typeof tsStopTimer === 'function') tsStopTimer();
+  histPush();
 }
 // 'ҮЗЭХ' дарахад тухайн сургалтын дашбоард (course view) нээнэ.
 // Frontend: #olPortal -> #courseView.
 function openCourse(name){
   document.getElementById('cvTitle').textContent = 'Тавтай морил — ' + (name || 'сургалт');
-  cvSwitch('cvHome');
   document.getElementById('olPortal').style.display = 'none';
   document.getElementById('courseView').style.display = 'flex';
   ssSet(SS_VIEW, 'course');
   ssSet(SS_COURSE, name || '');
+  cvSwitch('cvHome');
   window.scrollTo(0,0);
 }
 document.querySelectorAll('.cv-nav').forEach(function(b){
@@ -1906,9 +1909,11 @@ function openLesson(modKey, startIdx, title){
   lvRenderStage();
   document.getElementById('lessonView').classList.add('on');
   document.getElementById('lessonView').classList.remove('side-hidden');
+  histPush();
 }
 
 document.getElementById('lvClose').addEventListener('click', function(){
+  if(histCanBack()){ history.back(); return; }
   document.getElementById('lessonView').classList.remove('on');
   ssSet(SS_VIEW, 'course');
 });
@@ -2181,14 +2186,83 @@ document.getElementById('pfForm').addEventListener('submit', function(e){
   setTimeout(function(){ saved.classList.remove('show'); }, 2200);
 });
 
+/* ============================================================
+   BROWSER-HISTORY ROUTER
+   Хөтчийн / хулганы "back" товч апп доторх шилжилтийг буцаадаг болгоно.
+   - Урагшлах шилжилт бүр (портал таб, курс, хичээл) history.pushState хийнэ.
+   - "back" дархад popstate → applyState() өмнөх дэлгэцийг сэргээнэ.
+   histApplying туг нь сэргээх үед дахин push хийхээс сэргийлнэ.
+   Frontend: #olShell / #olPortal / #courseView / #lessonView төлвүүд.
+   ============================================================ */
+var histApplying = false;
+var histDepth = 0;
+
+// Одоогийн харагдаж буй дэлгэцийн төлвийн зураглал (snapshot) авна.
+function captureState(){
+  var lessonOn = document.getElementById('lessonView').classList.contains('on');
+  var courseOn = document.getElementById('courseView').style.display === 'flex';
+  var portalOn = document.getElementById('olPortal').style.display === 'flex';
+  var stage = lessonOn ? 'lesson' : courseOn ? 'course' : portalOn ? 'portal' : 'login';
+  var pa = document.querySelector('.p-panel.active');
+  var cv = document.querySelector('.cv-nav.active');
+  return {
+    stage: stage,
+    panel: pa ? pa.id : 'panelMembership',
+    cvtab: cv ? cv.dataset.cv : 'cvHome',
+    lessonKey: (lessonOn && typeof lvState === 'object' && lvState) ? lvState.key : null,
+    lessonIdx: (lessonOn && typeof lvState === 'object' && lvState) ? lvState.idx : 0,
+    lessonTitle: (lessonOn && typeof lvState === 'object' && lvState) ? lvState.title : null
+  };
+}
+
+// Шинэ дэлгэцийн төлвийг history-д нэмнэ (сэргээх үед алгасна).
+function histPush(){
+  if(histApplying) return;
+  try{ history.pushState(captureState(), ''); histDepth++; }catch(e){}
+}
+function histCanBack(){ return histDepth > 0; }
+
+// Зураглалаас дэлгэцийг чимээгүйхэн (push хийхгүйгээр) сэргээнэ.
+function applyState(s){
+  if(!s) s = { stage:'login' };
+  // Гарсан хэрэглэгчийг порталд буцааж оруулахгүй.
+  if(s.stage !== 'login' && !ssGet(SS_USER)) s = { stage:'login' };
+  histApplying = true;
+  var shell = document.getElementById('olShell');
+  var portal = document.getElementById('olPortal');
+  var course = document.getElementById('courseView');
+  var lesson = document.getElementById('lessonView');
+  if(s.stage !== 'lesson') lesson.classList.remove('on');
+  if(s.stage === 'login'){
+    portal.style.display = 'none'; course.style.display = 'none'; shell.style.display = 'flex';
+  } else if(s.stage === 'portal'){
+    shell.style.display = 'none'; course.style.display = 'none'; portal.style.display = 'flex';
+    switchTab(s.panel || 'panelMembership');
+  } else { // course эсвэл lesson
+    shell.style.display = 'none'; portal.style.display = 'none'; course.style.display = 'flex';
+    cvSwitch(s.cvtab || 'cvHome');
+    if(s.stage === 'lesson' && s.lessonKey){
+      openLesson(s.lessonKey, s.lessonIdx || 0, s.lessonTitle);
+    }
+  }
+  window.scrollTo(0,0);
+  histApplying = false;
+}
+
+window.addEventListener('popstate', function(e){
+  if(histDepth > 0) histDepth--;
+  applyState(e.state);
+});
+
 /* restore session on refresh */
 (function(){
   var saved = ssGet(SS_USER);
-  if(!saved) return;
+  if(!saved){ history.replaceState({ stage:'login' }, ''); return; }
   var view = ssGet(SS_VIEW);
   var cvt = ssGet(SS_CVTAB);
   var courseName = ssGet(SS_COURSE);
   var lsRaw = ssGet(SS_LESSON);
+  histApplying = true;   // сэргээх үед push хийхгүй
   enterPortal(saved, true);
   if(view === 'course' || view === 'lesson'){
     openCourse(courseName || '');
@@ -2204,6 +2278,8 @@ document.getElementById('pfForm').addEventListener('submit', function(e){
       }
     }
   }
+  histApplying = false;
+  history.replaceState(captureState(), '');  // сэргээгдсэн төлвийг суурь болгоно
 })();
 
 /* nav routing shared by header menu + profile sidebar */
